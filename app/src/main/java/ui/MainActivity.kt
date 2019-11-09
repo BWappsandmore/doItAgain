@@ -1,14 +1,22 @@
-package com.bwappsandmore.doitagain
+package ui
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.room.Room
+import com.bwappsandmore.doitagain.R
 
 import kotlinx.android.synthetic.main.activity_main.*
+import room.AppDatabase
 
 class MainActivity : AppCompatActivity() {
+
+    val db = Room.databaseBuilder(
+        applicationContext,
+        AppDatabase::class.java, "doitagain-list.db"
+    ).build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
