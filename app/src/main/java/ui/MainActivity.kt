@@ -13,15 +13,15 @@ import room.AppDatabase
 
 class MainActivity : AppCompatActivity() {
 
-    val db = Room.databaseBuilder(
-        applicationContext,
-        AppDatabase::class.java, "doitagain-list.db"
-    ).build()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        val db = Room.databaseBuilder(
+            this,
+            AppDatabase::class.java, "doitagain-list.db"
+        ).build()
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

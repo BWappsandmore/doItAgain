@@ -17,6 +17,10 @@ abstract class AppDatabase : RoomDatabase() {
             instance ?: buildDatabase(context).also { instance = it}
         }
 
+        fun destroyInstance() {
+            instance = null
+        }
+
         private fun buildDatabase(context: Context) = Room.databaseBuilder(context,
             AppDatabase::class.java, "doitagain-list.db")
             .build()

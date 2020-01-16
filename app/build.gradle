@@ -34,13 +34,20 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    def nav_version = "1.0.0"
-    implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
-
+    // Room
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
     kapt "androidx.room:room-compiler:$room_version"
+
+    // Navigation Architecture Component
+    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
+    implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
+
+    //Dagger2
+    implementation 'com.google.dagger:dagger:2.25.2'
+    kapt 'com.google.dagger:dagger-compiler:2.25.2'
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+
 }
