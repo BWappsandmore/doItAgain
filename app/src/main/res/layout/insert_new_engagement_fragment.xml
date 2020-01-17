@@ -59,9 +59,20 @@
         android:id="@+id/backIb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="?attr/actionModeCloseDrawable"
+        android:background="@drawable/back_24px"
         android:contentDescription="@string/goBack"
-        app:layout_constraintStart_toStartOf="@+id/calendarView"
-        app:layout_constraintTop_toTopOf="@+id/promptActivitytV" />
+        android:src="@drawable/back_24px"
+        app:layout_constraintBottom_toBottomOf="@+id/promptActivitytV"
+        app:layout_constraintStart_toStartOf="@+id/calendarView" />
+
+    <ImageButton
+        android:id="@+id/okIb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_done_24px"
+        android:src="@drawable/ic_done_24px"
+        android:contentDescription="@string/goBack"
+        app:layout_constraintBottom_toBottomOf="@+id/promptActivitytV"
+        app:layout_constraintEnd_toEndOf="@+id/calendarView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

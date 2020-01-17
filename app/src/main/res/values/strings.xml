@@ -7,4 +7,5 @@
     <string name="ExampleEngagement">play guitar</string>
     <string name="lastTimeDone">last time done:</string>
     <string name="goBack">Go back</string>
+    <string name="ok">OK</string>
 </resources>
