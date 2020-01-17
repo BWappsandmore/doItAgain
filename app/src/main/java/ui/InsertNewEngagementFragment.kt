@@ -6,13 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.bwappsandmore.doitagain.R
+import kotlinx.android.synthetic.main.insert_new_engagement_fragment.*
 
-class insertNewEngagementFragment : Fragment() {
+class InsertNewEngagementFragment : Fragment() {
 
     companion object {
-        fun newInstance() = insertNewEngagementFragment()
+        fun newInstance() = InsertNewEngagementFragment()
     }
 
     private lateinit var viewModel: InsertNewActionViewModel
@@ -28,6 +28,14 @@ class insertNewEngagementFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(InsertNewActionViewModel::class.java)
         // TODO: Use the ViewModel
+
+        backIb.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .remove(this)
+                .commit()
+        }
     }
+
+
 
 }

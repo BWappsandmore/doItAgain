@@ -1,7 +1,6 @@
 package ui
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -24,8 +23,11 @@ class MainActivity : AppCompatActivity() {
         ).build()
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val fragmentManager = supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val fragment = InsertNewEngagementFragment()
+            fragmentTransaction.replace(R.id.fragment_newEngagement, fragment)
+            fragmentTransaction.commit()
         }
     }
 
