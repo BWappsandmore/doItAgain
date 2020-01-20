@@ -17,19 +17,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        val db = Room.databaseBuilder(
+        val appDatabase = Room.databaseBuilder(
             this,
             AppDatabase::class.java, "doitagain-list.db"
         ).build()
 
-        fab.setOnClickListener { view ->
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val fragment = InsertNewEngagementFragment()
-            fragmentTransaction.replace(R.id.fragment_newEngagement, fragment)
-            fragmentTransaction.commit()
-        }
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragment = ShowDBEntriesFragment()
+        fragmentTransaction.add(R.id.fragment_showDBEntries, fragment)
+        fragmentTransaction.commit()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
