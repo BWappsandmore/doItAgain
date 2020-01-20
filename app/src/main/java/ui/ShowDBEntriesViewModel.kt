@@ -8,7 +8,7 @@ import room.AppDatabase
 
 
 class ShowDBEntriesViewModel : AndroidViewModel(
-      Application()
+    Application()
 ) {
 
     val appDatabase = Room.databaseBuilder(
