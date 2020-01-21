@@ -44,12 +44,15 @@ dependencies {
 
 
     // Navigation Architecture Component
-    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
-    implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc04'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc04'
 
     //Dagger2
     implementation 'com.google.dagger:dagger:2.25.2'
     kapt 'com.google.dagger:dagger-compiler:2.25.2'
     compileOnly 'javax.annotation:jsr250-api:1.0'
+
+    //recyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
 }
