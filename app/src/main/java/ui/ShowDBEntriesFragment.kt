@@ -1,15 +1,18 @@
 package ui
 
-import androidx.lifecycle.ViewModelProviders
+
+import adapter.ActivitiesAdapter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-
-import com.bwappsandmore.doitagain.R
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.show_dbentries_fragment.*
+import com.bwappsandmore.doitagain.R
+
 
 class ShowDBEntriesFragment : Fragment() {
 
@@ -23,15 +26,19 @@ class ShowDBEntriesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.show_dbentries_fragment, container, false)
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        val recyclerView = (activity as MainActivity).findViewById<RecyclerView>(R.id.recyclerview)
+        val adapter = ActivitiesAdapter(activity as MainActivity)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(activity as MainActivity)
+
         viewModel = ViewModelProviders.of(this).get(ShowDBEntriesViewModel::class.java)
-        // TODO: Use the ViewModel
 
         fab.setOnClickListener {
             val fragmentManager = (activity as MainActivity).supportFragmentManager

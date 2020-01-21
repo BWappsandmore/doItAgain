@@ -12,18 +12,18 @@ interface DoItAgainDao {
     @Query("SELECT * FROM DoItAgainEntity WHERE engagement like :engagement")
     fun findByEngagement(engagement: String): LiveData<List<DoItAgainEntity>>
 
-    @Insert
-    fun insert(doItAgain: DoItAgainEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(doItAgain: DoItAgainEntity)
 
     @Insert
-    fun insertAll(vararg doItAgain: DoItAgainEntity)
+    suspend fun insertAll(vararg doItAgain: DoItAgainEntity)
 
     @Delete
-    fun delete(doItAgain: DoItAgainEntity)
+    suspend fun delete(doItAgain: DoItAgainEntity)
 
     @Delete
-    fun deleteAll(vararg doItAgain: DoItAgainEntity)
+    suspend fun deleteAll(vararg doItAgain: DoItAgainEntity)
 
     @Update
-    fun updateDoItAgain(vararg doItAgain: DoItAgainEntity)
+    suspend fun updateDoItAgain(vararg doItAgain: DoItAgainEntity)
 }

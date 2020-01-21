@@ -1,18 +1,26 @@
 package ui
 
-
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.room.Room
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import repository.AppRepository
 import room.AppDatabase
+import room.DoItAgainEntity
 
+class ShowDBEntriesViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: AppRepository
+    val allActivities: LiveData<List<DoItAgainEntity>>
 
-class ShowDBEntriesViewModel : AndroidViewModel(
-    Application()
-) {
+    init {
+        val doItAgainDao = AppDatabase.getDatabase(application, viewModelScope).doItAgainDao()
+        repository = AppRepository(doItAgainDao)
+        allActivities = repository.allActivities
+    }
 
-    val appDatabase = Room.databaseBuilder(
-        getApplication(),
-        AppDatabase::class.java, "doitagain-list.db"
-    ).build()
+    fun insert(doItAgainEntity: DoItAgainEntity) = viewModelScope.launch {
+        repository.insert(doItAgainEntity)
+    }
 }
+
