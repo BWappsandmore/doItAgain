@@ -11,10 +11,6 @@ import kotlinx.android.synthetic.main.insert_new_engagement_fragment.*
 
 class InsertNewEngagementFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = InsertNewEngagementFragment()
-    }
-
     private lateinit var viewModel: InsertNewActionViewModel
 
     override fun onCreateView(

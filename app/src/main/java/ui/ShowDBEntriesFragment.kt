@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.show_dbentries_fragment.*
 import com.bwappsandmore.doitagain.R
 
@@ -17,8 +16,6 @@ import com.bwappsandmore.doitagain.R
 class ShowDBEntriesFragment : Fragment() {
 
     private lateinit var viewModel: ShowDBEntriesViewModel
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +27,7 @@ class ShowDBEntriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val adapter = ActivitiesAdapter(context!!)
         recyclerview.adapter = adapter
         recyclerview.layoutManager = LinearLayoutManager(adapter.mContext)
