@@ -14,10 +14,7 @@ class ActivitiesAdapter internal constructor(
 ) : RecyclerView.Adapter<ActivitiesAdapter.ActivitiesViewHolder>() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var activities = emptyList<DoItAgainEntity>()
-
-    inner class ActivitiesViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
-        val activityItemView: TextView = itemview.findViewById(R.id.textView)
-    }
+    val mContext = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivitiesViewHolder {
         val itemView = inflater.inflate(R.layout.recyclerview_item, parent, false)
@@ -35,4 +32,8 @@ class ActivitiesAdapter internal constructor(
     }
 
     override fun getItemCount() = activities.size
+
+    inner class ActivitiesViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
+        val activityItemView: TextView = itemview.findViewById(R.id.textView)
+    }
 }

@@ -16,27 +16,27 @@ import com.bwappsandmore.doitagain.R
 
 class ShowDBEntriesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ShowDBEntriesFragment()
-    }
-
     private lateinit var viewModel: ShowDBEntriesViewModel
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.show_dbentries_fragment, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val adapter = ActivitiesAdapter(context!!)
+        recyclerview.adapter = adapter
+        recyclerview.layoutManager = LinearLayoutManager(adapter.mContext)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        val recyclerView = (activity as MainActivity).findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = ActivitiesAdapter(activity as MainActivity)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(activity as MainActivity)
 
         viewModel = ViewModelProviders.of(this).get(ShowDBEntriesViewModel::class.java)
 
