@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+
+
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bwappsandmore.doitagain.R
+import kotlinx.android.synthetic.main.recyclerview_item.*
 import kotlinx.android.synthetic.main.show_dbentries_fragment.*
 import room.DoItAgainEntity
 
@@ -26,7 +29,7 @@ class ShowDBEntriesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(ShowDBEntriesViewModel::class.java)
+        //viewModel = ViewModelProviders.of(this).get(ShowDBEntriesViewModel::class.java)
 
         activitiesAdapter = ActivitiesAdapter()
         recyclerview.apply {
@@ -45,15 +48,16 @@ class ShowDBEntriesFragment : Fragment() {
             listOf(
                 DoItAgainEntity(1, "play guitar", 100),
                 DoItAgainEntity(2, "make breakfast", 2),
-                DoItAgainEntity(2, "go out with friends", 20)
+                DoItAgainEntity(3, "go out with friends", 20)
             )
         )
 
         fab.setOnClickListener {
             val fragmentManager = (activity as MainActivity).supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
+                .remove(this@ShowDBEntriesFragment)
             val fragment = InsertNewEngagementFragment()
-            fragmentTransaction.replace(R.id.fragment_newEngagement, fragment)
+            fragmentTransaction.add(R.id.fragment_newEngagement, fragment)
             fragmentTransaction.commit()
         }
     }

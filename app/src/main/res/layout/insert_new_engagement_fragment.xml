@@ -73,8 +73,8 @@
         android:id="@+id/okIb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_done_24px"
-        android:src="@drawable/ic_done_24px"
+        android:background="@drawable/done_24px"
+        android:src="@drawable/done_24px"
         android:contentDescription="@string/goBack"
         app:layout_constraintBottom_toBottomOf="@+id/promptActivitytV"
         app:layout_constraintEnd_toEndOf="@+id/calendarView" />

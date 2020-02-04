@@ -39,6 +39,7 @@ class ActivitiesViewHolder(
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(vo: DoItAgainEntity) {
-        itemView.textView.text = vo.engagement
+        itemView.activity_title.text = vo.engagement
+        itemView.sinceDaysTV.text = vo.daysSinceCounter.toString()
     }
 }

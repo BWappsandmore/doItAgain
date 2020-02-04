@@ -29,6 +29,13 @@ class InsertNewEngagementFragment : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction()
                 .remove(this)
                 .commit()
+
+            val fragmentManager = (activity as MainActivity).supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val fragment = ShowDBEntriesFragment()
+            fragmentTransaction.add(R.id.fragment_showDBEntries, fragment)
+            fragmentTransaction.commit()
+
         }
     }
 
