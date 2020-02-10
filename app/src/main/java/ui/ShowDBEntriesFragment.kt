@@ -40,8 +40,7 @@ class ShowDBEntriesFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(ShowDBEntriesViewModel::class.java)
 
-        viewModel.allActivities.observe(viewLifecycleOwner, Observer {
-            activities ->
+        viewModel.allActivities.observe(viewLifecycleOwner, Observer { activities ->
             activities?.let { activitiesAdapter.setActivities(it) }
         })
 
