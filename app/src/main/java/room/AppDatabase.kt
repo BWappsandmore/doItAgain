@@ -31,7 +31,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "doitagain-database"
-                ).build()
+                )
+                    .addCallback(AppDatabaseCallback(scope))
+                    .build()
                 INSTANCE = instance
                 return instance
             }
@@ -61,7 +63,7 @@ abstract class AppDatabase : RoomDatabase() {
             doItAgainDao.insert(engagement)
             engagement = DoItAgainEntity(2,"make breakfast",2)
             doItAgainDao.insert(engagement)
-            engagement = DoItAgainEntity(2,"go out with friends",20)
+            engagement = DoItAgainEntity(3,"go out with friends",20)
             doItAgainDao.insert(engagement)
         }
     }
