@@ -29,7 +29,7 @@ class ShowDBEntriesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //viewModel = ViewModelProviders.of(this).get(ShowDBEntriesViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ShowDBEntriesViewModel::class.java)
 
         activitiesAdapter = ActivitiesAdapter()
         recyclerview.apply {

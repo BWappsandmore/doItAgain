@@ -38,6 +38,8 @@
         android:layout_height="match_parent"
         android:src="@drawable/add_alert_24px"
         android:background="#80FFFFFF"
-        tools:ignore="ContentDescription"/>
+        android:layout_marginRight="8dp"
+        tools:ignore="ContentDescription"
+        android:layout_marginEnd="8dp" />
 
 </LinearLayout>
