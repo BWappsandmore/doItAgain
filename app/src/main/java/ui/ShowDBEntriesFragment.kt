@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bwappsandmore.doitagain.R
@@ -38,7 +38,8 @@ class ShowDBEntriesFragment : Fragment() {
             adapter = activitiesAdapter
         }
 
-        viewModel = ViewModelProviders.of(this).get(ShowDBEntriesViewModel::class.java)
+//        viewModel = ViewModelProviders.of(this).get(ShowDBEntriesViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ShowDBEntriesViewModel::class.java)
 
         viewModel.allActivities.observe(viewLifecycleOwner, Observer { activities ->
             activities?.let { activitiesAdapter.setActivities(it) }
