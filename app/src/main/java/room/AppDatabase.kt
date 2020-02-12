@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [DoItAgainEntity::class], version = 1, exportSchema = false)
+@Database(entities = [DoItAgainEntity::class], version = 1, exportSchema = true)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun doItAgainDao(): DoItAgainDao
@@ -51,7 +51,7 @@ abstract class AppDatabase : RoomDatabase() {
             super.onOpen(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    populateDatabase(database.doItAgainDao())
+                    //populateDatabase(database.doItAgainDao())
                 }
             }
         }

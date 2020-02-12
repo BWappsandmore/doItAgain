@@ -1,17 +1,19 @@
 package ui
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.bwappsandmore.doitagain.R
 import kotlinx.android.synthetic.main.insert_new_engagement_fragment.*
+import room.DoItAgainEntity
 
 class InsertNewEngagementFragment : Fragment() {
 
-    private lateinit var viewModel: InsertNewActionViewModel
+    //private lateinit var viewModel: InsertNewActionViewModel
+    private lateinit var viewModel: ShowDBEntriesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,22 +24,29 @@ class InsertNewEngagementFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(InsertNewActionViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProvider(this).get(ShowDBEntriesViewModel::class.java)
 
         backIb.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .remove(this)
-                .commit()
+            closeThisAndOpenNewFragment()
+        }
 
-            val fragmentManager = (activity as MainActivity).supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val fragment = ShowDBEntriesFragment()
-            fragmentTransaction.add(R.id.fragment_showDBEntries, fragment)
-            fragmentTransaction.commit()
-
+        okIb.setOnClickListener {
+            promptActivityEt.text.isNotEmpty().apply {
+                viewModel.insert(DoItAgainEntity(4, promptActivityEt.text.toString(), 56))
+                closeThisAndOpenNewFragment()
+            }
         }
     }
 
+    private fun closeThisAndOpenNewFragment() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .remove(this)
+            .commit()
 
+        val fragmentManager = (activity as MainActivity).supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragment = ShowDBEntriesFragment()
+        fragmentTransaction.add(R.id.fragment_showDBEntries, fragment)
+        fragmentTransaction.commit()
+    }
 }

@@ -2,6 +2,7 @@ package ui
 
 import adapter.ActivitiesAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bwappsandmore.doitagain.R
 import kotlinx.android.synthetic.main.show_dbentries_fragment.*
+import room.DoItAgainEntity
 
 class ShowDBEntriesFragment : Fragment() {
 
     private lateinit var viewModel: ShowDBEntriesViewModel
+    //private lateinit var newEngagementVM : InsertNewActionViewModel
     private lateinit var activitiesAdapter: ActivitiesAdapter
 
     override fun onCreateView(
@@ -38,12 +41,19 @@ class ShowDBEntriesFragment : Fragment() {
             adapter = activitiesAdapter
         }
 
-//        viewModel = ViewModelProviders.of(this).get(ShowDBEntriesViewModel::class.java)
         viewModel = ViewModelProvider(this).get(ShowDBEntriesViewModel::class.java)
+        //newEngagementVM = ViewModelProvider(this).get(InsertNewActionViewModel::class.java)
+
+        /*newEngagementVM.liveData.observe(viewLifecycleOwner, Observer {
+            viewModel.insert(DoItAgainEntity(4, it, 35))
+            Log.d(null, "LiveData: $it")
+        })*/
+
 
         viewModel.allActivities.observe(viewLifecycleOwner, Observer { activities ->
             activities?.let { activitiesAdapter.setActivities(it) }
         })
+
 
         fab.setOnClickListener {
             val fragmentManager = (activity as MainActivity).supportFragmentManager
