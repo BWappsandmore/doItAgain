@@ -10,10 +10,9 @@ import at.bwappsandmore.doitagain.R
 import kotlinx.android.synthetic.main.insert_new_engagement_fragment.*
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 
-class InsertNewEngagementFragment : Fragment() {
+class InsertNewDataFragment : Fragment() {
 
-    //private lateinit var viewModel: InsertNewActionViewModel
-    private lateinit var viewModel: ShowDBEntriesViewModel
+    private lateinit var viewModel: SharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +23,7 @@ class InsertNewEngagementFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ShowDBEntriesViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
         backIb.setOnClickListener {
             closeThisAndOpenNewFragment()
@@ -51,7 +50,7 @@ class InsertNewEngagementFragment : Fragment() {
 
         val fragmentManager = (activity as MainActivity).supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = ShowDBEntriesFragment()
+        val fragment = DisplayDataFragment()
         fragmentTransaction.add(R.id.fragment_showDBEntries, fragment)
         fragmentTransaction.commit()
     }

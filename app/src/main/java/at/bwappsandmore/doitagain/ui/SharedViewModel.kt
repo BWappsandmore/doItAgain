@@ -9,8 +9,10 @@ import at.bwappsandmore.doitagain.repository.AppRepository
 import at.bwappsandmore.doitagain.room.AppDatabase
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 
-class ShowDBEntriesViewModel(application: Application) : AndroidViewModel(application) {
+class SharedViewModel(application: Application) : AndroidViewModel(application) {
+
     private val repository: AppRepository
+
     val allActivities: LiveData<List<DoItAgainEntity>>
 
     init {

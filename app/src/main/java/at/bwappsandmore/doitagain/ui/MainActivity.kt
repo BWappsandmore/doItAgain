@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = ShowDBEntriesFragment()
+        val fragment = DisplayDataFragment()
         fragmentTransaction.add(R.id.fragment_showDBEntries, fragment)
         fragmentTransaction.commit()
     }

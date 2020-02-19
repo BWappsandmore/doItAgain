@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.doitagain.R
 import kotlinx.android.synthetic.main.show_dbentries_fragment.*
 
-class ShowDBEntriesFragment : Fragment() {
+class DisplayDataFragment : Fragment() {
 
-    private lateinit var viewModel: ShowDBEntriesViewModel
-    //private lateinit var newEngagementVM : InsertNewActionViewModel
+    private lateinit var viewModel: SharedViewModel
+
     private lateinit var activitiesAdapter: ActivitiesAdapter
 
     override fun onCreateView(
@@ -40,18 +40,17 @@ class ShowDBEntriesFragment : Fragment() {
             adapter = activitiesAdapter
         }
 
-        viewModel = ViewModelProvider(this).get(ShowDBEntriesViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
         viewModel.allActivities.observe(viewLifecycleOwner, Observer { activities ->
             activities?.let { activitiesAdapter.setActivities(it) }
         })
 
-
         fab.setOnClickListener {
             val fragmentManager = (activity as MainActivity).supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-                .remove(this@ShowDBEntriesFragment)
+                .remove(this@DisplayDataFragment)
             val fragment =
-                InsertNewEngagementFragment()
+                InsertNewDataFragment()
             fragmentTransaction.add(R.id.fragment_newEngagement, fragment)
             fragmentTransaction.commit()
         }
