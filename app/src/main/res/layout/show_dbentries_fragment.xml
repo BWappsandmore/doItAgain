@@ -5,7 +5,7 @@
     android:id="@+id/showDBEntriesCL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.ShowDBEntriesFragment">
+    tools:context=".ui.ShowDBEntriesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

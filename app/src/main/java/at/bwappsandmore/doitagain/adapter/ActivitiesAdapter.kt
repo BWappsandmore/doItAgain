@@ -1,13 +1,13 @@
-package adapter
+package at.bwappsandmore.doitagain.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bwappsandmore.doitagain.R
+import at.bwappsandmore.doitagain.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
-import room.DoItAgainEntity
+import at.bwappsandmore.doitagain.room.DoItAgainEntity
 
 class ActivitiesAdapter : RecyclerView.Adapter<ActivitiesViewHolder>() {
 

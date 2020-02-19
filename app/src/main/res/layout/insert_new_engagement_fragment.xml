@@ -5,7 +5,7 @@
     android:id="@+id/insertEngagementCL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.InsertNewEngagementFragment">
+    tools:context=".ui.InsertNewEngagementFragment">
 
     <TextView
         android:id="@+id/promptActivitytV"

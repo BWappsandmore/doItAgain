@@ -1,4 +1,4 @@
-package ui
+package at.bwappsandmore.doitagain.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.bwappsandmore.doitagain.R
+import at.bwappsandmore.doitagain.R
 import kotlinx.android.synthetic.main.insert_new_engagement_fragment.*
-import room.DoItAgainEntity
+import at.bwappsandmore.doitagain.room.DoItAgainEntity
 
 class InsertNewEngagementFragment : Fragment() {
 
@@ -32,7 +32,13 @@ class InsertNewEngagementFragment : Fragment() {
 
         okIb.setOnClickListener {
             promptActivityEt.text.isNotEmpty().apply {
-                viewModel.insert(DoItAgainEntity(4, promptActivityEt.text.toString(), 56))
+                viewModel.insert(
+                    DoItAgainEntity(
+                        4,
+                        promptActivityEt.text.toString(),
+                        56
+                    )
+                )
                 closeThisAndOpenNewFragment()
             }
         }

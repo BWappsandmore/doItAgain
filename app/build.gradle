@@ -7,7 +7,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.bwappsandmore.doitagain"
+        applicationId "at.bwappsandmore.doitagain"
         minSdkVersion 15
         targetSdkVersion 29
         versionCode 1
@@ -64,11 +64,14 @@ dependencies {
 
     // Testing
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
-    
-    //Dagger2
-    implementation 'com.google.dagger:dagger:2.25.4'
-    kapt 'com.google.dagger:dagger-compiler:2.25.4'
-    compileOnly 'javax.annotation:jsr250-api:1.0'
+
+    // Dagger
+    def daggerVersion = '2.26'
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
 
     //recyclerView
     implementation 'androidx.recyclerview:recyclerview:1.1.0'

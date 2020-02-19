@@ -1,4 +1,4 @@
-package room
+package at.bwappsandmore.doitagain.room
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo

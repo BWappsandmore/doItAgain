@@ -1,4 +1,4 @@
-package ui
+package at.bwappsandmore.doitagain.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

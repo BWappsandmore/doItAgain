@@ -1,10 +1,10 @@
-package ui
+package at.bwappsandmore.doitagain.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.bwappsandmore.doitagain.R
+import at.bwappsandmore.doitagain.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 

@@ -1,13 +1,13 @@
-package ui
+package at.bwappsandmore.doitagain.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import repository.AppRepository
-import room.AppDatabase
-import room.DoItAgainEntity
+import at.bwappsandmore.doitagain.repository.AppRepository
+import at.bwappsandmore.doitagain.room.AppDatabase
+import at.bwappsandmore.doitagain.room.DoItAgainEntity
 
 class ShowDBEntriesViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: AppRepository
@@ -15,7 +15,8 @@ class ShowDBEntriesViewModel(application: Application) : AndroidViewModel(applic
 
     init {
         val doItAgainDao = AppDatabase.getDatabase(application, viewModelScope).doItAgainDao()
-        repository = AppRepository(doItAgainDao)
+        repository =
+            AppRepository(doItAgainDao)
         allActivities = repository.allActivities
     }
 

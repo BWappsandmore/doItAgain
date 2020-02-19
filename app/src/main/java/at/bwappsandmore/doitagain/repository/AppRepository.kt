@@ -1,8 +1,8 @@
-package repository
+package at.bwappsandmore.doitagain.repository
 
 import androidx.lifecycle.LiveData
-import room.DoItAgainDao
-import room.DoItAgainEntity
+import at.bwappsandmore.doitagain.room.DoItAgainDao
+import at.bwappsandmore.doitagain.room.DoItAgainEntity
 
 class AppRepository (private val doItAgainDao: DoItAgainDao) {
     val allActivities: LiveData<List<DoItAgainEntity>> = doItAgainDao.getAll()

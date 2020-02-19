@@ -1,4 +1,4 @@
-package room
+package at.bwappsandmore.doitagain.room
 
 import android.content.Context
 import androidx.room.Database
@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [DoItAgainEntity::class], version = 1, exportSchema = true)
+@Database(entities = [DoItAgainEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun doItAgainDao(): DoItAgainDao
@@ -21,7 +21,8 @@ abstract class AppDatabase : RoomDatabase() {
             context: Context,
             scope: CoroutineScope
         ): AppDatabase {
-            val tempInstance = INSTANCE
+            val tempInstance =
+                INSTANCE
             if (tempInstance != null) {
                 return tempInstance
             }
@@ -32,7 +33,11 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "doitagain-database"
                 )
-                    .addCallback(AppDatabaseCallback(scope))
+                    .addCallback(
+                        AppDatabaseCallback(
+                            scope
+                        )
+                    )
                     .build()
                 INSTANCE = instance
                 return instance
@@ -59,11 +64,23 @@ abstract class AppDatabase : RoomDatabase() {
         suspend fun populateDatabase(doItAgainDao: DoItAgainDao) {
             doItAgainDao.deleteAll()
 
-            var engagement = DoItAgainEntity(1, "play guitar", 100)
+            var engagement = DoItAgainEntity(
+                1,
+                "play guitar",
+                100
+            )
             doItAgainDao.insert(engagement)
-            engagement = DoItAgainEntity(2,"make breakfast",2)
+            engagement = DoItAgainEntity(
+                2,
+                "make breakfast",
+                2
+            )
             doItAgainDao.insert(engagement)
-            engagement = DoItAgainEntity(3,"go out with friends",20)
+            engagement = DoItAgainEntity(
+                3,
+                "go out with friends",
+                20
+            )
             doItAgainDao.insert(engagement)
         }
     }
