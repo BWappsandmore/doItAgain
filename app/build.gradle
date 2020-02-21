@@ -64,6 +64,9 @@ dependencies {
 
     //recyclerView
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    //Joda-Time
+    implementation 'joda-time:joda-time:2.10.5'
 }
 
 

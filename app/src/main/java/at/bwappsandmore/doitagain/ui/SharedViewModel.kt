@@ -8,6 +8,8 @@ import kotlinx.coroutines.launch
 import at.bwappsandmore.doitagain.repository.AppRepository
 import at.bwappsandmore.doitagain.room.AppDatabase
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
+import org.joda.time.DateTime
+import org.joda.time.Days.daysBetween
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -24,6 +26,12 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     fun insert(doItAgainEntity: DoItAgainEntity) = viewModelScope.launch {
         repository.insert(doItAgainEntity)
+    }
+
+    fun calculateDays(dateActivity: DateTime): Int {
+        return if (dateActivity>=DateTime.now()) 0
+        else daysBetween(dateActivity.toLocalDate(),DateTime.now().toLocalDate()).days
+
     }
 }
 

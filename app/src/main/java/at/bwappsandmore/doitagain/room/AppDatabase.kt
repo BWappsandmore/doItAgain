@@ -4,11 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database(entities = [DoItAgainEntity::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun doItAgainDao(): DoItAgainDao
@@ -63,25 +65,6 @@ abstract class AppDatabase : RoomDatabase() {
 
         suspend fun populateDatabase(doItAgainDao: DoItAgainDao) {
             doItAgainDao.deleteAll()
-
-            var engagement = DoItAgainEntity(
-                1,
-                "play guitar",
-                100
-            )
-            doItAgainDao.insert(engagement)
-            engagement = DoItAgainEntity(
-                2,
-                "make breakfast",
-                2
-            )
-            doItAgainDao.insert(engagement)
-            engagement = DoItAgainEntity(
-                3,
-                "go out with friends",
-                20
-            )
-            doItAgainDao.insert(engagement)
         }
     }
 }

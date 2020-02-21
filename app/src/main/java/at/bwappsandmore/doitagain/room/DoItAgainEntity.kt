@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import org.joda.time.DateTime
 
 @Entity
 data class DoItAgainEntity(
@@ -16,5 +17,9 @@ data class DoItAgainEntity(
 
     @ColumnInfo(name = "daysSinceCounter")
     @NonNull
-    var daysSinceCounter: Int
+    var daysSinceCounter: Int,
+
+    @ColumnInfo(name = "dateActivity")
+    @NonNull
+    var dateActivity: DateTime
 )
