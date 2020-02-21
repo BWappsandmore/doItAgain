@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.doitagain.R
+import kotlinx.android.synthetic.main.recyclerview_item.*
 import kotlinx.android.synthetic.main.show_dbentries_fragment.*
 
 class DisplayDataFragment : Fragment() {

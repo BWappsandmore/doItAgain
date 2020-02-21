@@ -9,8 +9,8 @@ interface DoItAgainDao {
     @Query("SELECT * FROM DoItAgainEntity")
     fun getAll(): LiveData<List<DoItAgainEntity>>
 
-    @Query("SELECT * FROM DoItAgainEntity WHERE engagement like :engagement")
-    fun findByEngagement(engagement: String): LiveData<List<DoItAgainEntity>>
+    @Query("SELECT * FROM DoItAgainEntity WHERE engagement like :doitagainactivity")
+    fun findByActivity(doitagainactivity: String): LiveData<List<DoItAgainEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(doItAgain: DoItAgainEntity)
@@ -25,5 +25,5 @@ interface DoItAgainDao {
     suspend fun deleteAll(vararg doItAgain: DoItAgainEntity)
 
     @Update
-    suspend fun updateDoItAgain(vararg doItAgain: DoItAgainEntity)
+    suspend fun updateDoItAgain(doItAgain: DoItAgainEntity)
 }

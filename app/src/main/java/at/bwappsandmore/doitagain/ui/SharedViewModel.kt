@@ -24,14 +24,24 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         allActivities = repository.allActivities
     }
 
+    fun calculateDays(dateActivity: DateTime): Int {
+        return if (dateActivity >= DateTime.now()) 0
+        else daysBetween(dateActivity.toLocalDate(), DateTime.now().toLocalDate()).days
+
+    }
+
+    fun resetCounter(doItAgainEntity: DoItAgainEntity) {
+        doItAgainEntity.daysSinceCounter = 0
+        doItAgainEntity.dateActivity = DateTime.now()
+        update(doItAgainEntity)
+    }
+
     fun insert(doItAgainEntity: DoItAgainEntity) = viewModelScope.launch {
         repository.insert(doItAgainEntity)
     }
 
-    fun calculateDays(dateActivity: DateTime): Int {
-        return if (dateActivity>=DateTime.now()) 0
-        else daysBetween(dateActivity.toLocalDate(),DateTime.now().toLocalDate()).days
-
+    fun update(doItAgainEntity: DoItAgainEntity) = viewModelScope.launch {
+        repository.update(doItAgainEntity)
     }
 }
 

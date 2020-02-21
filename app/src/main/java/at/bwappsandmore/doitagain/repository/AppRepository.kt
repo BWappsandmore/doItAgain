@@ -10,4 +10,8 @@ class AppRepository (private val doItAgainDao: DoItAgainDao) {
     suspend fun insert(doItAgainEntity: DoItAgainEntity) {
         doItAgainDao.insert(doItAgainEntity)
     }
+
+    suspend fun update(doItAgainEntity: DoItAgainEntity) {
+        doItAgainDao.updateDoItAgain(doItAgainEntity)
+    }
 }

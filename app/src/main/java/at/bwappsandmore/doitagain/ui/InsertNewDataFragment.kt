@@ -9,13 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import at.bwappsandmore.doitagain.R
 import kotlinx.android.synthetic.main.insert_new_engagement_fragment.*
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
+import kotlinx.android.synthetic.main.recyclerview_item.*
 import org.joda.time.DateTime
 
 class InsertNewDataFragment : Fragment() {
 
     private lateinit var viewModel: SharedViewModel
 
-    private var dateActivity =  DateTime.now()
+    private var dateActivity = DateTime.now()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +46,8 @@ class InsertNewDataFragment : Fragment() {
             }
         }
 
-        calendarView.setOnDateChangeListener{ _, year, month, dayOfMonth ->
-            dateActivity = DateTime(year, month+1, dayOfMonth, 0, 1)
+        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            dateActivity = DateTime(year, month + 1, dayOfMonth, 0, 1)
         }
     }
 
