@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.doitagain.R
-import at.bwappsandmore.doitagain.room.DoItAgainEntity
-import kotlinx.android.synthetic.main.recyclerview_item.*
 import kotlinx.android.synthetic.main.show_dbentries_fragment.*
 
 class DisplayDataFragment : Fragment() {
@@ -21,6 +19,8 @@ class DisplayDataFragment : Fragment() {
     private lateinit var viewModel: SharedViewModel
 
     private lateinit var activitiesAdapter: ActivitiesAdapter
+
+    private var activityId : Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,12 +47,15 @@ class DisplayDataFragment : Fragment() {
         viewModel.allActivities.observe(viewLifecycleOwner, Observer { activities ->
             activities?.let {
                 activitiesAdapter.setActivities(it)
-                //viewModel.resetCounter(it[0])
+
+                if (activityId!=null)
+                viewModel.resetCounter(it[activityId!!])
             }
         })
 
         activitiesAdapter.setOnItemClickListener {
             viewModel.findActivityById(it)
+            activityId = it
         }
         fab.setOnClickListener {
             val fragmentManager = (activity as MainActivity).supportFragmentManager
