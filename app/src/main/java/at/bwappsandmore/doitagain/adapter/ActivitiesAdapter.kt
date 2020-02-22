@@ -1,5 +1,6 @@
 package at.bwappsandmore.doitagain.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,15 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 
-class ActivitiesAdapter : RecyclerView.Adapter<ActivitiesViewHolder>() {
+class ActivitiesAdapter : RecyclerView.Adapter<ActivitiesAdapter.ActivitiesViewHolder>() {
 
     private var activities = emptyList<DoItAgainEntity>()
+
+    private var listener: ((item: Int) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (item: Int) -> Unit) {
+        this.listener = listener
+    }
 
     internal fun setActivities(activities: List<DoItAgainEntity>) {
         this.activities = activities
@@ -32,14 +39,26 @@ class ActivitiesAdapter : RecyclerView.Adapter<ActivitiesViewHolder>() {
     }
 
     override fun getItemCount() = activities.size
-}
 
-class ActivitiesViewHolder(
-    override val containerView: View
-) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ActivitiesViewHolder(
+        override val containerView: View
+    ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-    fun bind(vo: DoItAgainEntity) {
-        itemView.activity_title.text = vo.engagement
-        itemView.sinceDaysTV.text = vo.daysSinceCounter.toString()
+        init {
+            itemView.resetIB.setOnClickListener {
+                listener?.invoke(activities[adapterPosition].id)
+                Log.d(null, "btn reset pressed")
+            }
+            itemView.editIB.setOnClickListener {
+                listener?.invoke(activities[adapterPosition].id)
+                Log.d(null, "btn edit pressed")
+            }
+        }
+
+        fun bind(vo: DoItAgainEntity) {
+            itemView.activity_title.text = vo.engagement
+            itemView.sinceDaysTV.text = vo.daysSinceCounter.toString()
+        }
     }
 }
+

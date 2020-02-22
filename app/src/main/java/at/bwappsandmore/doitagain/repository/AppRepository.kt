@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import at.bwappsandmore.doitagain.room.DoItAgainDao
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 
-class AppRepository (private val doItAgainDao: DoItAgainDao) {
+class AppRepository(private val doItAgainDao: DoItAgainDao) {
     val allActivities: LiveData<List<DoItAgainEntity>> = doItAgainDao.getAll()
 
     suspend fun insert(doItAgainEntity: DoItAgainEntity) {
@@ -14,4 +14,10 @@ class AppRepository (private val doItAgainDao: DoItAgainDao) {
     suspend fun update(doItAgainEntity: DoItAgainEntity) {
         doItAgainDao.updateDoItAgain(doItAgainEntity)
     }
+
+    fun findById(id: Int){
+        doItAgainDao.findActivityById(id)
+    }
+
+
 }

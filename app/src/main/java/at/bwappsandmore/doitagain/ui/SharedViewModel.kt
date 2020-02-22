@@ -36,6 +36,10 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         update(doItAgainEntity)
     }
 
+    fun findActivityById(id: Int) = viewModelScope.launch {
+        repository.findById(id)
+    }
+
     fun insert(doItAgainEntity: DoItAgainEntity) = viewModelScope.launch {
         repository.insert(doItAgainEntity)
     }

@@ -2,6 +2,7 @@ package at.bwappsandmore.doitagain.ui
 
 import at.bwappsandmore.doitagain.adapter.ActivitiesAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.doitagain.R
+import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import kotlinx.android.synthetic.main.recyclerview_item.*
 import kotlinx.android.synthetic.main.show_dbentries_fragment.*
 
@@ -43,9 +45,15 @@ class DisplayDataFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
         viewModel.allActivities.observe(viewLifecycleOwner, Observer { activities ->
-            activities?.let { activitiesAdapter.setActivities(it) }
+            activities?.let {
+                activitiesAdapter.setActivities(it)
+                //viewModel.resetCounter(it[0])
+            }
         })
 
+        activitiesAdapter.setOnItemClickListener {
+            viewModel.findActivityById(it)
+        }
         fab.setOnClickListener {
             val fragmentManager = (activity as MainActivity).supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
@@ -56,5 +64,4 @@ class DisplayDataFragment : Fragment() {
             fragmentTransaction.commit()
         }
     }
-
 }
