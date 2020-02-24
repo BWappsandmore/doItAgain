@@ -27,6 +27,7 @@ class DisplayDataFragment : Fragment() {
                 val fragment = InsertNewDataFragment()
                 val bundle = Bundle()
                 bundle.putString("activity_name",doItAgainActivity.doItAgainActivity)
+                bundle.putLong("activity_date",doItAgainActivity.dateActivity.millis)
                 fragment.arguments = bundle
                 fragmentTransaction.add(R.id.fragment_newEngagement, fragment)
                 fragmentTransaction.commit()

@@ -56,8 +56,10 @@ class InsertNewDataFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (arguments?.getString("activity_name") != null)
+        if (arguments?.getString("activity_name") != null) {
             promptActivityEt.setText(arguments?.getString("activity_name"))
+            calendarView.setDate(arguments!!.getLong("activity_date"), true, true)
+        }
     }
 
     private fun closeThisAndOpenNewFragment() {
