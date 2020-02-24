@@ -9,7 +9,7 @@ interface DoItAgainDao {
     @Query("SELECT * FROM DoItAgainEntity")
     fun getAll(): LiveData<List<DoItAgainEntity>>
 
-    @Query("SELECT * FROM DoItAgainEntity WHERE engagement like :doitagainactivity")
+    @Query("SELECT * FROM DoItAgainEntity WHERE doItAgainActivity like :doitagainactivity")
     fun findByActivity(doitagainactivity: String): LiveData<List<DoItAgainEntity>>
 
     @Query("SELECT * FROM DoItAgainEntity WHERE id = :id")

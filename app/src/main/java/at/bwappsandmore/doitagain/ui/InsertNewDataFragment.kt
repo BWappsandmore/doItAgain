@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import at.bwappsandmore.doitagain.R
-import kotlinx.android.synthetic.main.insert_new_engagement_fragment.*
+import kotlinx.android.synthetic.main.insert_new_data_fragment.*
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
-import kotlinx.android.synthetic.main.recyclerview_item.*
 import org.joda.time.DateTime
 
 class InsertNewDataFragment : Fragment() {
@@ -22,7 +22,7 @@ class InsertNewDataFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.insert_new_engagement_fragment, container, false)
+        return inflater.inflate(R.layout.insert_new_data_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -35,6 +35,9 @@ class InsertNewDataFragment : Fragment() {
 
         okIb.setOnClickListener {
             promptActivityEt.text.isNotEmpty().apply {
+
+                //viewModel.findByActivity(promptActivityEt.text.toString())
+
                 viewModel.insert(
                     DoItAgainEntity(
                         0,
@@ -49,6 +52,12 @@ class InsertNewDataFragment : Fragment() {
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             dateActivity = DateTime(year, month + 1, dayOfMonth, 0, 1)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (arguments?.getString("activity_name") != null)
+            promptActivityEt.setText(arguments?.getString("activity_name"))
     }
 
     private fun closeThisAndOpenNewFragment() {

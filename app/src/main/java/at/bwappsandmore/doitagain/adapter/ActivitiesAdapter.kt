@@ -51,7 +51,7 @@ class ActivitiesAdapter(val listener : (DoItAgainEntity, Int) -> Unit) : Recycle
         }
 
         fun bind(vo: DoItAgainEntity) {
-            itemView.activity_title.text = vo.engagement
+            itemView.activity_title.text = vo.doItAgainActivity
             itemView.sinceDaysTV.text = vo.daysSinceCounter.toString()
         }
     }

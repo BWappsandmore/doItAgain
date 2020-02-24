@@ -11,9 +11,9 @@ data class DoItAgainEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
 
-    @ColumnInfo(name = "engagement")
+    @ColumnInfo(name = "doItAgainActivity")
     @NonNull
-    var engagement: String,
+    var doItAgainActivity: String,
 
     @ColumnInfo(name = "daysSinceCounter")
     @NonNull

@@ -15,8 +15,13 @@ class AppRepository(private val doItAgainDao: DoItAgainDao) {
         doItAgainDao.updateDoItAgain(doItAgainEntity)
     }
 
-    fun findById(id: Int){
+    fun findById(id: Int) {
         doItAgainDao.findActivityById(id)
+    }
+
+    fun findByActivity(doitagainactivity: String) {
+        doItAgainDao.findByActivity(doitagainactivity)
+
     }
 
 

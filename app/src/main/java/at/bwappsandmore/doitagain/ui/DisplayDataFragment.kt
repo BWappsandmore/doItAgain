@@ -11,24 +11,35 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.adapter.ActivitiesAdapter
-import kotlinx.android.synthetic.main.show_dbentries_fragment.*
+import kotlinx.android.synthetic.main.display_data_fragment.*
 
 class DisplayDataFragment : Fragment() {
 
     private lateinit var viewModel: SharedViewModel
 
-    private var activitiesAdapter = ActivitiesAdapter { activity, actionId ->
-        viewModel.resetCounter(activity)
+    private var activitiesAdapter = ActivitiesAdapter { doItAgainActivity, actionId ->
+        when(actionId) {
+            0 -> viewModel.resetCounter(doItAgainActivity)
+            1 -> {
+                val fragmentManager = (activity as MainActivity).supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                    .remove(this@DisplayDataFragment)
+                val fragment = InsertNewDataFragment()
+                val bundle = Bundle()
+                bundle.putString("activity_name",doItAgainActivity.doItAgainActivity)
+                fragment.arguments = bundle
+                fragmentTransaction.add(R.id.fragment_newEngagement, fragment)
+                fragmentTransaction.commit()
+            }
+        }
     }
-
-    private var activityId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ):
-            View = inflater.inflate(R.layout.show_dbentries_fragment, container, false)
+            View = inflater.inflate(R.layout.display_data_fragment, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
