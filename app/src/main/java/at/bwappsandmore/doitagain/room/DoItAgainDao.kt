@@ -15,7 +15,7 @@ interface DoItAgainDao {
     @Query("SELECT * FROM DoItAgainEntity WHERE id = :id")
     fun findActivityById(id: Int): LiveData<List<DoItAgainEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(doItAgain: DoItAgainEntity)
 
     @Insert

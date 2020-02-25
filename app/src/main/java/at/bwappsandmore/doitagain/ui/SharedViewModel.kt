@@ -14,14 +14,15 @@ import org.joda.time.Days.daysBetween
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: AppRepository
-
     val allActivities: LiveData<List<DoItAgainEntity>>
+    val findActivity: LiveData<List<DoItAgainEntity>>
 
     init {
         val doItAgainDao = AppDatabase.getDatabase(application, viewModelScope).doItAgainDao()
         repository =
-            AppRepository(doItAgainDao)
+            AppRepository(doItAgainDao,"")
         allActivities = repository.allActivities
+        findActivity = repository.findActivity
     }
 
     fun calculateDays(dateActivity: DateTime): Int {

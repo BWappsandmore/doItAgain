@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import at.bwappsandmore.doitagain.R
 import kotlinx.android.synthetic.main.insert_new_data_fragment.*
@@ -35,9 +34,6 @@ class InsertNewDataFragment : Fragment() {
 
         okIb.setOnClickListener {
             promptActivityEt.text.isNotEmpty().apply {
-
-                //viewModel.findByActivity(promptActivityEt.text.toString())
-
                 viewModel.insert(
                     DoItAgainEntity(
                         0,
