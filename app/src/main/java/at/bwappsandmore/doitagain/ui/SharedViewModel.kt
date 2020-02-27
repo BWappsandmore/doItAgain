@@ -3,6 +3,7 @@ package at.bwappsandmore.doitagain.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import at.bwappsandmore.doitagain.repository.AppRepository
@@ -15,14 +16,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     private val repository: AppRepository
     val allActivities: LiveData<List<DoItAgainEntity>>
-    val findActivity: LiveData<List<DoItAgainEntity>>
+    val findActivity = MutableLiveData<List<DoItAgainEntity>>()
 
     init {
         val doItAgainDao = AppDatabase.getDatabase(application, viewModelScope).doItAgainDao()
         repository =
-            AppRepository(doItAgainDao,"")
+            AppRepository(doItAgainDao)
         allActivities = repository.allActivities
-        findActivity = repository.findActivity
     }
 
     fun calculateDays(dateActivity: DateTime): Int {
@@ -44,12 +44,17 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     fun findByActivity(doitagainactivity: String) = viewModelScope.launch {
         repository.findByActivity(doitagainactivity)
     }
+
     fun insert(doItAgainEntity: DoItAgainEntity) = viewModelScope.launch {
         repository.insert(doItAgainEntity)
     }
 
     fun update(doItAgainEntity: DoItAgainEntity) = viewModelScope.launch {
         repository.update(doItAgainEntity)
+    }
+
+    fun delete(doItAgainEntity: DoItAgainEntity) = viewModelScope.launch {
+        repository.delete(doItAgainEntity)
     }
 }
 

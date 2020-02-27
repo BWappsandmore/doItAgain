@@ -1,6 +1,7 @@
 package at.bwappsandmore.doitagain.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +18,7 @@ class DisplayDataFragment : Fragment() {
 
     private lateinit var viewModel: SharedViewModel
 
-    private var activitiesAdapter = ActivitiesAdapter { doItAgainActivity, actionId ->
+    private var activitiesAdapter = ActivitiesAdapter ({ doItAgainActivity, actionId ->
         when(actionId) {
             0 -> viewModel.resetCounter(doItAgainActivity)
             1 -> {
@@ -33,7 +34,10 @@ class DisplayDataFragment : Fragment() {
                 fragmentTransaction.commit()
             }
         }
-    }
+    } , {doItAgainActivity ->
+        Log.d(null, doItAgainActivity.doItAgainActivity)
+        viewModel.delete(doItAgainActivity)
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater,

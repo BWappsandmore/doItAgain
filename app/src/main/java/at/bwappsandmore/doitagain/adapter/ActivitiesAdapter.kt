@@ -10,7 +10,10 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 
-class ActivitiesAdapter(val listener : (DoItAgainEntity, Int) -> Unit) : RecyclerView.Adapter<ActivitiesAdapter.ActivitiesViewHolder>() {
+class ActivitiesAdapter(
+    val onActionClicked: (DoItAgainEntity, Int) -> Unit,
+    val onItemLongClicked: (DoItAgainEntity) -> Unit
+) : RecyclerView.Adapter<ActivitiesAdapter.ActivitiesViewHolder>() {
 
     private var activities = emptyList<DoItAgainEntity>()
 
@@ -41,12 +44,18 @@ class ActivitiesAdapter(val listener : (DoItAgainEntity, Int) -> Unit) : Recycle
         // you can set an integer for each action
         init {
             itemView.resetIB.setOnClickListener {
-                listener(activities[adapterPosition], 0)
+                onActionClicked(activities[adapterPosition], 0)
                 Log.d(null, "btn reset pressed")
             }
             itemView.editIB.setOnClickListener {
-                listener(activities[adapterPosition], 1)
+                onActionClicked(activities[adapterPosition], 1)
                 Log.d(null, "btn edit pressed")
+            }
+            containerView.apply {
+                setOnLongClickListener{
+                    onItemLongClicked.invoke(activities[adapterPosition])
+                    true
+                }
             }
         }
 
