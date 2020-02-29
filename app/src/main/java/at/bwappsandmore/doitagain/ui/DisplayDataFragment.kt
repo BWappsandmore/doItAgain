@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import at.bwappsandmore.doitagain.ActionType
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.adapter.ActivitiesAdapter
 import at.bwappsandmore.doitagain.room.DoItAgainEntity

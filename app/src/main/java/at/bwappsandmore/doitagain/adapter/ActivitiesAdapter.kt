@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import at.bwappsandmore.doitagain.ActionType
+import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*

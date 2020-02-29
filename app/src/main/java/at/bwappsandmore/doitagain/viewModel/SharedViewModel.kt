@@ -3,8 +3,7 @@ package at.bwappsandmore.doitagain.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import at.bwappsandmore.doitagain.ActionType
+import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.base.BaseViewModel
 import at.bwappsandmore.doitagain.repository.AppRepository
 import at.bwappsandmore.doitagain.room.DoItAgainEntity

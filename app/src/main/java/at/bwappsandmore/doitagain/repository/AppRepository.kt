@@ -2,7 +2,7 @@ package at.bwappsandmore.doitagain.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import at.bwappsandmore.doitagain.ActionType
+import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.room.DoItAgainDao
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import kotlinx.coroutines.GlobalScope
