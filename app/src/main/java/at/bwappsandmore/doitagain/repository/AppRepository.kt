@@ -1,30 +1,46 @@
 package at.bwappsandmore.doitagain.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import at.bwappsandmore.doitagain.ActionType
 import at.bwappsandmore.doitagain.room.DoItAgainDao
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class AppRepository(private val doItAgainDao: DoItAgainDao) {
-    val allActivities: LiveData<List<DoItAgainEntity>> = doItAgainDao.getAll()
 
-    suspend fun insert(doItAgainEntity: DoItAgainEntity) {
-        doItAgainDao.insert(doItAgainEntity)
-    }
+    data class RepoResponse(
+        val actionResult   :  LiveData<Boolean>,
+        val doItAgainEntity: LiveData<List<DoItAgainEntity>>
+    )
 
-    suspend fun update(doItAgainEntity: DoItAgainEntity) {
-        doItAgainDao.updateDoItAgain(doItAgainEntity)
-    }
-
-    suspend fun delete(doItAgainEntity: DoItAgainEntity) {
-        doItAgainDao.delete(doItAgainEntity)
-    }
-
-    fun findById(id: Int) {
-        doItAgainDao.findActivityById(id)
-    }
-
-    fun findByActivity(doitagainactivity: String){
-        doItAgainDao.findByActivity(doitagainactivity)
+    fun activityRepoHandler(activityId : Int, doItAgainEntity: DoItAgainEntity, action: ActionType) : RepoResponse {
+        val actionResult     = MutableLiveData<Boolean>()
+        GlobalScope.launch {
+            when(action){
+                ActionType.INSERT -> {
+                    doItAgainDao.insert(doItAgainEntity)
+                    actionResult.postValue(true)
+                }
+                ActionType.UPDATE -> {
+                    doItAgainDao.updateDoItAgain(doItAgainEntity)
+                    actionResult.postValue(true)
+                }
+                ActionType.DELETE -> {
+                    doItAgainDao.delete(doItAgainEntity)
+                    actionResult.postValue(true)
+                }
+                else -> {
+                    //not Implemented yet
+                }
+            }
+        }
+        return RepoResponse(actionResult, when(action){
+            ActionType.FindById       -> doItAgainDao.findActivityById(activityId)
+            ActionType.FindByActivity -> doItAgainDao.findByActivity(doItAgainEntity.doItAgainActivity)
+            else -> MutableLiveData<List<DoItAgainEntity>>()
+        })
     }
 
 }

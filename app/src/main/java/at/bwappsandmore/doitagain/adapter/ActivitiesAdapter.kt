@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import at.bwappsandmore.doitagain.ActionType
 import at.bwappsandmore.doitagain.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 
 class ActivitiesAdapter(
-    val onActionClicked: (DoItAgainEntity, Int) -> Unit,
+    val onActionClicked: (DoItAgainEntity, ActionType) -> Unit,
     val onItemLongClicked: (DoItAgainEntity) -> Unit
 ) : RecyclerView.Adapter<ActivitiesAdapter.ActivitiesViewHolder>() {
 
@@ -44,11 +45,11 @@ class ActivitiesAdapter(
         // you can set an integer for each action
         init {
             itemView.resetIB.setOnClickListener {
-                onActionClicked(activities[adapterPosition], 0)
+                onActionClicked(activities[adapterPosition], ActionType.ResetCounter)
                 Log.d(null, "btn reset pressed")
             }
             itemView.editIB.setOnClickListener {
-                onActionClicked(activities[adapterPosition], 1)
+                onActionClicked(activities[adapterPosition], ActionType.UPDATE)
                 Log.d(null, "btn edit pressed")
             }
             containerView.apply {

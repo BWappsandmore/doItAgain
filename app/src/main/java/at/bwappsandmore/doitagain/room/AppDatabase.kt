@@ -19,10 +19,7 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(
-            context: Context,
-            scope: CoroutineScope
-        ): AppDatabase {
+        fun getDatabase(context: Context, scope: CoroutineScope): AppDatabase {
             val tempInstance =
                 INSTANCE
             if (tempInstance != null) {
@@ -51,9 +48,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    private class AppDatabaseCallback(
-        private val scope: CoroutineScope
-    ) : RoomDatabase.Callback() {
+    private class AppDatabaseCallback(private val scope: CoroutineScope) : RoomDatabase.Callback() {
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
             INSTANCE?.let { database ->
