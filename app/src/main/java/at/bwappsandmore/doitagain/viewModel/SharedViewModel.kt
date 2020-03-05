@@ -1,5 +1,6 @@
 package at.bwappsandmore.doitagain.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -10,12 +11,13 @@ import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import org.joda.time.DateTime
 import org.joda.time.Days.daysBetween
 
-
-
 abstract class SharedViewModel : BaseViewModel(){
     abstract fun findActivityById(id : Int)
+    abstract fun resetCounter(doItAgainEntity: DoItAgainEntity)
+    abstract fun calculateDays(dateActivity: DateTime): Int
+    abstract fun findActivity(activityName: String)
+    abstract fun activityAction(activityId : Int, doItAgainEntity: DoItAgainEntity, action: ActionType)
 }
-
 
 class SharedViewModelImpl(repository: AppRepository) : SharedViewModel() {
 
@@ -33,21 +35,20 @@ class SharedViewModelImpl(repository: AppRepository) : SharedViewModel() {
         it.doItAgainEntity
     }
 
-    val findActivity = MutableLiveData<List<DoItAgainEntity>>()
+    //val findActivity = MutableLiveData<List<DoItAgainEntity>>()
 
-    fun calculateDays(dateActivity: DateTime): Int {
+    override fun calculateDays(dateActivity: DateTime): Int {
         return if (dateActivity >= DateTime.now()) 0
         else daysBetween(dateActivity.toLocalDate(), DateTime.now().toLocalDate()).days
-
     }
 
-    fun resetCounter(doItAgainEntity: DoItAgainEntity) {
+    override fun resetCounter(doItAgainEntity: DoItAgainEntity) {
         doItAgainEntity.daysSinceCounter = 0
         doItAgainEntity.dateActivity = DateTime.now()
-        //activityAction(doItAgainEntity, ActionType.UPDATE)
+        activityAction(doItAgainEntity.id,doItAgainEntity, ActionType.UPDATE)
     }
 
-    fun activityAction(activityId : Int, doItAgainEntity: DoItAgainEntity, action: ActionType) {
+    override fun activityAction(activityId : Int, doItAgainEntity: DoItAgainEntity, action: ActionType) {
         this.activityId.postValue(Triple(activityId, doItAgainEntity, action))
     }
 
@@ -55,7 +56,8 @@ class SharedViewModelImpl(repository: AppRepository) : SharedViewModel() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-
-
+    override fun findActivity(activityName: String) {
+        Log.d(null, "viewModel.findActivity")
+    }
 }
 

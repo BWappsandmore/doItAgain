@@ -13,7 +13,7 @@ import at.bwappsandmore.doitagain.room.DoItAgainEntity
 
 class ActivitiesAdapter(
     val onActionClicked: (DoItAgainEntity, ActionType) -> Unit,
-    val onItemLongClicked: (DoItAgainEntity) -> Unit
+    val onItemLongClicked: (DoItAgainEntity, ActionType) -> Unit
 ) : RecyclerView.Adapter<ActivitiesAdapter.ActivitiesViewHolder>() {
 
     private var activities = emptyList<DoItAgainEntity>()
@@ -54,8 +54,8 @@ class ActivitiesAdapter(
             }
             containerView.apply {
                 setOnLongClickListener{
-                    onItemLongClicked.invoke(activities[adapterPosition])
-                    true
+                    onItemLongClicked.invoke(activities[adapterPosition], ActionType.DELETE)
+                    return@setOnLongClickListener true
                 }
             }
         }

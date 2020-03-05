@@ -39,8 +39,7 @@ class AppRepository(private val doItAgainDao: DoItAgainDao) {
         return RepoResponse(actionResult, when(action){
             ActionType.FindById       -> doItAgainDao.findActivityById(activityId)
             ActionType.FindByActivity -> doItAgainDao.findByActivity(doItAgainEntity.doItAgainActivity)
-            else -> MutableLiveData<List<DoItAgainEntity>>()
+            else -> MutableLiveData()
         })
     }
-
 }

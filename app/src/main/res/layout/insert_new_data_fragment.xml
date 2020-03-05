@@ -4,8 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="name" type="String" />
-        <variable name="date" type="String" />
+
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="date"
+            type="String" />
+
         <variable
             name="viewModel"
             type="at.bwappsandmore.doitagain.viewModel.SharedViewModel" />
@@ -77,16 +84,15 @@
             android:src="@drawable/back_24px"
             app:layout_constraintBottom_toBottomOf="@+id/promptActivitytV"
             app:layout_constraintStart_toStartOf="@+id/calendarView" />
-
-<!--        android:onClick="@{() -> viewModel.findActivity(name)}"-->
-
+<!--        android:onClick="@{(v) -> viewModel.findActivity(name)}"-->
         <ImageButton
             android:id="@+id/okIb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/done_24px"
-            android:contentDescription="@string/goBack"
+            android:contentDescription="@string/ok"
             android:src="@drawable/done_24px"
+            android:onClick="@{(v) -> viewModel.findActivity(name)}"
             app:layout_constraintBottom_toBottomOf="@+id/promptActivitytV"
             app:layout_constraintEnd_toEndOf="@+id/calendarView" />
 

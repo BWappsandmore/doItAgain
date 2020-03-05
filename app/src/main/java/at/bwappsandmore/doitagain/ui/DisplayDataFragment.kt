@@ -1,47 +1,70 @@
 package at.bwappsandmore.doitagain.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.adapter.ActivitiesAdapter
+import at.bwappsandmore.doitagain.base.BaseSharedFragment
+import at.bwappsandmore.doitagain.databinding.DisplayDataFragmentBinding
+import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
 import kotlinx.android.synthetic.main.display_data_fragment.*
 
-class DisplayDataFragment : Fragment() {
+class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, SharedViewModel>() {
 
-    private lateinit var viewModel: SharedViewModel
+    override fun getLayoutResource(): Int = R.layout.display_data_fragment
+    override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
-    private var activitiesAdapter = ActivitiesAdapter ({ doItAgainActivity, actionId ->
-//        when(actionId) {
-//            ActionType.ResetCounter -> viewModel.resetCounter(doItAgainActivity)
-//            ActionType.UPDATE      -> startFragment(doItAgainActivity)
-//        }
-    } , {doItAgainActivity ->
-//        Log.d(null, doItAgainActivity.doItAgainActivity)
-//        viewModel.activityAction(doItAgainActivity, ActionType.DELETE)
+    companion object {
+        private const val nameKey = "name"
+        private const val dateKey = "date"
+
+        fun getInstance(name: String, date: Long): InsertNewDataFragment {
+            val fragment = InsertNewDataFragment()
+            val bundle = Bundle()
+            bundle.putString(nameKey, name)
+            bundle.putLong(dateKey, date)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
+    private var activitiesAdapter = ActivitiesAdapter({ doItAgainActivity, actionId ->
+        when (actionId) {
+            ActionType.ResetCounter -> viewModel.resetCounter(doItAgainActivity)
+            ActionType.UPDATE ->
+                //startFragment(doItAgainActivity)
+                getInstance(
+                    doItAgainActivity.doItAgainActivity,
+                    doItAgainActivity.dateActivity.millis
+                )
+            else -> Log.d(null, "Finish all options")
+        }
+    }, { doItAgainActivity, actionId ->
+        Log.d(null, doItAgainActivity.doItAgainActivity)
+        viewModel.activityAction(doItAgainActivity.id, doItAgainActivity, ActionType.DELETE)
     })
 
 
-
-    fun startFragment(doItAgainActivity : DoItAgainEntity){
-//        val fragmentManager = (activity as MainActivity).supportFragmentManager
-//        val fragmentTransaction = fragmentManager.beginTransaction()
-//            .remove(this@DisplayDataFragment)
-//        val fragment = InsertNewDataFragment()
-//        val bundle = Bundle()
-//        bundle.putString("activity_name",doItAgainActivity.doItAgainActivity)
-//        bundle.putLong("activity_date",doItAgainActivity.dateActivity.millis)
-//        fragment.arguments = bundle
-//        fragmentTransaction.add(R.id.fragment_newEngagement, fragment)
-//        fragmentTransaction.commit()
+    fun startFragment(doItAgainActivity: DoItAgainEntity) {
+/*        val fragmentManager = (activity as MainActivity).supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+            .remove(this@DisplayDataFragment)
+        val fragment = InsertNewDataFragment()
+        val bundle = Bundle()
+        bundle.putString("activity_name",doItAgainActivity.doItAgainActivity)
+        bundle.putLong("activity_date",doItAgainActivity.dateActivity.millis)
+        fragment.arguments = bundle
+        fragmentTransaction.add(R.id.container,InsertNewDataFragment)
+        fragmentTransaction.commit()*/
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,21 +80,8 @@ class DisplayDataFragment : Fragment() {
             adapter = activitiesAdapter
         }
 
-        viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-//        viewModel.allActivities.observe(viewLifecycleOwner, Observer { activities ->
-//            activities?.let {
-//                activitiesAdapter.setActivities(it)
-//            }
-//        })
-
         fab.setOnClickListener {
-//            val fragmentManager = (activity as MainActivity).supportFragmentManager
-//            val fragmentTransaction = fragmentManager.beginTransaction()
-//                .remove(this@DisplayDataFragment)
-//            val fragment =
-//                InsertNewDataFragment()
-//            fragmentTransaction.add(R.id.fragment_newEngagement, fragment)
-//            fragmentTransaction.commit()
+            (activity as MainActivity).addFragment(R.id.container, InsertNewDataFragment(), true)
         }
     }
 }
