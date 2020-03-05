@@ -47,6 +47,7 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
         super.onViewCreated(view, savedInstanceState)
         dataBinding.viewModel = viewModel
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -55,11 +56,12 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
         }
 
         okIb.setOnClickListener {
-//            promptActivityEt.text.isNotEmpty().apply {
+            promptActivityEt.text.isNotEmpty().apply {
 
-            //viewModel.findActivity(promptActivityEt.text.toString())
+                viewModel.findActivity(promptActivityEt.text.toString())
+                dataBinding.name = promptActivityEt.text.toString()
 
-            //viewModel.activityAction(doItAgainActivity.id, doItAgainActivity, ActionType.FindByActivity)
+                //viewModel.activityAction(doItAgainActivity.id, doItAgainActivity, ActionType.FindByActivity)
 
 
 //                if (doItAgainActivity.doItAgainActivity.isEmpty())
@@ -70,16 +72,16 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
 //                        viewModel.calculateDays(dateActivity), dateActivity
 //                    )
 //                )
-            /*               else
-                               viewModel.update(DoItAgainEntity(
-                                   0,
-                                   promptActivityEt.text.toString(),
-                                   viewModel.calculateDays(dateActivity), dateActivity
-                               ))*/
+                /*               else
+                                   viewModel.update(DoItAgainEntity(
+                                       0,
+                                       promptActivityEt.text.toString(),
+                                       viewModel.calculateDays(dateActivity), dateActivity
+                                   ))*/
 
-            closeThisAndOpenNewFragment()
+                closeThisAndOpenNewFragment()
+            }
         }
-        //}
 
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             dateActivity = DateTime(year, month + 1, dayOfMonth, 0, 1)

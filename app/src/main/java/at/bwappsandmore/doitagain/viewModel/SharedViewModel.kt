@@ -17,6 +17,7 @@ abstract class SharedViewModel : BaseViewModel(){
     abstract fun calculateDays(dateActivity: DateTime): Int
     abstract fun findActivity(activityName: String)
     abstract fun activityAction(activityId : Int, doItAgainEntity: DoItAgainEntity, action: ActionType)
+    val findActivity = MutableLiveData<List<DoItAgainEntity>>()
 }
 
 class SharedViewModelImpl(repository: AppRepository) : SharedViewModel() {
@@ -35,7 +36,7 @@ class SharedViewModelImpl(repository: AppRepository) : SharedViewModel() {
         it.doItAgainEntity
     }
 
-    //val findActivity = MutableLiveData<List<DoItAgainEntity>>()
+    //override val findActivity = MutableLiveData<List<DoItAgainEntity>>()
 
     override fun calculateDays(dateActivity: DateTime): Int {
         return if (dateActivity >= DateTime.now()) 0
