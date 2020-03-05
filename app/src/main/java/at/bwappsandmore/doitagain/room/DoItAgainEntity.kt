@@ -11,6 +11,7 @@ import org.joda.time.DateTime
 @Parcelize
 @Entity
 data class DoItAgainEntity(
+
     @PrimaryKey(autoGenerate = true)
     var id: Int,
 

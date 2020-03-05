@@ -15,7 +15,7 @@ abstract class SharedViewModel : BaseViewModel(){
     abstract fun findActivityById(id : Int)
     abstract fun resetCounter(doItAgainEntity: DoItAgainEntity)
     abstract fun calculateDays(dateActivity: DateTime): Int
-    abstract fun findActivity(activityName: String)
+    abstract fun findActivity(activityName: String?)
     abstract fun activityAction(activityId : Int, doItAgainEntity: DoItAgainEntity, action: ActionType)
     val findActivity = MutableLiveData<List<DoItAgainEntity>>()
 }
@@ -57,7 +57,7 @@ class SharedViewModelImpl(repository: AppRepository) : SharedViewModel() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun findActivity(activityName: String) {
+    override fun findActivity(activityName: String?) {
         Log.d(null, "viewModel.findActivity")
     }
 }

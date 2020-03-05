@@ -57,10 +57,6 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
 
         okIb.setOnClickListener {
             promptActivityEt.text.isNotEmpty().apply {
-
-                viewModel.findActivity(promptActivityEt.text.toString())
-                dataBinding.name = promptActivityEt.text.toString()
-
                 //viewModel.activityAction(doItAgainActivity.id, doItAgainActivity, ActionType.FindByActivity)
 
 
