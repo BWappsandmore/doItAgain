@@ -1,13 +1,14 @@
 package at.bwappsandmore.doitagain.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.base.BaseSharedFragment
 import at.bwappsandmore.doitagain.databinding.InsertNewDataFragmentBinding
-import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
+import at.bwappsandmore.doitagain.viewModel.SharedViewModelImpl
 import kotlinx.android.synthetic.main.insert_new_data_fragment.*
 import org.joda.time.DateTime
 
@@ -51,36 +52,18 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        viewModel.getActivities().observe(viewLifecycleOwner, Observer {
+            if (it==null) Log.d(null,"it is null")
+            else Log.d(null,"it is NOT null")
+        })
+
         backIb.setOnClickListener {
             closeThisAndOpenNewFragment()
         }
 
-        okIb.setOnClickListener {
-            promptActivityEt.text.isNotEmpty().apply {
-                //viewModel.activityAction(doItAgainActivity.id, doItAgainActivity, ActionType.FindByActivity)
-
-
-//                if (doItAgainActivity.doItAgainActivity.isEmpty())
-//                viewModel.insert(
-//                    DoItAgainEntity(
-//                        0,
-//                        promptActivityEt.text.toString(),
-//                        viewModel.calculateDays(dateActivity), dateActivity
-//                    )
-//                )
-                /*               else
-                                   viewModel.update(DoItAgainEntity(
-                                       0,
-                                       promptActivityEt.text.toString(),
-                                       viewModel.calculateDays(dateActivity), dateActivity
-                                   ))*/
-
-                closeThisAndOpenNewFragment()
-            }
-        }
-
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             dateActivity = DateTime(year, month + 1, dayOfMonth, 0, 1)
+            viewModel.getDateTime(dateActivity)
         }
     }
 

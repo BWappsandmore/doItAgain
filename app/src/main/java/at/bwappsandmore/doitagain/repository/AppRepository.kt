@@ -31,6 +31,10 @@ class AppRepository(private val doItAgainDao: DoItAgainDao) {
                     doItAgainDao.delete(doItAgainEntity)
                     actionResult.postValue(true)
                 }
+                ActionType.FindByActivity -> {
+                    doItAgainDao.findByActivity(doItAgainEntity.doItAgainActivity)
+                    actionResult.postValue(true)
+                }
                 else -> {
                     //not Implemented yet
                 }
@@ -38,7 +42,7 @@ class AppRepository(private val doItAgainDao: DoItAgainDao) {
         }
         return RepoResponse(actionResult, when(action){
             ActionType.FindById       -> doItAgainDao.findActivityById(activityId)
-            ActionType.FindByActivity -> doItAgainDao.findByActivity(doItAgainEntity.doItAgainActivity)
+            //ActionType.FindByActivity -> doItAgainDao.findByActivity(doItAgainEntity.doItAgainActivity)
             else -> MutableLiveData()
         })
     }

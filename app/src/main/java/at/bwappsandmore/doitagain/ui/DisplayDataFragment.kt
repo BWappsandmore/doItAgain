@@ -14,6 +14,7 @@ import at.bwappsandmore.doitagain.databinding.DisplayDataFragmentBinding
 import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
+import at.bwappsandmore.doitagain.viewModel.SharedViewModelImpl
 import kotlinx.android.synthetic.main.display_data_fragment.*
 
 class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, SharedViewModel>() {
