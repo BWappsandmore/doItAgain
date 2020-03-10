@@ -10,11 +10,13 @@ interface DoItAgainDao {
     @Query("SELECT * FROM DoItAgainEntity")
     fun getAll(): LiveData<List<DoItAgainEntity>>
 
-    @Query("SELECT * FROM DoItAgainEntity WHERE doItAgainActivity= :doitagainactivity")
-    fun findByActivity(doitagainactivity: String): LiveData<List<DoItAgainEntity>>
+    @Query("SELECT * FROM DoItAgainEntity WHERE doItAgainActivity = :activity")
+    fun findByActivity(activity: String): LiveData<List<DoItAgainEntity>>
 
     @Query("SELECT * FROM DoItAgainEntity WHERE id = :id")
-    fun findActivityById(id: Int): LiveData<List<DoItAgainEntity>>
+    fun findActivityById(id: Int): LiveData<DoItAgainEntity>
+
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(doItAgain: DoItAgainEntity)
@@ -22,11 +24,15 @@ interface DoItAgainDao {
     @Insert
     suspend fun insertAll(vararg doItAgain: DoItAgainEntity)
 
+
+
     @Query("UPDATE DoItAgainEntity SET doItAgainActivity= :doitagainactivity WHERE id = :id")
     fun updateActivity(doitagainactivity: String, id: Int): Int
 
     @Update
     suspend fun updateDoItAgain(doItAgain: DoItAgainEntity)
+
+
 
     @Delete
     suspend fun delete(doItAgain: DoItAgainEntity)

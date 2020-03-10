@@ -8,7 +8,6 @@ import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.base.BaseSharedFragment
 import at.bwappsandmore.doitagain.databinding.InsertNewDataFragmentBinding
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
-import at.bwappsandmore.doitagain.viewModel.SharedViewModelImpl
 import kotlinx.android.synthetic.main.insert_new_data_fragment.*
 import org.joda.time.DateTime
 
@@ -28,8 +27,8 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
         }
     }
 
-    private var date: Long = 0
     lateinit var name: String
+    private var date: Long = 0
     private var dateActivity = DateTime.now()
 
     override fun getLayoutResource(): Int = R.layout.insert_new_data_fragment
@@ -37,30 +36,27 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
             name = it.getString(nameKey, "")
             date = it.getLong(dateKey)
         }
+        viewModel.getActivities().observe(viewLifecycleOwner, Observer {
+            if (it == null) Log.d(null, "it is null")
+            else Log.d(null, "it is NOT null")
+        })
+        viewModel.getActivity().observe(viewLifecycleOwner, Observer {
+            if (it == null) Log.d(null, "it is null")
+            else Log.d(null, "it is NOT null")
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataBinding.viewModel = viewModel
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        viewModel.getActivities().observe(viewLifecycleOwner, Observer {
-            if (it==null) Log.d(null,"it is null")
-            else Log.d(null,"it is NOT null")
-        })
 
         backIb.setOnClickListener {
             closeThisAndOpenNewFragment()
         }
-
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             dateActivity = DateTime(year, month + 1, dayOfMonth, 0, 1)
             viewModel.getDateTime(dateActivity)

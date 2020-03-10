@@ -19,15 +19,20 @@ abstract class BaseSharedFragment<E : ViewDataBinding, T : BaseViewModel> : Frag
 
     abstract fun getViewModelClass(): Class<T>
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.let {
+            viewModel = ViewModelProvider(it).get(getViewModelClass())
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         dataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), getLayoutResource(), container, false)
-        activity?.let {
-            viewModel = ViewModelProvider(it).get(getViewModelClass())
-        }
+
         lifecycle.addObserver(viewModel)
         return dataBinding.root
 

@@ -8,42 +8,41 @@ import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class AppRepository(private val doItAgainDao: DoItAgainDao) {
 
-    data class RepoResponse(
-        val actionResult   :  LiveData<Boolean>,
-        val doItAgainEntity: LiveData<List<DoItAgainEntity>>
-    )
+interface LocalRepository {
+    fun insertDoItAgainEntity(entity: DoItAgainEntity)
+    fun updateDoItAgainEntity(entity: DoItAgainEntity)
+    fun removeDoItAgainEntity(entity: DoItAgainEntity)
 
-    fun activityRepoHandler(activityId : Int, doItAgainEntity: DoItAgainEntity, action: ActionType) : RepoResponse {
-        val actionResult     = MutableLiveData<Boolean>()
+    fun findAll(): LiveData<List<DoItAgainEntity>>
+    fun findByActivity(activity: String): LiveData<List<DoItAgainEntity>>
+    fun findByActivityId(activityId: Int): LiveData<DoItAgainEntity>
+
+}
+
+class AppRepository(private val doItAgainDao: DoItAgainDao) : LocalRepository {
+
+    override fun insertDoItAgainEntity(entity: DoItAgainEntity) {
         GlobalScope.launch {
-            when(action){
-                ActionType.INSERT -> {
-                    doItAgainDao.insert(doItAgainEntity)
-                    actionResult.postValue(true)
-                }
-                ActionType.UPDATE -> {
-                    doItAgainDao.updateDoItAgain(doItAgainEntity)
-                    actionResult.postValue(true)
-                }
-                ActionType.DELETE -> {
-                    doItAgainDao.delete(doItAgainEntity)
-                    actionResult.postValue(true)
-                }
-                ActionType.FindByActivity -> {
-                    doItAgainDao.findByActivity(doItAgainEntity.doItAgainActivity)
-                    actionResult.postValue(true)
-                }
-                else -> {
-                    //not Implemented yet
-                }
-            }
+            doItAgainDao.insert(entity)
         }
-        return RepoResponse(actionResult, when(action){
-            ActionType.FindById       -> doItAgainDao.findActivityById(activityId)
-            //ActionType.FindByActivity -> doItAgainDao.findByActivity(doItAgainEntity.doItAgainActivity)
-            else -> MutableLiveData()
-        })
     }
+
+    override fun updateDoItAgainEntity(entity: DoItAgainEntity) {
+        GlobalScope.launch {
+            doItAgainDao.updateDoItAgain(entity)
+        }
+    }
+
+    override fun removeDoItAgainEntity(entity: DoItAgainEntity) {
+        GlobalScope.launch {
+            doItAgainDao.delete(entity)
+        }
+    }
+
+    override fun findByActivity(activity: String) = doItAgainDao.findByActivity(activity)
+
+    override fun findAll() = doItAgainDao.getAll()
+
+    override fun findByActivityId(activityId: Int) = doItAgainDao.findActivityById(activityId)
 }

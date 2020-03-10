@@ -91,7 +91,7 @@
             android:background="@drawable/done_24px"
             android:contentDescription="@string/ok"
             android:src="@drawable/done_24px"
-            android:onClick="@{(v) -> viewModel.findActivity(promptActivityEt.getText().toString())}"
+            android:onClick="@{(v) -> viewModel.requestFindActivity(promptActivityEt.getText().toString())}"
             app:layout_constraintBottom_toBottomOf="@+id/promptActivitytV"
             app:layout_constraintEnd_toEndOf="@+id/calendarView" />
 
