@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import at.bwappsandmore.doitagain.R
@@ -49,7 +51,7 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         }
     }, { doItAgainActivity, actionId ->
         Log.d(null, doItAgainActivity.doItAgainActivity)
-        viewModel.activityAction(doItAgainActivity.id, doItAgainActivity, ActionType.DELETE)
+        //viewModel.activityAction(doItAgainActivity.id, doItAgainActivity, ActionType.DELETE)
     })
 
 
@@ -81,8 +83,15 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
             adapter = activitiesAdapter
         }
 
+        viewModel.displayStoredActivities().observe(viewLifecycleOwner, Observer {
+            activitiesAdapter.setActivities(it)
+            Log.d("displayStoredActivities", it.toString())
+        })
+
         fab.setOnClickListener {
             (activity as MainActivity).addFragment(R.id.container, InsertNewDataFragment(), true)
         }
+
+        viewModel.displayStoredActivities()
     }
 }

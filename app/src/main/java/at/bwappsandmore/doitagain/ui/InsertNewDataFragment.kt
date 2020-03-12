@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.base.BaseSharedFragment
 import at.bwappsandmore.doitagain.databinding.InsertNewDataFragmentBinding
+import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
 import kotlinx.android.synthetic.main.insert_new_data_fragment.*
 import org.joda.time.DateTime
@@ -40,14 +41,7 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
             name = it.getString(nameKey, "")
             date = it.getLong(dateKey)
         }
-        viewModel.getActivities().observe(viewLifecycleOwner, Observer {
-            if (it == null) Log.d(null, "it is null")
-            else Log.d(null, "it is NOT null")
-        })
-        viewModel.getActivity().observe(viewLifecycleOwner, Observer {
-            if (it == null) Log.d(null, "it is null")
-            else Log.d(null, "it is NOT null")
-        })
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,6 +55,26 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
             dateActivity = DateTime(year, month + 1, dayOfMonth, 0, 1)
             viewModel.getDateTime(dateActivity)
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        viewModel.getActivities().observe(viewLifecycleOwner, Observer {
+            if (it.isEmpty()) {
+                Log.d("viewModel.getActivities", "Entity not in DB")
+            viewModel.insertDoItAgainActivity(DoItAgainEntity(0,promptActivityEt.text.toString(),viewModel.calculateDays(dateActivity), dateActivity))
+                Log.i("viewModel.getActivities", "Entity inserted in DB")
+            }
+            else {
+                Log.d("viewModel.getActivities", "Entitiy exists in DB as $it")
+                viewModel.updateDoItAgainActivity(DoItAgainEntity(it.first().id, it.first().doItAgainActivity, viewModel.calculateDays(dateActivity), dateActivity))
+            }
+        })
+        viewModel.getActivity().observe(viewLifecycleOwner, Observer {
+            if (it == null) Log.d(null, "it is null")
+            else Log.d(null, "it is $it")
+        })
     }
 
     private fun closeThisAndOpenNewFragment() {
