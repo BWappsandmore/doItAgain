@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +15,6 @@ import at.bwappsandmore.doitagain.databinding.DisplayDataFragmentBinding
 import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
-import at.bwappsandmore.doitagain.viewModel.SharedViewModelImpl
 import kotlinx.android.synthetic.main.display_data_fragment.*
 
 class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, SharedViewModel>() {
@@ -37,6 +35,10 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
             bundle.putLong(dateKey, date)
             fragment.arguments = bundle
             return fragment
+        }
+
+        fun getInstanceDelFragment():DeleteEntryFragment {
+            return DeleteEntryFragment()
         }
     }
 
