@@ -17,20 +17,12 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
     companion object {
         private const val nameKey = "name"
         private const val dateKey = "date"
-
-        fun getInstance(name: String, date: Long): InsertNewDataFragment {
-            val fragment = InsertNewDataFragment()
-            val bundle = Bundle()
-            bundle.putString(nameKey, name)
-            bundle.putLong(dateKey, date)
-            fragment.arguments = bundle
-            return fragment
-        }
     }
 
-    lateinit var name: String
+    private var name: String = ""
     private var date: Long = 0
     private var dateActivity = DateTime.now()
+    private var listEntities = listOf<DoItAgainEntity>()
 
     override fun getLayoutResource(): Int = R.layout.insert_new_data_fragment
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
@@ -41,12 +33,13 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
             name = it.getString(nameKey, "")
             date = it.getLong(dateKey)
         }
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataBinding.viewModel = viewModel
+        dataBinding.name = name
+        calendarView.date = if (date != 0L) date else DateTime.now().millis
 
         backIb.setOnClickListener {
             closeThisAndOpenNewFragment()
@@ -63,21 +56,26 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
         viewModel.getActivities().observe(viewLifecycleOwner, Observer {
             if (it.isEmpty()) {
                 Log.d("viewModel.getActivities", "Entity not in DB")
-            viewModel.insertDoItAgainActivity(DoItAgainEntity(0,promptActivityEt.text.toString(),viewModel.calculateDays(dateActivity), dateActivity))
+                viewModel.insertDoItAgainActivity(
+                    DoItAgainEntity(
+                        0,
+                        promptActivityEt.text.toString(),
+                        viewModel.calculateDays(dateActivity),
+                        dateActivity
+                    )
+                )
                 Log.i("viewModel.getActivities", "Entity inserted in DB")
-            }
-            else {
-                Log.d("viewModel.getActivities", "Entitiy exists in DB as $it")
-                viewModel.updateDoItAgainActivity(DoItAgainEntity(it.first().id, it.first().doItAgainActivity, viewModel.calculateDays(dateActivity), dateActivity))
-            }
-        })
-        viewModel.getActivity().observe(viewLifecycleOwner, Observer {
-            if (it == null) Log.d(null, "it is null")
-            else Log.d(null, "it is $it")
+
+            } else listEntities = it
         })
     }
 
     private fun closeThisAndOpenNewFragment() {
+
+        listEntities.forEach { entity ->
+            viewModel.updateDoItAgainActivity(DoItAgainEntity(entity.id, entity.doItAgainActivity, viewModel.calculateDays(entity.dateActivity), entity.dateActivity))
+        }
+
         requireActivity().supportFragmentManager.beginTransaction()
             .remove(this)
             .commit()

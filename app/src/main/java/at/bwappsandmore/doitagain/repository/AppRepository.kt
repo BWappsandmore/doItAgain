@@ -1,8 +1,6 @@
 package at.bwappsandmore.doitagain.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.room.DoItAgainDao
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import kotlinx.coroutines.GlobalScope
@@ -12,6 +10,7 @@ import kotlinx.coroutines.launch
 interface LocalRepository {
     fun insertDoItAgainEntity(entity: DoItAgainEntity)
     fun updateDoItAgainEntity(entity: DoItAgainEntity)
+    fun updateListEntities(listEntity: List<DoItAgainEntity>)
     fun removeDoItAgainEntity(entity: DoItAgainEntity)
 
     fun findAll(): LiveData<List<DoItAgainEntity>>
@@ -31,6 +30,12 @@ class AppRepository(private val doItAgainDao: DoItAgainDao) : LocalRepository {
     override fun updateDoItAgainEntity(entity: DoItAgainEntity) {
         GlobalScope.launch {
             doItAgainDao.updateDoItAgain(entity)
+        }
+    }
+
+    override fun updateListEntities(listEntity: List<DoItAgainEntity>) {
+        GlobalScope.launch {
+            doItAgainDao.updateAllEntities(listEntity)
         }
     }
 

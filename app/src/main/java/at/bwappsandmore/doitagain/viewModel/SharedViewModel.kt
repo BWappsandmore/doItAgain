@@ -1,5 +1,6 @@
 package at.bwappsandmore.doitagain.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -15,6 +16,8 @@ abstract class SharedViewModel : BaseViewModel() {
     abstract fun requestFindActivity(activityName: String)
     abstract fun insertDoItAgainActivity(entity: DoItAgainEntity)
     abstract fun updateDoItAgainActivity(entity: DoItAgainEntity)
+    abstract fun updateListEntities(listEntity: List<DoItAgainEntity>)
+    abstract fun deleteDoItAgainActivity(entity: DoItAgainEntity)
 
     abstract fun resetCounter(doItAgainEntity: DoItAgainEntity)
 
@@ -61,14 +64,24 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
         repository.updateDoItAgainEntity(entity)
     }
 
+    override fun updateListEntities(listEntity: List<DoItAgainEntity>) {
+        repository.updateListEntities(listEntity)
+    }
+
+    override fun deleteDoItAgainActivity(entity: DoItAgainEntity) {
+        repository.removeDoItAgainEntity(entity)
+    }
+
     override fun calculateDays(dateActivity: DateTime): Int {
         return if (dateActivity >= DateTime.now()) 0
         else daysBetween(dateActivity.toLocalDate(), DateTime.now().toLocalDate()).days
     }
 
     override fun resetCounter(doItAgainEntity: DoItAgainEntity) {
+        Log.d("resetCounter", "viewModel.resetCounter")
         doItAgainEntity.daysSinceCounter = 0
         doItAgainEntity.dateActivity = DateTime.now()
+        updateDoItAgainActivity(doItAgainEntity)
     }
 
     override fun requestFindActivityById(id: Int) {

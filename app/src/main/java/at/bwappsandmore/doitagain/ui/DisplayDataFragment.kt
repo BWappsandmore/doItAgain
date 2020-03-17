@@ -24,6 +24,8 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
     override fun getLayoutResource(): Int = R.layout.display_data_fragment
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
+    private var listEntities = listOf<DoItAgainEntity>()
+
     companion object {
         private const val nameKey = "name"
         private const val dateKey = "date"
@@ -41,39 +43,37 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
     private var activitiesAdapter = ActivitiesAdapter({ doItAgainActivity, actionId ->
         when (actionId) {
             ActionType.ResetCounter -> viewModel.resetCounter(doItAgainActivity)
-            ActionType.UPDATE ->
-                //startFragment(doItAgainActivity)
-                getInstance(
+            ActionType.UPDATE -> {
+                val fragmentManager = (activity as MainActivity).supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                    .remove(this@DisplayDataFragment)
+                val fragment = getInstance(
                     doItAgainActivity.doItAgainActivity,
                     doItAgainActivity.dateActivity.millis
                 )
+                fragmentTransaction.add(R.id.container, fragment)
+                fragmentTransaction.commit()
+            }
             else -> Log.d(null, "Finish all options")
         }
     }, { doItAgainActivity, actionId ->
-        Log.d(null, doItAgainActivity.doItAgainActivity)
-        //viewModel.activityAction(doItAgainActivity.id, doItAgainActivity, ActionType.DELETE)
+        when (actionId) {
+            ActionType.DELETE -> viewModel.deleteDoItAgainActivity(doItAgainActivity)
+            else -> Log.d(null, "Finish all options")
+        }
     })
 
-
-    fun startFragment(doItAgainActivity: DoItAgainEntity) {
-/*        val fragmentManager = (activity as MainActivity).supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-            .remove(this@DisplayDataFragment)
-        val fragment = InsertNewDataFragment()
-        val bundle = Bundle()
-        bundle.putString("activity_name",doItAgainActivity.doItAgainActivity)
-        bundle.putLong("activity_date",doItAgainActivity.dateActivity.millis)
-        fragment.arguments = bundle
-        fragmentTransaction.add(R.id.container,InsertNewDataFragment)
-        fragmentTransaction.commit()*/
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.displayStoredActivities()
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ):
-            View = inflater.inflate(R.layout.display_data_fragment, container, false)
+    ): View = inflater.inflate(R.layout.display_data_fragment, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -86,12 +86,22 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         viewModel.displayStoredActivities().observe(viewLifecycleOwner, Observer {
             activitiesAdapter.setActivities(it)
             Log.d("displayStoredActivities", it.toString())
+            viewModel.updateListEntities(it)
         })
+
+/*        listEntities.forEach { entity ->
+            viewModel.updateDoItAgainActivity(
+                DoItAgainEntity(
+                    entity.id,
+                    entity.doItAgainActivity,
+                    viewModel.calculateDays(entity.dateActivity),
+                    entity.dateActivity
+                )
+            )
+        }*/
 
         fab.setOnClickListener {
             (activity as MainActivity).addFragment(R.id.container, InsertNewDataFragment(), true)
         }
-
-        viewModel.displayStoredActivities()
     }
 }
