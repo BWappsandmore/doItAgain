@@ -27,7 +27,7 @@ interface DoItAgainDao {
     fun renameActivity(doitagainactivity: String, id: Int): Int
 
     @Query("UPDATE DoItAgainEntity SET dateActivity= :dateActivity where id= :id")
-    fun setNewDate(dateActivity:DateTime, id:Int): LiveData<DoItAgainEntity>
+    fun setNewDate(dateActivity:DateTime, id:Int): Int
 
     @Update
     suspend fun updateDoItAgain(entity: DoItAgainEntity)

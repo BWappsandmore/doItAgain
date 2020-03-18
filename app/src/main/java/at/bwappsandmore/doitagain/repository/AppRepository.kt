@@ -15,7 +15,7 @@ interface LocalRepository {
     fun updateListEntities(listEntity: List<DoItAgainEntity>)
 
     fun renameWithId(name: String, id: Int)
-    fun setNewDate(dateActivity: DateTime, id:Int): LiveData<DoItAgainEntity>
+    fun setNewDate(dateActivity: DateTime, id:Int)
 
     fun removeDoItAgainEntity(entity: DoItAgainEntity)
 
@@ -51,7 +51,7 @@ class AppRepository(private val doItAgainDao: DoItAgainDao) : LocalRepository {
         }
     }
 
-    override fun setNewDate(dateActivity: DateTime, id: Int) = doItAgainDao.setNewDate(dateActivity, id)
+    override fun setNewDate(dateActivity: DateTime, id: Int) { doItAgainDao.setNewDate(dateActivity, id)}
 
     override fun removeDoItAgainEntity(entity: DoItAgainEntity) {
         GlobalScope.launch {
