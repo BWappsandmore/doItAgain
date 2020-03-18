@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="doItAgainActivity"
+            type="at.bwappsandmore.doitagain.room.DoItAgainEntity" />
+
+        <variable
+            name="viewModel"
+            type="at.bwappsandmore.doitagain.viewModel.SharedViewModel" />
+    </data>
+
 <LinearLayout
 
     android:id="@+id/fragment_header"
@@ -18,6 +28,7 @@
         android:layout_marginRight="8dp"
         android:background="@android:color/holo_blue_dark"
         android:src="@drawable/ic_delete_forever_white_24dp"
+        android:onClick="@{() -> viewModel.deleteDoItAgainActivity(doItAgainActivity)}"
         tools:ignore="ContentDescription" />
 
 </LinearLayout>

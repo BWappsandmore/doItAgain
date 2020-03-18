@@ -22,11 +22,12 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
     override fun getLayoutResource(): Int = R.layout.display_data_fragment
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
-    private var listEntities = listOf<DoItAgainEntity>()
+    //private var listEntities = listOf<DoItAgainEntity>()
 
     companion object {
         private const val nameKey = "name"
         private const val dateKey = "date"
+        private const val doItAgainActivityKey = "doItAgainActivity"
 
         fun getInstance(name: String, date: Long): InsertNewDataFragment {
             val fragment = InsertNewDataFragment()
@@ -37,8 +38,12 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
             return fragment
         }
 
-        fun getInstanceDelFragment():DeleteEntryFragment {
-            return DeleteEntryFragment()
+        fun getInstanceDelFragment(doItAgainActivity:DoItAgainEntity): DeleteEntryFragment {
+            val fragment = DeleteEntryFragment()
+            val bundle = Bundle()
+            bundle.putParcelable(doItAgainActivityKey, doItAgainActivity)
+            fragment.arguments = bundle
+            return fragment
         }
     }
 
@@ -60,7 +65,13 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         }
     }, { doItAgainActivity, actionId ->
         when (actionId) {
-            ActionType.DELETE -> viewModel.deleteDoItAgainActivity(doItAgainActivity)
+            ActionType.DELETE -> {
+                val fragmentManager = (activity as MainActivity).supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                    .add(R.id.container, getInstanceDelFragment(doItAgainActivity)).addToBackStack(null)
+                fragmentTransaction.commit()
+                //viewModel.deleteDoItAgainActivity(doItAgainActivity)
+            }
             else -> Log.d(null, "Finish all options")
         }
     })
@@ -88,7 +99,7 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         viewModel.displayStoredActivities().observe(viewLifecycleOwner, Observer {
             activitiesAdapter.setActivities(it)
             Log.d("displayStoredActivities", it.toString())
-            viewModel.updateListEntities(it)
+            //viewModel.updateListEntities(it)
         })
 
 /*        listEntities.forEach { entity ->
