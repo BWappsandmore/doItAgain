@@ -5,12 +5,18 @@ import at.bwappsandmore.doitagain.room.DoItAgainDao
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.joda.time.DateTime
 
 
 interface LocalRepository {
     fun insertDoItAgainEntity(entity: DoItAgainEntity)
+
     fun updateDoItAgainEntity(entity: DoItAgainEntity)
     fun updateListEntities(listEntity: List<DoItAgainEntity>)
+
+    fun renameWithId(name: String, id: Int)
+    fun setNewDate(dateActivity: DateTime, id:Int): LiveData<DoItAgainEntity>
+
     fun removeDoItAgainEntity(entity: DoItAgainEntity)
 
     fun findAll(): LiveData<List<DoItAgainEntity>>
@@ -38,6 +44,14 @@ class AppRepository(private val doItAgainDao: DoItAgainDao) : LocalRepository {
             doItAgainDao.updateAllEntities(listEntity)
         }
     }
+
+    override fun renameWithId(name: String, id: Int) {
+        GlobalScope.launch {
+            doItAgainDao.renameActivity(name, id)
+        }
+    }
+
+    override fun setNewDate(dateActivity: DateTime, id: Int) = doItAgainDao.setNewDate(dateActivity, id)
 
     override fun removeDoItAgainEntity(entity: DoItAgainEntity) {
         GlobalScope.launch {

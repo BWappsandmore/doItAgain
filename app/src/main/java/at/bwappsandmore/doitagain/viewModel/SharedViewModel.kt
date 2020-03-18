@@ -14,9 +14,16 @@ abstract class SharedViewModel : BaseViewModel() {
 
     abstract fun requestFindActivityById(id: Int)
     abstract fun requestFindActivity(activityName: String)
+    abstract fun requestChangeDate(dateActivity: DateTime)
+
     abstract fun insertDoItAgainActivity(entity: DoItAgainEntity)
+
     abstract fun updateDoItAgainActivity(entity: DoItAgainEntity)
     abstract fun updateListEntities(listEntity: List<DoItAgainEntity>)
+
+    abstract fun renameWithId(name: String, id: Int)
+    abstract fun setNewDate(dateActivity: DateTime, id: Int)
+
     abstract fun deleteDoItAgainActivity(entity: DoItAgainEntity)
 
     abstract fun resetCounter(doItAgainEntity: DoItAgainEntity)
@@ -24,8 +31,10 @@ abstract class SharedViewModel : BaseViewModel() {
     abstract fun calculateDays(dateActivity: DateTime): Int
     abstract fun getDateTime(dateTime: DateTime): DateTime
 
-    abstract fun getActivity() : LiveData<DoItAgainEntity>
-    abstract fun getActivities() : LiveData<List<DoItAgainEntity>>
+    abstract fun getActivity(): LiveData<DoItAgainEntity>
+    abstract fun getActivities(): LiveData<List<DoItAgainEntity>>
+
+    //abstract fun getActivityDate(): LiveData<DoItAgainEntity>
 
     abstract fun displayStoredActivities(): LiveData<List<DoItAgainEntity>>
 
@@ -37,17 +46,21 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
 
     private val activityName = MutableLiveData<String>()
 
+    private val dateActivity = MutableLiveData<DateTime>()
+
     private val getAllActivities: LiveData<List<DoItAgainEntity>> = repository.findAll()
 
     override fun displayStoredActivities() = getAllActivities
 
-    override fun getActivity(): LiveData<DoItAgainEntity> = Transformations.switchMap(activityId){
+    override fun getActivity(): LiveData<DoItAgainEntity> = Transformations.switchMap(activityId) {
         repository.findByActivityId(it)
     }
 
-    override fun getActivities(): LiveData<List<DoItAgainEntity>> = Transformations.switchMap(activityName){
-        repository.findByActivity(it)
-    }
+    override fun getActivities(): LiveData<List<DoItAgainEntity>> = Transformations.switchMap(activityName) {
+            repository.findByActivity(it)
+        }
+
+
 
     private lateinit var dateTime: DateTime
 
@@ -66,6 +79,14 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
 
     override fun updateListEntities(listEntity: List<DoItAgainEntity>) {
         repository.updateListEntities(listEntity)
+    }
+
+    override fun renameWithId(name: String, id: Int) {
+        repository.renameWithId(name, id)
+    }
+
+    override fun setNewDate(dateActivity: DateTime, id: Int) {
+        repository.setNewDate(dateActivity, id)
     }
 
     override fun deleteDoItAgainActivity(entity: DoItAgainEntity) {
@@ -90,6 +111,10 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
 
     override fun requestFindActivity(activityName: String) {
         this.activityName.postValue(activityName)
+    }
+
+    override fun requestChangeDate(dateActivity: DateTime) {
+        this.dateActivity.postValue(dateActivity)
     }
 }
 

@@ -94,10 +94,10 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         viewModel.displayStoredActivities().observe(viewLifecycleOwner, Observer {
             activitiesAdapter.setActivities(it)
             Log.d("displayStoredActivities", it.toString())
-            listEntities = it
+            //listEntities = it
         })
 
-        listEntities.forEach { entity ->
+/*        listEntities.forEach { entity ->
             viewModel.updateDoItAgainActivity(
                 DoItAgainEntity(
                     entity.id,
@@ -106,7 +106,7 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
                     entity.dateActivity
                 )
             )
-        }
+        }*/
 
         fab.setOnClickListener {
             (activity as MainActivity).replaceFragment(R.id.container, InsertNewDataFragment(), true)

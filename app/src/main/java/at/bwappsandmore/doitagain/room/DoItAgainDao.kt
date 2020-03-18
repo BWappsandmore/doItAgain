@@ -2,6 +2,7 @@ package at.bwappsandmore.doitagain.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import org.joda.time.DateTime
 
 
 @Dao
@@ -23,7 +24,10 @@ interface DoItAgainDao {
     suspend fun insertAll(vararg doItAgain: DoItAgainEntity)
 
     @Query("UPDATE DoItAgainEntity SET doItAgainActivity= :doitagainactivity WHERE id = :id")
-    fun updateActivity(doitagainactivity: String, id: Int): Int
+    fun renameActivity(doitagainactivity: String, id: Int): Int
+
+    @Query("UPDATE DoItAgainEntity SET dateActivity= :dateActivity where id= :id")
+    fun setNewDate(dateActivity:DateTime, id:Int): LiveData<DoItAgainEntity>
 
     @Update
     suspend fun updateDoItAgain(entity: DoItAgainEntity)

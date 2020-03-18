@@ -22,7 +22,6 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
     private var name: String = ""
     private var date: Long = 0
     private var dateActivity = DateTime.now()
-    private var listEntities = listOf<DoItAgainEntity>()
 
     override fun getLayoutResource(): Int = R.layout.insert_new_data_fragment
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
@@ -44,6 +43,7 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
         backIb.setOnClickListener {
             closeThisAndOpenNewFragment()
         }
+
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             dateActivity = DateTime(year, month + 1, dayOfMonth, 0, 1)
             viewModel.getDateTime(dateActivity)
@@ -52,9 +52,8 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         viewModel.getActivities().observe(viewLifecycleOwner, Observer {
-            if (it.isEmpty()) {
+            if (it.isEmpty()) { // insert btn was pressed
                 Log.d("viewModel.getActivities", "Entity not in DB")
                 viewModel.insertDoItAgainActivity(
                     DoItAgainEntity(
@@ -66,15 +65,15 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
                 )
                 Log.i("viewModel.getActivities", "Entity inserted in DB")
 
-            } else listEntities = it
+            } else { // edit btn was pressed
+                viewModel.setNewDate(dateActivity, it.first().id)
+                viewModel.updateDoItAgainActivity(DoItAgainEntity(it.first().id, it.first().doItAgainActivity, viewModel.calculateDays(dateActivity), it.first().dateActivity))
+                Log.i("viewModel.getActivities", "Entity updated in DB")
+            }
         })
     }
 
     private fun closeThisAndOpenNewFragment() {
-
-        listEntities.forEach { entity ->
-            viewModel.updateDoItAgainActivity(DoItAgainEntity(entity.id, entity.doItAgainActivity, viewModel.calculateDays(entity.dateActivity), entity.dateActivity))
-        }
 
         requireActivity().supportFragmentManager.beginTransaction()
             .remove(this)
