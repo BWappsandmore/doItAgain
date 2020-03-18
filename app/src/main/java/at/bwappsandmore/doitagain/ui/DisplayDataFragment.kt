@@ -70,7 +70,6 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
                 val fragmentTransaction = fragmentManager.beginTransaction()
                     .add(R.id.container, getInstanceDelFragment(doItAgainActivity)).addToBackStack(null)
                 fragmentTransaction.commit()
-                //viewModel.deleteDoItAgainActivity(doItAgainActivity)
             }
             else -> Log.d(null, "Finish all options")
         }
