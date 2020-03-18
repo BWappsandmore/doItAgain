@@ -66,9 +66,8 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
                 Log.i("viewModel.getActivities", "Entity inserted in DB")
 
             } else { // edit btn was pressed
-                //viewModel.setNewDate(dateActivity, it.first().id)
                 viewModel.updateDoItAgainActivity(DoItAgainEntity(it.first().id, it.first().doItAgainActivity, viewModel.calculateDays(dateActivity), it.first().dateActivity))
-                Log.i("viewModel.getActivities", "Entity updated in DB")
+                Log.i("viewModel.getActivities", "Entity *updated* in DB")
             }
         })
     }
