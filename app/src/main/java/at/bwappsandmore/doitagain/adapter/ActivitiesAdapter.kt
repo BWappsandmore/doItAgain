@@ -55,18 +55,18 @@ class ActivitiesAdapter(
             }
             containerView.apply {
                 setOnLongClickListener{
-                    this.setBackgroundColor(Color.parseColor("#ff0099cc"))
-                    this.activity_title.setTextColor(Color.WHITE)
-                    this.sinceDaysTV.setTextColor(Color.WHITE)
-                    this.daysTV.setTextColor(Color.WHITE)
-                    this.resetIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
-                    this.resetIB.setImageResource(R.drawable.reset_white_24px)
-                    this.editIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
-                    this.editIB.setImageResource(R.drawable.edit_white_24px)
-                    this.add_alertIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
-                    this.add_alertIB.setImageResource(R.drawable.add_alert_white_24px)
-                    this.share_activityIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
-                    this.share_activityIB.setImageResource(R.drawable.ic_share_white_24dp)
+                    setBackgroundColor(Color.parseColor("#ff0099cc"))
+                    activity_title.setTextColor(Color.WHITE)
+                    sinceDaysTV.setTextColor(Color.WHITE)
+                    daysTV.setTextColor(Color.WHITE)
+                    resetIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
+                    resetIB.setImageResource(R.drawable.reset_white_24px)
+                    editIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
+                    editIB.setImageResource(R.drawable.edit_white_24px)
+                    add_alertIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
+                    add_alertIB.setImageResource(R.drawable.add_alert_white_24px)
+                    share_activityIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
+                    share_activityIB.setImageResource(R.drawable.ic_share_white_24dp)
                     onItemLongClicked.invoke(activities[adapterPosition], ActionType.DELETE)
                     return@setOnLongClickListener true
                 }

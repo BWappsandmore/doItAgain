@@ -22,7 +22,7 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
     override fun getLayoutResource(): Int = R.layout.display_data_fragment
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
-    //private var listEntities = listOf<DoItAgainEntity>()
+    private var listEntities = listOf<DoItAgainEntity>()
 
     companion object {
         private const val nameKey = "name"
@@ -38,7 +38,7 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
             return fragment
         }
 
-        fun getInstanceDelFragment(doItAgainActivity:DoItAgainEntity): DeleteEntryFragment {
+        fun getInstanceDelFragment(doItAgainActivity: DoItAgainEntity): DeleteEntryFragment {
             val fragment = DeleteEntryFragment()
             val bundle = Bundle()
             bundle.putParcelable(doItAgainActivityKey, doItAgainActivity)
@@ -51,26 +51,22 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         when (actionId) {
             ActionType.ResetCounter -> viewModel.resetCounter(doItAgainActivity)
             ActionType.UPDATE -> {
-                val fragmentManager = (activity as MainActivity).supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                    .remove(this@DisplayDataFragment)
-                val fragment = getInstance(
-                    doItAgainActivity.doItAgainActivity,
-                    doItAgainActivity.dateActivity.millis
+                (activity as MainActivity).replaceFragment(
+                    R.id.container, getInstance(
+                        doItAgainActivity.doItAgainActivity,
+                        doItAgainActivity.dateActivity.millis
+                    ), true
                 )
-                fragmentTransaction.add(R.id.container, fragment)
-                fragmentTransaction.commit()
             }
             else -> Log.d(null, "Finish all options")
         }
     }, { doItAgainActivity, actionId ->
         when (actionId) {
-            ActionType.DELETE -> {
-                val fragmentManager = (activity as MainActivity).supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                    .add(R.id.container, getInstanceDelFragment(doItAgainActivity)).addToBackStack(null)
-                fragmentTransaction.commit()
-            }
+            ActionType.DELETE -> (activity as MainActivity).addFragment(
+                R.id.container,
+                getInstanceDelFragment(doItAgainActivity),
+                true
+            )
             else -> Log.d(null, "Finish all options")
         }
     })
@@ -98,10 +94,10 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         viewModel.displayStoredActivities().observe(viewLifecycleOwner, Observer {
             activitiesAdapter.setActivities(it)
             Log.d("displayStoredActivities", it.toString())
-            //viewModel.updateListEntities(it)
+            listEntities = it
         })
 
-/*        listEntities.forEach { entity ->
+        listEntities.forEach { entity ->
             viewModel.updateDoItAgainActivity(
                 DoItAgainEntity(
                     entity.id,
@@ -110,10 +106,10 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
                     entity.dateActivity
                 )
             )
-        }*/
+        }
 
         fab.setOnClickListener {
-            (activity as MainActivity).addFragment(R.id.container, InsertNewDataFragment(), true)
+            (activity as MainActivity).replaceFragment(R.id.container, InsertNewDataFragment(), true)
         }
     }
 }

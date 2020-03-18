@@ -79,6 +79,6 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
         requireActivity().supportFragmentManager.beginTransaction()
             .remove(this)
             .commit()
-        (activity as MainActivity).addFragment(R.id.container, DisplayDataFragment())
+        (activity as MainActivity).replaceFragment(R.id.container, DisplayDataFragment())
     }
 }

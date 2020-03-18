@@ -30,9 +30,18 @@ abstract class BaseActivity<E : ViewDataBinding,T : BaseViewModel> : AppCompatAc
         lifecycle.addObserver(viewModel)
     }
 
-    fun addFragment(@IdRes layoutId : Int, fragment: Fragment, backStack : Boolean  = false) {
+    fun replaceFragment(@IdRes layoutId : Int, fragment: Fragment, backStack : Boolean  = false) {
         val transfer = supportFragmentManager.beginTransaction()
             .replace(layoutId, fragment)
+        if (backStack){
+            transfer.addToBackStack(fragment.tag)
+        }
+        transfer.commit()
+    }
+
+    fun addFragment(@IdRes layoutId : Int, fragment: Fragment, backStack : Boolean  = false) {
+        val transfer = supportFragmentManager.beginTransaction()
+            .add(layoutId, fragment)
         if (backStack){
             transfer.addToBackStack(fragment.tag)
         }

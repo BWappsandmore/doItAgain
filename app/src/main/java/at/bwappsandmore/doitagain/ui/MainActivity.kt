@@ -38,7 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
-        addFragment(R.id.container, DisplayDataFragment())
+        replaceFragment(R.id.container, DisplayDataFragment())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
