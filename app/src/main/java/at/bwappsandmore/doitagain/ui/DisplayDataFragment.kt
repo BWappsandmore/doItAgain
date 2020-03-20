@@ -53,7 +53,7 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
             ActionType.UPDATE -> {
                 (activity as MainActivity).replaceFragment(
                     R.id.container, getInstance(
-                        doItAgainActivity.doItAgainActivity,
+                        doItAgainActivity.name,
                         doItAgainActivity.dateActivity.millis
                     ), true
                 )
@@ -94,19 +94,7 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         viewModel.displayStoredActivities().observe(viewLifecycleOwner, Observer {
             activitiesAdapter.setActivities(it)
             Log.d("displayStoredActivities", it.toString())
-            //listEntities = it
         })
-
-/*        listEntities.forEach { entity ->
-            viewModel.updateDoItAgainActivity(
-                DoItAgainEntity(
-                    entity.id,
-                    entity.doItAgainActivity,
-                    viewModel.calculateDays(entity.dateActivity),
-                    entity.dateActivity
-                )
-            )
-        }*/
 
         fab.setOnClickListener {
             (activity as MainActivity).replaceFragment(R.id.container, InsertNewDataFragment(), true)

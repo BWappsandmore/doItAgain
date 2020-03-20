@@ -74,7 +74,7 @@ class ActivitiesAdapter(
         }
 
         fun bind(vo: DoItAgainEntity) {
-            itemView.activity_title.text = vo.doItAgainActivity
+            itemView.activity_title.text = vo.name
             itemView.sinceDaysTV.text = vo.daysSinceCounter.toString()
         }
     }

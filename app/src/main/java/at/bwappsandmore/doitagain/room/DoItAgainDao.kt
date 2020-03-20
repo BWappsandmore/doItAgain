@@ -11,8 +11,8 @@ interface DoItAgainDao {
     @Query("SELECT * FROM DoItAgainEntity")
     fun getAll(): LiveData<List<DoItAgainEntity>>
 
-    @Query("SELECT * FROM DoItAgainEntity WHERE doItAgainActivity = :activity")
-    fun findByActivity(activity: String): LiveData<List<DoItAgainEntity>>
+    @Query("SELECT * FROM DoItAgainEntity WHERE name = :name")
+    fun findByActivity(name: String): LiveData<List<DoItAgainEntity>>
 
     @Query("SELECT * FROM DoItAgainEntity WHERE id = :id")
     fun findActivityById(id: Int): LiveData<DoItAgainEntity>
@@ -23,11 +23,8 @@ interface DoItAgainDao {
     @Insert
     suspend fun insertAll(vararg doItAgain: DoItAgainEntity)
 
-    @Query("UPDATE DoItAgainEntity SET doItAgainActivity= :doitagainactivity WHERE id = :id")
-    fun renameActivity(doitagainactivity: String, id: Int): Int
-
-    @Query("UPDATE DoItAgainEntity SET dateActivity= :dateActivity where id= :id")
-    fun setNewDate(dateActivity:DateTime, id:Int): Int
+    @Query("UPDATE DoItAgainEntity SET name =:name, daysSinceCounter =:daysSinceCounter, dateActivity= :dateActivity where id= :id")
+    fun updateEntity(name: String, daysSinceCounter: Int, dateActivity:DateTime, id:Int): Int
 
     @Update
     suspend fun updateDoItAgain(entity: DoItAgainEntity)

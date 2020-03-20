@@ -14,15 +14,12 @@ abstract class SharedViewModel : BaseViewModel() {
 
     abstract fun requestFindActivityById(id: Int)
     abstract fun requestFindActivity(activityName: String)
-    abstract fun requestChangeDate(dateActivity: DateTime)
 
     abstract fun insertDoItAgainActivity(entity: DoItAgainEntity)
 
     abstract fun updateDoItAgainActivity(entity: DoItAgainEntity)
     abstract fun updateListEntities(listEntity: List<DoItAgainEntity>)
-
-    abstract fun renameWithId(name: String, id: Int)
-    abstract fun setNewDate(dateActivity: DateTime, id: Int)
+    abstract fun updateEntity(name: String, daysSinceCounter: Int, dateActivity:DateTime, id:Int)
 
     abstract fun deleteDoItAgainActivity(entity: DoItAgainEntity)
 
@@ -34,10 +31,7 @@ abstract class SharedViewModel : BaseViewModel() {
     abstract fun getActivity(): LiveData<DoItAgainEntity>
     abstract fun getActivities(): LiveData<List<DoItAgainEntity>>
 
-    //abstract fun getActivityDate(): LiveData<DoItAgainEntity>
-
     abstract fun displayStoredActivities(): LiveData<List<DoItAgainEntity>>
-
 }
 
 class SharedViewModelImpl(private val repository: AppRepository) : SharedViewModel() {
@@ -45,8 +39,6 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
     private val activityId = MutableLiveData<Int>()
 
     private val activityName = MutableLiveData<String>()
-
-    private val dateActivity = MutableLiveData<DateTime>()
 
     private val getAllActivities: LiveData<List<DoItAgainEntity>> = repository.findAll()
 
@@ -56,10 +48,10 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
         repository.findByActivityId(it)
     }
 
-    override fun getActivities(): LiveData<List<DoItAgainEntity>> = Transformations.switchMap(activityName) {
+    override fun getActivities(): LiveData<List<DoItAgainEntity>> =
+        Transformations.switchMap(activityName) {
             repository.findByActivity(it)
         }
-
 
 
     private lateinit var dateTime: DateTime
@@ -81,12 +73,8 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
         repository.updateListEntities(listEntity)
     }
 
-    override fun renameWithId(name: String, id: Int) {
-        repository.renameWithId(name, id)
-    }
-
-    override fun setNewDate(dateActivity: DateTime, id: Int) {
-        repository.setNewDate(dateActivity, id)
+    override fun updateEntity(name: String, daysSinceCounter: Int, dateActivity: DateTime, id: Int) {
+        repository.updateEntity(name, daysSinceCounter, dateActivity, id)
     }
 
     override fun deleteDoItAgainActivity(entity: DoItAgainEntity) {
@@ -111,10 +99,6 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
 
     override fun requestFindActivity(activityName: String) {
         this.activityName.postValue(activityName)
-    }
-
-    override fun requestChangeDate(dateActivity: DateTime) {
-        this.dateActivity.postValue(dateActivity)
     }
 }
 
