@@ -12,6 +12,7 @@ import at.bwappsandmore.doitagain.viewModel.SharedViewModel
 import kotlinx.android.synthetic.main.insert_new_data_fragment.*
 import org.joda.time.DateTime
 
+
 class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, SharedViewModel>() {
 
     companion object {
@@ -65,10 +66,15 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
                 )
                 Log.i("viewModel.getActivities", "Entity inserted in DB")
 
-            } else { // edit btn was pressed
-                viewModel.updateEntity(it.first().name, viewModel.calculateDays(dateActivity), it.first().dateActivity, it.first().id)
-                Log.i("viewModel.getActivities", "Entity updated in DB")
+            } else {
+                viewModel.updateEntity(
+                    promptActivityEt.text.toString(),
+                    viewModel.calculateDays(dateActivity),
+                    dateActivity,
+                    it.first().id
+                )
             }
+            return@Observer
         })
     }
 
