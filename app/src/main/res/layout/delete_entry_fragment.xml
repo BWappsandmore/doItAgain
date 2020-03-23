@@ -4,7 +4,7 @@
 
     <data>
         <variable
-            name="doItAgainActivity"
+            name="doItAgainEntity"
             type="at.bwappsandmore.doitagain.room.DoItAgainEntity" />
 
         <variable
@@ -30,7 +30,7 @@
         android:layout_gravity="center"
         android:background="@android:color/holo_blue_dark"
         android:src="@drawable/ic_delete_forever_white_24dp"
-        android:onClick="@{() -> viewModel.deleteDoItAgainActivity(doItAgainActivity)}"
+        android:onClick="@{() -> viewModel.deleteDoItAgainActivity(doItAgainEntity)}"
         tools:ignore="ContentDescription" />
 
 </LinearLayout>

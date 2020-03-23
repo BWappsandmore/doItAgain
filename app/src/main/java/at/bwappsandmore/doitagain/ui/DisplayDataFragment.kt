@@ -22,51 +22,38 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
     override fun getLayoutResource(): Int = R.layout.display_data_fragment
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
-    private var listEntities = listOf<DoItAgainEntity>()
-
     companion object {
-        private const val nameKey = "name"
-        private const val dateKey = "date"
+
         private const val doItAgainActivityKey = "doItAgainActivity"
 
-        fun getInstance(name: String, date: Long): InsertNewDataFragment {
-            val fragment = InsertNewDataFragment()
+        fun getInstanceEditFragment(doItAgainEntity: DoItAgainEntity): EditEntryFragment {
+            val fragment = EditEntryFragment()
             val bundle = Bundle()
-            bundle.putString(nameKey, name)
-            bundle.putLong(dateKey, date)
+            bundle.putParcelable(doItAgainActivityKey, doItAgainEntity)
             fragment.arguments = bundle
             return fragment
         }
 
-        fun getInstanceDelFragment(doItAgainActivity: DoItAgainEntity): DeleteEntryFragment {
+        fun getInstanceDelFragment(doItAgainEntity: DoItAgainEntity): DeleteEntryFragment {
             val fragment = DeleteEntryFragment()
             val bundle = Bundle()
-            bundle.putParcelable(doItAgainActivityKey, doItAgainActivity)
+            bundle.putParcelable(doItAgainActivityKey, doItAgainEntity)
             fragment.arguments = bundle
             return fragment
         }
     }
 
-    private var activitiesAdapter = ActivitiesAdapter({ doItAgainActivity, actionId ->
+    private var activitiesAdapter = ActivitiesAdapter({ doItAgainEntity, actionId ->
         when (actionId) {
-            ActionType.ResetCounter -> viewModel.resetCounter(doItAgainActivity)
+            ActionType.ResetCounter -> viewModel.resetCounter(doItAgainEntity)
             ActionType.UPDATE -> {
-                (activity as MainActivity).replaceFragment(
-                    R.id.container, getInstance(
-                        doItAgainActivity.name,
-                        doItAgainActivity.dateActivity.millis
-                    ), true
-                )
+                (activity as MainActivity).replaceFragment(R.id.container, getInstanceEditFragment(doItAgainEntity), true)
             }
             else -> Log.d(null, "Finish all options")
         }
-    }, { doItAgainActivity, actionId ->
+    }, { doItAgainEntity, actionId ->
         when (actionId) {
-            ActionType.DELETE -> (activity as MainActivity).addFragment(
-                R.id.container,
-                getInstanceDelFragment(doItAgainActivity),
-                true
-            )
+            ActionType.DELETE -> (activity as MainActivity).addFragment(R.id.container, getInstanceDelFragment(doItAgainEntity),true)
             else -> Log.d(null, "Finish all options")
         }
     })
@@ -97,7 +84,11 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         })
 
         fab.setOnClickListener {
-            (activity as MainActivity).replaceFragment(R.id.container, InsertNewDataFragment(), true)
+            (activity as MainActivity).replaceFragment(
+                R.id.container,
+                InsertNewDataFragment(),
+                true
+            )
         }
     }
 }

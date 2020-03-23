@@ -17,18 +17,18 @@ class DeleteEntryFragment : BaseSharedFragment<DeleteEntryFragmentBinding, Share
     override fun getLayoutResource(): Int = R.layout.delete_entry_fragment
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
-    private lateinit var doItAgainActivity: DoItAgainEntity
+    private lateinit var doItAgainEntity: DoItAgainEntity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            doItAgainActivity = it.getParcelable(doItAgainActivityKey)!!
+            doItAgainEntity = it.getParcelable(doItAgainActivityKey)!!
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataBinding.viewModel = viewModel
-        dataBinding.doItAgainActivity = doItAgainActivity
+        dataBinding.doItAgainEntity = doItAgainEntity
     }
 }

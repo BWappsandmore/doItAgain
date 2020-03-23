@@ -8,6 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import at.bwappsandmore.doitagain.R
+import at.bwappsandmore.doitagain.ui.DisplayDataFragment
+import at.bwappsandmore.doitagain.ui.MainActivity
 
 abstract class BaseSharedFragment<E : ViewDataBinding, T : BaseViewModel> : Fragment() {
 
@@ -36,5 +39,13 @@ abstract class BaseSharedFragment<E : ViewDataBinding, T : BaseViewModel> : Frag
         lifecycle.addObserver(viewModel)
         return dataBinding.root
 
+    }
+
+    fun closeThisAndOpenNewFragment() {
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .remove(this)
+            .commit()
+        (activity as MainActivity).replaceFragment(R.id.container, DisplayDataFragment())
     }
 }
