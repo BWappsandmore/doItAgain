@@ -16,12 +16,9 @@ class EditEntryFragment : BaseSharedFragment<EditDataFragmentBinding, SharedView
 
     companion object {
         private const val doItAgainActivityKey = "doItAgainActivity"
-        private const val dateKey = "date"
     }
 
     private lateinit var doItAgainEntity: DoItAgainEntity
-
-    private var name: String = ""
     private var dateActivity = DateTime.now()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +31,9 @@ class EditEntryFragment : BaseSharedFragment<EditDataFragmentBinding, SharedView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataBinding.viewModel = viewModel
+        dataBinding.fragment = this
         dataBinding.doItAgainEntity = doItAgainEntity
         calendarView.date = doItAgainEntity.dateActivity.millis
-
 
         backIb.setOnClickListener {
             closeThisAndOpenNewFragment()
@@ -46,5 +43,15 @@ class EditEntryFragment : BaseSharedFragment<EditDataFragmentBinding, SharedView
             dateActivity = DateTime(year, month + 1, dayOfMonth, 0, 1)
             doItAgainEntity.dateActivity = dateActivity
         }
+    }
+
+    fun onClickAction() {
+        viewModel.updateEntity(
+            promptActivityEt.text.toString(),
+            viewModel.calculateDays(doItAgainEntity.dateActivity),
+            doItAgainEntity.dateActivity,
+            doItAgainEntity.id
+        )
+        closeThisAndOpenNewFragment()
     }
 }

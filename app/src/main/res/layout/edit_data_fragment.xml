@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="doItAgainEntity"
             type="at.bwappsandmore.doitagain.room.DoItAgainEntity" />
@@ -11,6 +12,10 @@
         <variable
             name="viewModel"
             type="at.bwappsandmore.doitagain.viewModel.SharedViewModel" />
+
+        <variable
+            name="fragment"
+            type="at.bwappsandmore.doitagain.ui.EditEntryFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,8 +57,8 @@
             android:hint="@string/ExampleEngagement"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:textSize="32sp"
             android:text="@{doItAgainEntity.name}"
+            android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/promptActivitytV" />
@@ -87,10 +92,12 @@
             android:layout_height="wrap_content"
             android:background="@drawable/done_24px"
             android:contentDescription="@string/ok"
+            android:onClick="@{() -> fragment.onClickAction()}"
             android:src="@drawable/done_24px"
-            android:onClick="@{() -> viewModel.updateEntity(promptActivityEt.getText().toString(),viewModel.calculateDays(doItAgainEntity.dateActivity), doItAgainEntity.dateActivity, doItAgainEntity.id)}"
             app:layout_constraintBottom_toBottomOf="@+id/promptActivitytV"
             app:layout_constraintEnd_toEndOf="@+id/calendarView" />
+        <!--            android:onClick="@{() -> fragment.onClickAction()}"-->
+        <!--            android:onClick="@{() -> viewModel.updateEntity(promptActivityEt.getText().toString(),viewModel.calculateDays(doItAgainEntity.dateActivity), doItAgainEntity.dateActivity, doItAgainEntity.id)}"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
