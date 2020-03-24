@@ -31,8 +31,4 @@ abstract class BaseFragment<E : ViewDataBinding, T : BaseViewModel> : Fragment()
         lifecycle.addObserver(viewModel)
         return dataBinding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 }

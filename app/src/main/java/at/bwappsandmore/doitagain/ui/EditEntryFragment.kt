@@ -49,8 +49,7 @@ class EditEntryFragment : BaseSharedFragment<EditDataFragmentBinding, SharedView
         viewModel.updateEntity(
             promptActivityEt.text.toString(),
             doItAgainEntity.dateActivity,
-            doItAgainEntity.id
-        )
+            doItAgainEntity.id)
         closeThisAndOpenNewFragment()
     }
 }

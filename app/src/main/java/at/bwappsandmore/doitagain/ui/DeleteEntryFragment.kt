@@ -7,6 +7,7 @@ import at.bwappsandmore.doitagain.base.BaseSharedFragment
 import at.bwappsandmore.doitagain.databinding.DeleteEntryFragmentBinding
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
+import kotlinx.android.synthetic.main.display_data_fragment.*
 
 class DeleteEntryFragment : BaseSharedFragment<DeleteEntryFragmentBinding, SharedViewModel>() {
 

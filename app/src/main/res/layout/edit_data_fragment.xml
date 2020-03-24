@@ -96,9 +96,6 @@
             android:src="@drawable/done_24px"
             app:layout_constraintBottom_toBottomOf="@+id/promptActivitytV"
             app:layout_constraintEnd_toEndOf="@+id/calendarView" />
-        <!--            android:onClick="@{() -> fragment.onClickAction()}"-->
-        <!--            android:onClick="@{() -> viewModel.updateEntity(promptActivityEt.getText().toString(),viewModel.calculateDays(doItAgainEntity.dateActivity), doItAgainEntity.dateActivity, doItAgainEntity.id)}"-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
