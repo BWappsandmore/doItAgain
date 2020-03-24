@@ -14,6 +14,7 @@ interface LocalRepository {
     fun updateDoItAgainEntity(entity: DoItAgainEntity)
     fun updateListEntities(listEntity: List<DoItAgainEntity>)
     fun updateEntity(name: String, dateActivity:DateTime, id:Int)
+    fun setReminder(hasReminderSet: Boolean, id: Int)
 
     fun removeDoItAgainEntity(entity: DoItAgainEntity)
 
@@ -52,6 +53,12 @@ class AppRepository(private val doItAgainDao: DoItAgainDao) : LocalRepository {
     override fun removeDoItAgainEntity(entity: DoItAgainEntity) {
         GlobalScope.launch {
             doItAgainDao.delete(entity)
+        }
+    }
+
+    override fun setReminder(hasReminderSet: Boolean, id: Int) {
+        GlobalScope.launch {
+            doItAgainDao.setReminder(hasReminderSet,id)
         }
     }
 

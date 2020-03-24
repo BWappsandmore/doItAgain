@@ -26,6 +26,9 @@ interface DoItAgainDao {
     @Query("UPDATE DoItAgainEntity SET name =:name, dateActivity= :dateActivity WHERE id= :id")
     fun updateEntity(name: String, dateActivity:DateTime, id:Int): Int
 
+    @Query("UPDATE DoItAgainEntity SET hasReminderSet =:hasReminderSet WHERE id= :id")
+    fun setReminder(hasReminderSet: Boolean, id: Int): Int
+
     @Update
     suspend fun updateDoItAgain(entity: DoItAgainEntity)
 

@@ -47,6 +47,10 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         when (actionId) {
             ActionType.RESET_COUNTER -> viewModel.resetCounter(doItAgainEntity)
             ActionType.EDIT -> (activity as MainActivity).replaceFragment(R.id.container, getInstanceEditFragment(doItAgainEntity), true)
+            ActionType.REMIND -> {
+                doItAgainEntity.hasReminderSet = !doItAgainEntity.hasReminderSet
+                viewModel.setReminder(doItAgainEntity.hasReminderSet, doItAgainEntity.id)
+            }
             else -> Log.d(null, "Finish all options")
         }
     }, { doItAgainEntity, actionId ->

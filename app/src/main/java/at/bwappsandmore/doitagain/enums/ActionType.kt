@@ -3,7 +3,7 @@ package at.bwappsandmore.doitagain.enums
 enum class ActionType(private val value: Int) {
 
     UNDEFINE(-1),
-    INSERT(0),
+    REMIND(0),
     EDIT(1),
     FindByActivity(2),
     FindById(3),

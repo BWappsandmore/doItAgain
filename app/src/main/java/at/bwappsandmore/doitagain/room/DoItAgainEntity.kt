@@ -21,6 +21,8 @@ data class DoItAgainEntity(
 
     @ColumnInfo(name = "dateActivity")
     @NonNull
-    var dateActivity: DateTime
+    var dateActivity: DateTime,
+
+    var hasReminderSet: Boolean = false
 
 ) : Parcelable

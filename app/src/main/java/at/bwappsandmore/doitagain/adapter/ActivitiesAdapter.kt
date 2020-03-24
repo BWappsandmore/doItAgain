@@ -55,6 +55,11 @@ class ActivitiesAdapter(
                 onActionClicked(activities[adapterPosition], ActionType.EDIT)
                 Log.d(null, "btn edit pressed")
             }
+            itemView.add_alertIB.setOnClickListener {
+                onActionClicked(activities[adapterPosition],ActionType.REMIND)
+                Log.d(null, "btn add_alert pressed")
+                toggleIcon(it)
+            }
             containerView.apply {
 
                 setOnLongClickListener{
@@ -69,6 +74,7 @@ class ActivitiesAdapter(
         fun bind(vo: DoItAgainEntity) {
             itemView.activity_title.text = vo.name
             itemView.sinceDaysTV.text = Days.daysBetween(vo.dateActivity.toLocalDate(), DateTime.now().toLocalDate()).days.toString()
+            if (vo.hasReminderSet) itemView.add_alertIB.setImageResource(R.drawable.add_alert_red_24px)
         }
 
         private fun select(v: View){
@@ -86,6 +92,12 @@ class ActivitiesAdapter(
                 share_activityIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
                 share_activityIB.setImageResource(R.drawable.ic_share_white_24dp)
             }
+        }
+
+        private fun toggleIcon(v:View) {
+            if (v.add_alertIB.id == R.drawable.add_alert_24px)
+                v.add_alertIB.setImageResource(R.drawable.add_alert_red_24px)
+            else v.add_alertIB.setImageResource(R.drawable.add_alert_24px)
         }
     }
 }

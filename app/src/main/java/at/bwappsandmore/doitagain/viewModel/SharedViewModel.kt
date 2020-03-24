@@ -19,6 +19,7 @@ abstract class SharedViewModel : BaseViewModel() {
 
     abstract fun updateDoItAgainActivity(entity: DoItAgainEntity)
     abstract fun updateEntity(name: String, dateActivity:DateTime, id:Int)
+    abstract fun setReminder(hasReminderSet: Boolean, id: Int)
 
     abstract fun deleteDoItAgainActivity(entity: DoItAgainEntity)
 
@@ -61,6 +62,10 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
 
     override fun updateEntity(name: String, dateActivity: DateTime, id: Int) {
         repository.updateEntity(name,  dateActivity, id)
+    }
+
+    override fun setReminder(hasReminderSet: Boolean, id: Int) {
+        repository.setReminder(hasReminderSet, id)
     }
 
     override fun deleteDoItAgainActivity(entity: DoItAgainEntity) {
