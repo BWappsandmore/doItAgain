@@ -4,11 +4,11 @@ enum class ActionType(private val value: Int) {
 
     UNDEFINE(-1),
     INSERT(0),
-    UPDATE(1),
+    EDIT(1),
     FindByActivity(2),
     FindById(3),
     DELETE(4),
-    ResetCounter(5);
+    RESET_COUNTER(5);
 
     fun parse(value: Int): ActionType {
         if (value == -1)

@@ -19,11 +19,9 @@ data class DoItAgainEntity(
     @NonNull
     var name: String,
 
-    @ColumnInfo(name = "daysSinceCounter")
-    @NonNull
-    var daysSinceCounter: Int,
-
     @ColumnInfo(name = "dateActivity")
     @NonNull
-    var dateActivity: DateTime
+    var dateActivity: DateTime,
+
+    var isSelected: Boolean = false
 ) : Parcelable

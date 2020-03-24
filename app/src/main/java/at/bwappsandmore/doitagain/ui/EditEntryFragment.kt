@@ -48,7 +48,6 @@ class EditEntryFragment : BaseSharedFragment<EditDataFragmentBinding, SharedView
     fun onClickAction() {
         viewModel.updateEntity(
             promptActivityEt.text.toString(),
-            viewModel.calculateDays(doItAgainEntity.dateActivity),
             doItAgainEntity.dateActivity,
             doItAgainEntity.id
         )

@@ -11,6 +11,8 @@ import at.bwappsandmore.doitagain.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
+import org.joda.time.DateTime
+import org.joda.time.Days
 
 class ActivitiesAdapter(
     val onActionClicked: (DoItAgainEntity, ActionType) -> Unit,
@@ -46,16 +48,18 @@ class ActivitiesAdapter(
         // you can set an integer for each action
         init {
             itemView.resetIB.setOnClickListener {
-                onActionClicked(activities[adapterPosition], ActionType.ResetCounter)
+                onActionClicked(activities[adapterPosition], ActionType.RESET_COUNTER)
                 Log.d(null, "btn reset pressed")
             }
             itemView.editIB.setOnClickListener {
-                onActionClicked(activities[adapterPosition], ActionType.UPDATE)
+                onActionClicked(activities[adapterPosition], ActionType.EDIT)
                 Log.d(null, "btn edit pressed")
             }
             containerView.apply {
+
                 setOnLongClickListener{
-                    setBackgroundColor(Color.parseColor("#ff0099cc"))
+                    onItemLongClicked(activities[adapterPosition],ActionType.DELETE)
+/*                    setBackgroundColor(Color.parseColor("#ff0099cc"))
                     activity_title.setTextColor(Color.WHITE)
                     sinceDaysTV.setTextColor(Color.WHITE)
                     daysTV.setTextColor(Color.WHITE)
@@ -67,7 +71,7 @@ class ActivitiesAdapter(
                     add_alertIB.setImageResource(R.drawable.add_alert_white_24px)
                     share_activityIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
                     share_activityIB.setImageResource(R.drawable.ic_share_white_24dp)
-                    onItemLongClicked.invoke(activities[adapterPosition], ActionType.DELETE)
+                    onItemLongClicked.invoke(activities[adapterPosition], ActionType.DELETE)*/
                     return@setOnLongClickListener true
                 }
             }
@@ -75,7 +79,7 @@ class ActivitiesAdapter(
 
         fun bind(vo: DoItAgainEntity) {
             itemView.activity_title.text = vo.name
-            itemView.sinceDaysTV.text = vo.daysSinceCounter.toString()
+            itemView.sinceDaysTV.text = Days.daysBetween(vo.dateActivity.toLocalDate(), DateTime.now().toLocalDate()).days.toString()
         }
     }
 }

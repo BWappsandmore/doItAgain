@@ -26,6 +26,8 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
 
         private const val doItAgainActivityKey = "doItAgainActivity"
 
+        private var listEntities = listOf<DoItAgainEntity>()
+
         fun getInstanceEditFragment(doItAgainEntity: DoItAgainEntity): EditEntryFragment {
             val fragment = EditEntryFragment()
             val bundle = Bundle()
@@ -45,8 +47,8 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
 
     private var activitiesAdapter = ActivitiesAdapter({ doItAgainEntity, actionId ->
         when (actionId) {
-            ActionType.ResetCounter -> viewModel.resetCounter(doItAgainEntity)
-            ActionType.UPDATE -> {
+            ActionType.RESET_COUNTER -> viewModel.resetCounter(doItAgainEntity)
+            ActionType.EDIT -> {
                 (activity as MainActivity).replaceFragment(R.id.container, getInstanceEditFragment(doItAgainEntity), true)
             }
             else -> Log.d(null, "Finish all options")
@@ -81,6 +83,7 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         viewModel.displayStoredActivities().observe(viewLifecycleOwner, Observer {
             activitiesAdapter.setActivities(it)
             Log.d("displayStoredActivities", it.toString())
+            return@Observer
         })
 
         fab.setOnClickListener {

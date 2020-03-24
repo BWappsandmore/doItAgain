@@ -3,20 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="name"
-            type="String" />
-
-        <variable
-            name="date"
-            type="String" />
-
-        <variable
-            name="viewModel"
-            type="at.bwappsandmore.doitagain.viewModel.SharedViewModel" />
-    </data>
+    <data></data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/showDBEntriesCL"

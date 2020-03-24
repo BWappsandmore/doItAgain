@@ -18,15 +18,13 @@ abstract class SharedViewModel : BaseViewModel() {
     abstract fun insertDoItAgainActivity(entity: DoItAgainEntity)
 
     abstract fun updateDoItAgainActivity(entity: DoItAgainEntity)
-    abstract fun updateListEntities(listEntity: List<DoItAgainEntity>)
-    abstract fun updateEntity(name: String, daysSinceCounter: Int, dateActivity:DateTime, id:Int)
+    abstract fun updateEntity(name: String, dateActivity:DateTime, id:Int)
 
     abstract fun deleteDoItAgainActivity(entity: DoItAgainEntity)
 
     abstract fun resetCounter(doItAgainEntity: DoItAgainEntity)
 
     abstract fun calculateDays(dateActivity: DateTime): Int
-    abstract fun getDateTime(dateTime: DateTime): DateTime
 
     abstract fun getActivity(): LiveData<DoItAgainEntity>
     abstract fun getActivities(): LiveData<List<DoItAgainEntity>>
@@ -53,14 +51,6 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
             repository.findByActivity(it)
         }
 
-
-    private lateinit var dateTime: DateTime
-
-    override fun getDateTime(dateTime: DateTime): DateTime {
-        this.dateTime = dateTime
-        return this.dateTime
-    }
-
     override fun insertDoItAgainActivity(entity: DoItAgainEntity) {
         repository.insertDoItAgainEntity(entity)
     }
@@ -69,12 +59,8 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
         repository.updateDoItAgainEntity(entity)
     }
 
-    override fun updateListEntities(listEntity: List<DoItAgainEntity>) {
-        repository.updateListEntities(listEntity)
-    }
-
-    override fun updateEntity(name: String, daysSinceCounter: Int, dateActivity: DateTime, id: Int) {
-        repository.updateEntity(name, daysSinceCounter, dateActivity, id)
+    override fun updateEntity(name: String, dateActivity: DateTime, id: Int) {
+        repository.updateEntity(name,  dateActivity, id)
     }
 
     override fun deleteDoItAgainActivity(entity: DoItAgainEntity) {
@@ -88,7 +74,6 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
 
     override fun resetCounter(doItAgainEntity: DoItAgainEntity) {
         Log.d("resetCounter", "viewModel.resetCounter")
-        doItAgainEntity.daysSinceCounter = 0
         doItAgainEntity.dateActivity = DateTime.now()
         updateDoItAgainActivity(doItAgainEntity)
     }

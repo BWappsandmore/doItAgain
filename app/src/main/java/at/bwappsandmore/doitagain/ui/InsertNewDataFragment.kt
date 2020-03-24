@@ -42,7 +42,6 @@ class InsertNewDataFragment : BaseSharedFragment<InsertNewDataFragmentBinding, S
                     DoItAgainEntity(
                         0,
                         promptActivityEt.text.toString(),
-                        viewModel.calculateDays(dateActivity),
                         dateActivity
                     )
                 )

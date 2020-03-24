@@ -23,8 +23,8 @@ interface DoItAgainDao {
     @Insert
     suspend fun insertAll(vararg doItAgain: DoItAgainEntity)
 
-    @Query("UPDATE DoItAgainEntity SET name =:name, daysSinceCounter =:daysSinceCounter, dateActivity= :dateActivity where id= :id")
-    fun updateEntity(name: String, daysSinceCounter: Int, dateActivity:DateTime, id:Int): Int
+    @Query("UPDATE DoItAgainEntity SET name =:name, dateActivity= :dateActivity WHERE id= :id")
+    fun updateEntity(name: String, dateActivity:DateTime, id:Int): Int
 
     @Update
     suspend fun updateDoItAgain(entity: DoItAgainEntity)

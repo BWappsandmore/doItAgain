@@ -13,7 +13,7 @@ interface LocalRepository {
 
     fun updateDoItAgainEntity(entity: DoItAgainEntity)
     fun updateListEntities(listEntity: List<DoItAgainEntity>)
-    fun updateEntity(name: String, daysSinceCounter: Int, dateActivity:DateTime, id:Int)
+    fun updateEntity(name: String, dateActivity:DateTime, id:Int)
 
     fun removeDoItAgainEntity(entity: DoItAgainEntity)
 
@@ -43,9 +43,9 @@ class AppRepository(private val doItAgainDao: DoItAgainDao) : LocalRepository {
         }
     }
 
-    override fun updateEntity(name: String, daysSinceCounter: Int, dateActivity: DateTime, id: Int) {
+    override fun updateEntity(name: String, dateActivity: DateTime, id: Int) {
         GlobalScope.launch {
-            doItAgainDao.updateEntity(name, daysSinceCounter, dateActivity, id)
+            doItAgainDao.updateEntity(name, dateActivity, id)
         }
     }
 

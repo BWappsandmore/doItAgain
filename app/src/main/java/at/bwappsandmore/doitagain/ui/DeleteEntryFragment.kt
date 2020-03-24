@@ -1,6 +1,5 @@
 package at.bwappsandmore.doitagain.ui
 
-
 import android.os.Bundle
 import android.view.View
 import at.bwappsandmore.doitagain.R
@@ -30,5 +29,11 @@ class DeleteEntryFragment : BaseSharedFragment<DeleteEntryFragmentBinding, Share
         super.onViewCreated(view, savedInstanceState)
         dataBinding.viewModel = viewModel
         dataBinding.doItAgainEntity = doItAgainEntity
+        dataBinding.fragment = this
+    }
+
+    fun onClickAction(){
+        viewModel.deleteDoItAgainActivity(doItAgainEntity)
+        closeThisAndOpenNewFragment()
     }
 }

@@ -10,6 +10,10 @@
         <variable
             name="viewModel"
             type="at.bwappsandmore.doitagain.viewModel.SharedViewModel" />
+
+        <variable
+            name="fragment"
+            type="at.bwappsandmore.doitagain.ui.DeleteEntryFragment" />
     </data>
 
 <LinearLayout
@@ -30,7 +34,7 @@
         android:layout_gravity="center"
         android:background="@android:color/holo_blue_dark"
         android:src="@drawable/ic_delete_forever_white_24dp"
-        android:onClick="@{() -> viewModel.deleteDoItAgainActivity(doItAgainEntity)}"
+        android:onClick="@{() -> fragment.onClickAction()}"
         tools:ignore="ContentDescription" />
 
 </LinearLayout>
