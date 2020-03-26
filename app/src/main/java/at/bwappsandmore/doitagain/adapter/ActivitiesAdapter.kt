@@ -75,6 +75,7 @@ class ActivitiesAdapter(
             itemView.activity_title.text = vo.name
             itemView.sinceDaysTV.text = Days.daysBetween(vo.dateActivity.toLocalDate(), DateTime.now().toLocalDate()).days.toString()
             if (vo.hasReminderSet) itemView.add_alertIB.setImageResource(R.drawable.add_alert_red_24px)
+            else itemView.add_alertIB.setImageResource(R.drawable.add_alert_24px)
         }
 
         private fun select(v: View){

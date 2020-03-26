@@ -41,21 +41,43 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
             fragment.arguments = bundle
             return fragment
         }
+
+        fun getInstanceSetReminderFragment(doItAgainEntity: DoItAgainEntity): SetReminderFragment {
+            val fragment = SetReminderFragment()
+            val bundle = Bundle()
+            bundle.putParcelable(doItAgainActivityKey, doItAgainEntity)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
     private var activitiesAdapter = ActivitiesAdapter({ doItAgainEntity, actionId ->
         when (actionId) {
             ActionType.RESET_COUNTER -> viewModel.resetCounter(doItAgainEntity)
-            ActionType.EDIT -> (activity as MainActivity).replaceFragment(R.id.container, getInstanceEditFragment(doItAgainEntity), true)
+            ActionType.EDIT -> (activity as MainActivity).replaceFragment(
+                R.id.container,
+                getInstanceEditFragment(doItAgainEntity),
+                true
+            )
             ActionType.REMIND -> {
                 doItAgainEntity.hasReminderSet = !doItAgainEntity.hasReminderSet
                 viewModel.setReminder(doItAgainEntity.hasReminderSet, doItAgainEntity.id)
+                if (doItAgainEntity.hasReminderSet)
+                    (activity as MainActivity).addFragment(
+                        R.id.container,
+                        getInstanceSetReminderFragment(doItAgainEntity),
+                        true
+                    )
             }
             else -> Log.d(null, "Finish all options")
         }
     }, { doItAgainEntity, actionId ->
         when (actionId) {
-            ActionType.DELETE -> (activity as MainActivity).addFragment(R.id.container, getInstanceDelFragment(doItAgainEntity),true)
+            ActionType.DELETE -> (activity as MainActivity).addFragment(
+                R.id.container,
+                getInstanceDelFragment(doItAgainEntity),
+                true
+            )
             else -> Log.d(null, "Finish all options")
         }
     })

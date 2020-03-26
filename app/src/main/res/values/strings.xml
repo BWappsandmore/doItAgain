@@ -9,4 +9,6 @@
     <string name="goBack">Go back</string>
     <string name="ok">OK</string>
     <string name="days">days</string>
+    <string name="remindMe">remind me in</string>
+    <string name="empty">""</string>
 </resources>
