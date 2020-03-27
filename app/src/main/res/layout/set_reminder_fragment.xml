@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
@@ -43,6 +43,7 @@
             android:textSize="32sp"
             android:importantForAutofill="no"
             android:hint="@string/empty"
+            android:gravity="center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/remindMeTV"
             app:layout_constraintStart_toStartOf="@+id/remindMeTV"
@@ -96,7 +97,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/daysET"
             app:layout_constraintEnd_toStartOf="@+id/daysET"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/daysET" />
+            app:layout_constraintTop_toTopOf="@+id/daysET"
+            android:contentDescription="@string/remindMe" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

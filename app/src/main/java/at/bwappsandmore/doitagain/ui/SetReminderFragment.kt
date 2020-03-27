@@ -2,13 +2,24 @@ package at.bwappsandmore.doitagain.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.base.BaseSharedFragment
 import at.bwappsandmore.doitagain.databinding.SetReminderFragmentBinding
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
-import at.bwappsandmore.doitagain.util.NotificationUtils
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
+import at.bwappsandmore.doitagain.worker.NotifyWorker
 import kotlinx.android.synthetic.main.set_reminder_fragment.*
+import at.bwappsandmore.doitagain.enums.TransferNotifications
+import org.joda.time.DateTime
+import org.joda.time.Days
+import java.lang.Integer.parseInt
+import java.lang.Long.parseLong
+import java.util.concurrent.TimeUnit
 
 class SetReminderFragment : BaseSharedFragment<SetReminderFragmentBinding, SharedViewModel>() {
 
@@ -20,6 +31,7 @@ class SetReminderFragment : BaseSharedFragment<SetReminderFragmentBinding, Share
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
     private lateinit var doItAgainEntity: DoItAgainEntity
+    private lateinit var workManager: WorkManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +53,27 @@ class SetReminderFragment : BaseSharedFragment<SetReminderFragmentBinding, Share
     }
 
     fun onAcceptAction() {
-        NotificationUtils.setNotification(activity as MainActivity)
+        val data = Data.Builder()
+            .putString(TransferNotifications.TITLE.type, doItAgainEntity.name)
+            .putString(
+                TransferNotifications.DAYS.type,
+                Days.daysBetween(
+                    doItAgainEntity.dateActivity.toLocalDate(),
+                    DateTime.now().toLocalDate()
+                ).days.toString()
+            )
+            .build()
+        workManager = WorkManager.getInstance(context!!)
+        val notificationBuilder = OneTimeWorkRequest.Builder(NotifyWorker::class.java)
+            .setInitialDelay(parseLong(daysET.text.toString()), TimeUnit.DAYS)
+            .setInputData(data)
+            .build()
+        workManager.enqueue(notificationBuilder)
+        Toast.makeText(context,  "I will remind you in "+daysET.text.toString()+" days.", Toast.LENGTH_LONG).show()
         closeThisAndOpenNewFragment()
     }
 
-    fun onBackAction(){
+    fun onBackAction() {
         doItAgainEntity.hasReminderSet = !doItAgainEntity.hasReminderSet
         viewModel.setReminder(doItAgainEntity.hasReminderSet, doItAgainEntity.id)
         closeThisAndOpenNewFragment()
