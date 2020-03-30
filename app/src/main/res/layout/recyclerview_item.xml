@@ -12,21 +12,30 @@
         style="@style/activity_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Test title" />
 
     <TextView
-        android:id="@+id/sinceDaysTV"
+        android:id="@+id/sinceTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
+        android:text="@string/since"
         app:layout_constraintStart_toStartOf="@+id/activity_title"
+        app:layout_constraintTop_toTopOf="@+id/sinceDaysTV"
+        tools:text="since" />
+
+
+    <TextView
+        android:id="@+id/sinceDaysTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@+id/sinceTV"
         app:layout_constraintTop_toBottomOf="@+id/activity_title"
         tools:text="Test sinceDays" />
 
@@ -44,28 +53,28 @@
         android:id="@+id/resetIB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
         android:background="#80FFFFFF"
         android:src="@drawable/reset_24px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/editIB"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/editIB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
         android:background="#80FFFFFF"
         android:src="@drawable/edit_24px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/add_alertIB"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.512"
         tools:ignore="ContentDescription" />
 
@@ -73,15 +82,15 @@
         android:id="@+id/add_alertIB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
         android:background="#80FFFFFF"
         android:src="@drawable/add_alert_24px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/share_activityIB"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.536"
-        app:layout_constraintHorizontal_chainStyle="packed"
         tools:ignore="ContentDescription" />
 
     <ImageButton

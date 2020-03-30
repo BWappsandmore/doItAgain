@@ -72,7 +72,7 @@ class SetReminderFragment : BaseSharedFragment<SetReminderFragmentBinding, Share
         workManager.enqueue(notificationBuilder)
         Toast.makeText(
             context,
-            "I will remind you in " + daysET.text.toString() + " days.",
+            context!!.resources.getString(R.string.toast_notify) +" "+ daysET.text.toString() + " "+ context!!.resources.getString(R.string.days)+".",
             Toast.LENGTH_LONG
         ).show()
         closeThisAndOpenNewFragment()

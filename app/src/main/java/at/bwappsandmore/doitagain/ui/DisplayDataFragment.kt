@@ -1,7 +1,7 @@
 package at.bwappsandmore.doitagain.ui
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +16,8 @@ import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
 import kotlinx.android.synthetic.main.display_data_fragment.*
+import org.joda.time.DateTime
+import org.joda.time.Days
 
 class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, SharedViewModel>() {
 
@@ -69,7 +71,23 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
                         true
                     )
             }
-            else -> Log.d(null, "Finish all options")
+            ActionType.SHARE -> {
+                val sendMessage = doItAgainEntity.name + "\n \n"+context?.resources?.getString(R.string.lastTimeDone)+" " + Days.daysBetween(
+                    doItAgainEntity.dateActivity.toLocalDate(),
+                    DateTime.now().toLocalDate()
+                ).days.toString() + " "+context?.resources?.getString(R.string.days_ago)
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_SUBJECT, "DoItAgain")
+                    putExtra(Intent.EXTRA_TEXT, sendMessage)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+            }
+            else -> {
+            }
         }
     }, { doItAgainEntity, actionId ->
         when (actionId) {
@@ -78,7 +96,8 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
                 getInstanceDelFragment(doItAgainEntity),
                 true
             )
-            else -> Log.d(null, "Finish all options")
+            else -> {
+            }
         }
     })
 
@@ -86,7 +105,6 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         super.onCreate(savedInstanceState)
         viewModel.displayStoredActivities()
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -104,7 +122,6 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
 
         viewModel.displayStoredActivities().observe(viewLifecycleOwner, Observer {
             activitiesAdapter.setActivities(it)
-            Log.d("displayStoredActivities", it.toString())
             return@Observer
         })
 

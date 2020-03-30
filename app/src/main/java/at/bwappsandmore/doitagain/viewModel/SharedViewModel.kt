@@ -78,7 +78,6 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
     }
 
     override fun resetCounter(doItAgainEntity: DoItAgainEntity) {
-        Log.d("resetCounter", "viewModel.resetCounter")
         doItAgainEntity.dateActivity = DateTime.now()
         updateDoItAgainActivity(doItAgainEntity)
     }

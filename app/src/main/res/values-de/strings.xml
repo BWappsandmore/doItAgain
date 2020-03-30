@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">doItAgain</string>
+    <string name="action_settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="EnterEngagement">Aktivität</string>
+    <string name="ExampleEngagement">Musik hören</string>
+    <string name="lastTimeDone">zuletzt gemacht:</string>
+    <string name="goBack">Zurück</string>
+    <string name="ok">OK</string>
+    <string name="days">Tagen</string>
+    <string name="days_ago">Tagen</string>
+    <string name="remindMe">Erinnere mich in</string>
+    <string name="empty">""</string>
+    <string name="since">seit</string>
+    <string name="toast_notify">Ich erinnere dich in</string>
+</resources>

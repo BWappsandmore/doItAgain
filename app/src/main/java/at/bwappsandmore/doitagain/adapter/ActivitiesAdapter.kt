@@ -49,22 +49,21 @@ class ActivitiesAdapter(
         init {
             itemView.resetIB.setOnClickListener {
                 onActionClicked(activities[adapterPosition], ActionType.RESET_COUNTER)
-                Log.d(null, "btn reset pressed")
             }
             itemView.editIB.setOnClickListener {
                 onActionClicked(activities[adapterPosition], ActionType.EDIT)
-                Log.d(null, "btn edit pressed")
             }
             itemView.add_alertIB.setOnClickListener {
                 onActionClicked(activities[adapterPosition],ActionType.REMIND)
-                Log.d(null, "btn add_alert pressed")
                 toggleIcon(it)
+            }
+            itemView.share_activityIB.setOnClickListener {
+                onActionClicked(activities[adapterPosition],ActionType.SHARE)
             }
             containerView.apply {
 
                 setOnLongClickListener{
                     onItemLongClicked(activities[adapterPosition],ActionType.DELETE)
-                    Log.d(null, "item was long clicked")
                     select(it)
                     return@setOnLongClickListener true
                 }
@@ -82,6 +81,7 @@ class ActivitiesAdapter(
             v.apply {
                 setBackgroundColor(Color.parseColor("#ff0099cc"))
                 activity_title.setTextColor(Color.WHITE)
+                sinceTV.setTextColor(Color.WHITE)
                 sinceDaysTV.setTextColor(Color.WHITE)
                 daysTV.setTextColor(Color.WHITE)
                 resetIB.setBackgroundColor(Color.parseColor("#ff0099cc"))

@@ -40,7 +40,11 @@ class NotifyWorker(context: Context, params: WorkerParameters) : Worker(context,
 
         val notification = NotificationCompat.Builder(mContext, CHANNEL_ID)
             .setContentTitle(inputData.getString(TransferNotifications.TITLE.type))
-            .setContentText("last time done " + inputData.getString(TransferNotifications.DAYS.type) + " days ago.")
+            .setContentText(
+                mContext.resources.getString(R.string.since) + " " + inputData.getString(
+                    TransferNotifications.DAYS.type
+                ) + " " + mContext.resources.getString(R.string.days_ago)
+            )
             .setSmallIcon(R.drawable.ic_settings_backup_restore_48dp)
             .setAutoCancel(true)
 
