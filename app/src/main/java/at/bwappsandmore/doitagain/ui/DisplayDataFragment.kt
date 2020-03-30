@@ -72,10 +72,10 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
                     )
             }
             ActionType.SHARE -> {
-                val sendMessage = doItAgainEntity.name + "\n \n"+context?.resources?.getString(R.string.lastTimeDone)+" " + Days.daysBetween(
+                val sendMessage = doItAgainEntity.name + "\n \n"+context?.resources?.getString(R.string.since)+" " + Days.daysBetween(
                     doItAgainEntity.dateActivity.toLocalDate(),
                     DateTime.now().toLocalDate()
-                ).days.toString() + " "+context?.resources?.getString(R.string.days_ago)
+                ).days.toString() + " "+context?.resources?.getString(R.string.days)+"."
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_SUBJECT, "DoItAgain")
