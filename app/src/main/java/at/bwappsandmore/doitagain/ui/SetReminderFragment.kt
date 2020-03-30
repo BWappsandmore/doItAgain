@@ -62,6 +62,7 @@ class SetReminderFragment : BaseSharedFragment<SetReminderFragmentBinding, Share
                     DateTime.now().toLocalDate()
                 ).days.toString()
             )
+            .putInt("EntityID", doItAgainEntity.id)
             .build()
         workManager = WorkManager.getInstance(context!!)
         val notificationBuilder = OneTimeWorkRequest.Builder(NotifyWorker::class.java)
@@ -69,7 +70,11 @@ class SetReminderFragment : BaseSharedFragment<SetReminderFragmentBinding, Share
             .setInputData(data)
             .build()
         workManager.enqueue(notificationBuilder)
-        Toast.makeText(context,  "I will remind you in "+daysET.text.toString()+" days.", Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            context,
+            "I will remind you in " + daysET.text.toString() + " days.",
+            Toast.LENGTH_LONG
+        ).show()
         closeThisAndOpenNewFragment()
     }
 

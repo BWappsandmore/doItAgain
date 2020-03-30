@@ -46,6 +46,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
         replaceFragment(R.id.container, DisplayDataFragment())
+
+        if (intent.hasExtra("EntityID")) {
+            viewModel.setReminder(false, intent.getIntExtra("EntityID",0))
+            Log.d("onCreate","Intent has arrived")
+        }
     }
 
     override fun onBackPressed() {

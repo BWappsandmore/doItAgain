@@ -2,12 +2,15 @@ package at.bwappsandmore.doitagain.worker
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.enums.TransferNotifications
+import at.bwappsandmore.doitagain.ui.MainActivity
 
 class NotifyWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
 
@@ -37,8 +40,22 @@ class NotifyWorker(context: Context, params: WorkerParameters) : Worker(context,
 
         val notification = NotificationCompat.Builder(mContext, CHANNEL_ID)
             .setContentTitle(inputData.getString(TransferNotifications.TITLE.type))
-            .setContentText("last time done "+inputData.getString(TransferNotifications.DAYS.type)+ " days ago.")
+            .setContentText("last time done " + inputData.getString(TransferNotifications.DAYS.type) + " days ago.")
             .setSmallIcon(R.drawable.ic_settings_backup_restore_48dp)
+            .setAutoCancel(true)
+
+        val notificationIntent = Intent(mContext, MainActivity::class.java).apply {
+            putExtra("EntityID", inputData.getInt("EntityID", 0))
+        }
+
+        val pendingIntent = PendingIntent.getActivity(
+            mContext,
+            1,
+            notificationIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        notification.setContentIntent(pendingIntent)
+
         notificationManager.notify(1, notification.build())
     }
 }
