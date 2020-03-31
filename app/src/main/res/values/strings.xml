@@ -10,7 +10,6 @@
     <string name="days">days</string>
     <string name="days_ago">days ago</string>
     <string name="remindMe">remind me in</string>
-    <string name="empty">""</string>
     <string name="since">since</string>
     <string name="toast_notify">I will notify you in</string>
 </resources>

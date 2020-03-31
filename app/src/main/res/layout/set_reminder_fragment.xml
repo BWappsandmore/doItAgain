@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
 
         <variable
@@ -40,9 +40,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            android:textSize="32sp"
+            android:textSize="24sp"
             android:importantForAutofill="no"
-            android:hint="@string/empty"
+            android:autofillHints="username"
             android:gravity="center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/remindMeTV"

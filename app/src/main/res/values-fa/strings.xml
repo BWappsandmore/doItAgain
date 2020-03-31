@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">doItAgain</string>
+    <string name="action_settings">تنظیمات</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="EnterEngagement">فعالیت</string>
+    <string name="ExampleEngagement">توضیحات</string>
+    <string name="lastTimeDone">آخرین بار انجام شد</string>
+    <string name="goBack">بازگشت</string>
+    <string name="ok">خوب</string>
+    <string name="days">روزها</string>
+    <string name="days_ago">چند روز قبل</string>
+    <string name="remindMe">به من یادآوری کن</string>
+    <string name="since">از آنجا که</string>
+    <string name="toast_notify">من به شما اطلاع خواهم داد</string>
+</resources>
