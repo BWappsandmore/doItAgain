@@ -13,4 +13,5 @@
     <string name="remindMe">به من یادآوری کن</string>
     <string name="since">از آنجا که</string>
     <string name="toast_notify">من به شما اطلاع خواهم داد</string>
+    <string name="dark_theme">حالت تاریک</string>
 </resources>

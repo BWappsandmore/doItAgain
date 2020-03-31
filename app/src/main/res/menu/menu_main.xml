@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.bwappsandmore.doitagain.ui.MainActivity">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/checkable_menu"
+        android:title="@string/dark_theme"
+        android:checkable="true"
+        app:actionLayout="@layout/switch_item" />
 </menu>

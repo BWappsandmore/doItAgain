@@ -1,6 +1,9 @@
 package at.bwappsandmore.doitagain.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import at.bwappsandmore.doitagain.R
@@ -18,6 +21,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
 
     @Inject
     lateinit var repository: AppRepository
+
+    private var isChecked = false
 
     override fun getLayoutResource(): Int = R.layout.activity_main
 
@@ -38,7 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
         replaceFragment(R.id.container, DisplayDataFragment())
 
         if (intent.hasExtra("EntityID")) {
-            viewModel.setReminder(false, intent.getIntExtra("EntityID",0))
+            viewModel.setReminder(false, intent.getIntExtra("EntityID", 0))
         }
     }
 
@@ -47,19 +52,33 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
         super.onBackPressed()
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val checkable = menu?.findItem(R.id.checkable_menu)
+        checkable?.isChecked = isChecked
+        return true
+    }
+
     // comment-in if needed
-/*    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+            R.id.checkable_menu -> {
+                if (!isChecked) {
+                    isChecked = !item.isChecked
+                    item.isChecked = isChecked
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+                true
+            }
+            else -> false
         }
-    }*/
+    }
 
     override fun inject() {
         DaggerAppComponent.builder().appModule(AppModule(application)).build().inject(this)

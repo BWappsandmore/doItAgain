@@ -13,4 +13,5 @@
     <string name="remindMe">Erinnere mich in</string>
     <string name="since">seit</string>
     <string name="toast_notify">Ich erinnere dich in</string>
+    <string name="dark_theme">Nachtmodus</string>
 </resources>
