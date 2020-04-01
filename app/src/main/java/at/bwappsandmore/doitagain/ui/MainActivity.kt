@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import at.bwappsandmore.doitagain.R
@@ -79,11 +80,22 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
                     isChecked = !item.isChecked
                     item.isChecked = isChecked
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    sharedPreferences.edit().putBoolean("darkModeChecked", isChecked).apply()
+                    sharedPreferences.edit {
+                        putBoolean(
+                            "darkModeChecked",
+                            isChecked
+                        )
+                    }
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     isChecked = false
-                    sharedPreferences.edit().putBoolean("darkModeChecked", isChecked).apply()
+                    sharedPreferences.edit {
+                        putBoolean(
+                            "darkModeChecked",
+                            isChecked
+                        )
+                    }
+
                 }
                 true
             }
