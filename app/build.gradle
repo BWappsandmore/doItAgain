@@ -69,7 +69,7 @@ dependencies {
 
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
-    kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.androidxArchVersion"
 
     // ViewModel Kotlin support
