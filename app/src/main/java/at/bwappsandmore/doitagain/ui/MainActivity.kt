@@ -1,20 +1,20 @@
 package at.bwappsandmore.doitagain.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.preference.PreferenceManager
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.base.BaseActivity
 import at.bwappsandmore.doitagain.databinding.ActivityMainBinding
 import at.bwappsandmore.doitagain.dl.AppModule
-import at.bwappsandmore.doitagain.dl.DaggerAppComponent
 import at.bwappsandmore.doitagain.repository.AppRepository
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
 import at.bwappsandmore.doitagain.viewModel.SharedViewModelImpl
+import at.bwappsandmore.doitagain.dl.DaggerAppComponent
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -22,6 +22,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
 
     @Inject
     lateinit var repository: AppRepository
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+
     private var isChecked = false
 
     override fun getLayoutResource(): Int = R.layout.activity_main
@@ -45,8 +49,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
             viewModel.setReminder(false, intent.getIntExtra("EntityID", 0))
         }
 
-        val sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this)
-        isChecked = sharedPreferences.getBoolean("darkModeChecked",false)
+        isChecked = sharedPreferences.getBoolean("darkModeChecked", false)
         if (isChecked)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         else
@@ -60,30 +63,27 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val checkable = menu?.findItem(R.id.checkable_menu)
-        val sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this)
-        checkable?.isChecked = sharedPreferences.getBoolean("darkModeChecked",false)
+        checkable?.isChecked = sharedPreferences.getBoolean("darkModeChecked", false)
         return true
     }
 
-    // comment-in if needed
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this)
         return when (item.itemId) {
             R.id.checkable_menu -> {
                 if (!isChecked) {
                     isChecked = !item.isChecked
                     item.isChecked = isChecked
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    sharedPreferences.edit().putBoolean("darkModeChecked",isChecked).apply()
+                    sharedPreferences.edit().putBoolean("darkModeChecked", isChecked).apply()
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     isChecked = false
-                    sharedPreferences.edit().putBoolean("darkModeChecked",isChecked).apply()
+                    sharedPreferences.edit().putBoolean("darkModeChecked", isChecked).apply()
                 }
                 true
             }

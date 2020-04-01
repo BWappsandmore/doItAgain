@@ -8,19 +8,19 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
-abstract class BaseActivity<E : ViewDataBinding,T : BaseViewModel> : AppCompatActivity() {
+abstract class BaseActivity<E : ViewDataBinding, T : BaseViewModel> : AppCompatActivity() {
 
-    lateinit var viewModel   : T
+    lateinit var viewModel: T
 
-    lateinit var dataBinding : E
+    lateinit var dataBinding: E
 
     abstract fun inject()
 
     abstract fun getLayoutResource(): Int
 
-    abstract fun getViewModelClass() : Class<T>
+    abstract fun getViewModelClass(): Class<T>
 
-    abstract fun getViewModelFactory() : ViewModelProvider.Factory
+    abstract fun getViewModelFactory(): ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +30,19 @@ abstract class BaseActivity<E : ViewDataBinding,T : BaseViewModel> : AppCompatAc
         lifecycle.addObserver(viewModel)
     }
 
-    fun replaceFragment(@IdRes layoutId : Int, fragment: Fragment, backStack : Boolean  = false) {
+    fun replaceFragment(@IdRes layoutId: Int, fragment: Fragment, backStack: Boolean = false) {
         val transfer = supportFragmentManager.beginTransaction()
             .replace(layoutId, fragment)
-        if (backStack){
+        if (backStack) {
             transfer.addToBackStack(fragment.tag)
         }
         transfer.commit()
     }
 
-    fun addFragment(@IdRes layoutId : Int, fragment: Fragment, backStack : Boolean  = false) {
+    fun addFragment(@IdRes layoutId: Int, fragment: Fragment, backStack: Boolean = false) {
         val transfer = supportFragmentManager.beginTransaction()
             .add(layoutId, fragment)
-        if (backStack){
+        if (backStack) {
             transfer.addToBackStack(fragment.tag)
         }
         transfer.commit()
