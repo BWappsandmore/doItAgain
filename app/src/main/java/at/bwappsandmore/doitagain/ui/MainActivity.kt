@@ -42,6 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
         replaceFragment(R.id.container, DisplayDataFragment())

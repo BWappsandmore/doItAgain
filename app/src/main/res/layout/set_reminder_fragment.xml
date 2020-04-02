@@ -20,8 +20,8 @@
         android:id="@+id/setReminderCL"
         android:layout_height="200dp"
         android:layout_width="match_parent"
-        android:layout_gravity="center_vertical"
-        android:background="@color/colorWhite">
+        android:background="?android:attr/windowBackground"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/remindMeTV"
@@ -69,7 +69,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/back_24px"
             android:contentDescription="@string/goBack"
-            android:src="@drawable/back_24px"
+            app:srcCompat="@drawable/back_24px"
             android:onClick="@{() -> fragment.onBackAction()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -83,7 +83,7 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/done_24px"
             android:contentDescription="@string/ok"
-            android:src="@drawable/done_24px"
+            app:srcCompat="@drawable/done_24px"
             android:onClick="@{() -> fragment.onAcceptAction()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_notifications_active_black_48dp"
-            android:src="@drawable/ic_notifications_active_black_48dp"
+            app:srcCompat="@drawable/ic_notifications_active_black_48dp"
             app:layout_constraintBottom_toBottomOf="@+id/daysET"
             app:layout_constraintEnd_toStartOf="@+id/daysET"
             app:layout_constraintStart_toStartOf="parent"
