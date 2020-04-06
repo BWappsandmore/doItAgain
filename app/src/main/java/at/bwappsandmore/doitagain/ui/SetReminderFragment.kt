@@ -68,6 +68,7 @@ class SetReminderFragment : BaseSharedFragment<SetReminderFragmentBinding, Share
         val notificationBuilder = OneTimeWorkRequest.Builder(NotifyWorker::class.java)
             .setInitialDelay(parseLong(daysET.text.toString()), TimeUnit.DAYS)
             .setInputData(data)
+            .addTag(doItAgainEntity.name)
             .build()
         workManager.enqueue(notificationBuilder)
         Toast.makeText(

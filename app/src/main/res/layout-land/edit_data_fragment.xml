@@ -19,7 +19,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/edit_entity_CL"
+        android:id="@+id/insert_entity_CL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.EditEntryFragment">

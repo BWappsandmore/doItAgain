@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.WorkManager
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.adapter.ActivitiesAdapter
 import at.bwappsandmore.doitagain.base.BaseSharedFragment
@@ -23,6 +24,9 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
 
     override fun getLayoutResource(): Int = R.layout.display_data_fragment
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
+
+    private lateinit var workManager: WorkManager
+
 
     companion object {
 
@@ -70,21 +74,10 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
                         getInstanceSetReminderFragment(doItAgainEntity),
                         true
                     )
-            }
-            ActionType.SHARE -> {
-                val sendMessage = doItAgainEntity.name + "\n \n"+context?.resources?.getString(R.string.since)+" " + Days.daysBetween(
-                    doItAgainEntity.dateActivity.toLocalDate(),
-                    DateTime.now().toLocalDate()
-                ).days.toString() + " "+context?.resources?.getString(R.string.days)+"."
-                val sendIntent: Intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_SUBJECT, "DoItAgain")
-                    putExtra(Intent.EXTRA_TEXT, sendMessage)
-                    type = "text/plain"
+                else {
+                    workManager = WorkManager.getInstance(context!!)
+                    workManager.cancelAllWorkByTag(doItAgainEntity.name)
                 }
-
-                val shareIntent = Intent.createChooser(sendIntent, null)
-                startActivity(shareIntent)
             }
             else -> {
             }
