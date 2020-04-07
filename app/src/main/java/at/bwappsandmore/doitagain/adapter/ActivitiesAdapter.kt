@@ -1,15 +1,21 @@
 package at.bwappsandmore.doitagain.adapter
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.R
+import at.bwappsandmore.doitagain.enums.ActionType
+import at.bwappsandmore.doitagain.enums.ButtonState
+import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
-import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import org.joda.time.DateTime
 import org.joda.time.Days
 
@@ -98,4 +104,3 @@ class ActivitiesAdapter(
         }
     }
 }
-

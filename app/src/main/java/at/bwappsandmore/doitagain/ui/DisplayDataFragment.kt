@@ -1,13 +1,15 @@
 package at.bwappsandmore.doitagain.ui
 
-import android.content.Intent
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkManager
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.adapter.ActivitiesAdapter
@@ -15,10 +17,9 @@ import at.bwappsandmore.doitagain.base.BaseSharedFragment
 import at.bwappsandmore.doitagain.databinding.DisplayDataFragmentBinding
 import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
+import at.bwappsandmore.doitagain.util.SwipeController
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
 import kotlinx.android.synthetic.main.display_data_fragment.*
-import org.joda.time.DateTime
-import org.joda.time.Days
 
 class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, SharedViewModel>() {
 
@@ -26,7 +27,6 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java
 
     private lateinit var workManager: WorkManager
-
 
     companion object {
 
@@ -113,6 +113,16 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
             adapter = activitiesAdapter
         }
 
+        val swipeController = SwipeController(context!!)
+        val itemTouchHelper = ItemTouchHelper(swipeController)
+        itemTouchHelper.attachToRecyclerView(recyclerview)
+
+        recyclerview.addItemDecoration(object : RecyclerView.ItemDecoration(){
+            override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+                swipeController.onDraw(c)
+            }
+        })
+
         viewModel.displayStoredActivities().observe(viewLifecycleOwner, Observer {
             activitiesAdapter.setActivities(it)
             return@Observer
@@ -127,3 +137,5 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
         }
     }
 }
+
+
