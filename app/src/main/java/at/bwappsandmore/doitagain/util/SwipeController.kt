@@ -102,7 +102,8 @@ class SwipeController(context: Context) : Callback() {
     private fun setTouchUpListener(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
         recyclerView.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
-                super@SwipeController.onChildDraw(c, recyclerView, viewHolder, 0F, dY, actionState, isCurrentlyActive)
+                //super@SwipeController.onChildDraw(c, recyclerView, viewHolder, 0F, dY, actionState, isCurrentlyActive)
+                super@SwipeController.onChildDraw(c, recyclerView, viewHolder, 0F, dY, actionState, false)
                 recyclerView.setOnTouchListener { _, _ ->
                     false
                 }
