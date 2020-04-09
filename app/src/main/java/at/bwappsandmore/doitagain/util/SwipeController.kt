@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.RecyclerView
 import at.bwappsandmore.doitagain.R.drawable
 import at.bwappsandmore.doitagain.enums.ButtonState
-import java.lang.Math
 
 
-class SwipeController(context: Context) : Callback() {
+class SwipeController(_context: Context) : Callback() {
 
     private var swipeBack = false
 
@@ -27,7 +26,7 @@ class SwipeController(context: Context) : Callback() {
 
     private var currentItemViewHolder: RecyclerView.ViewHolder? = null
 
-    private val mContext = context
+    private val context = _context
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         return makeMovementFlags(0, RIGHT)
@@ -142,14 +141,14 @@ class SwipeController(context: Context) : Callback() {
         val leftButton = RectF(itemView.left.toFloat(), itemView.top.toFloat(), itemView.left + buttonWidthWithoutPadding, itemView.bottom.toFloat())
         p.color = Color.parseColor("#ff0099cc")
         c.drawRoundRect(leftButton, corners, corners, p)
-        val leftIcon: Drawable? = ContextCompat.getDrawable(mContext, drawable.reset_white_24px)
+        val leftIcon: Drawable? = ContextCompat.getDrawable(context, drawable.reset_white_24px)
         val leftIconBitmap = drawableToBitmap(leftIcon!!)
         c.drawBitmap(leftIconBitmap, leftButton.left + (leftButton.width()/2) - (leftIconBitmap.width.div(2)) , leftButton.top + (leftButton.height()/2)-(leftIconBitmap.height.div(2)),p)
 
         val rightButton = RectF(itemView.right - buttonWidthWithoutPadding, itemView.top.toFloat(), itemView.right.toFloat(), itemView.bottom.toFloat())
         p.color = Color.parseColor("#ff0099cc")
         c.drawRoundRect(rightButton, corners, corners, p)
-        val rightIcon: Drawable? = ContextCompat.getDrawable(mContext, drawable.add_alert_white_24px)
+        val rightIcon: Drawable? = ContextCompat.getDrawable(context, drawable.add_alert_white_24px)
         val rightIconBitmap = drawableToBitmap(rightIcon!!)
         c.drawBitmap(rightIconBitmap,rightButton.left + (rightButton.width()/2) - (rightIconBitmap.width.div(2)), rightButton.top + (rightButton.height()/2)- (rightIconBitmap.height.div(2)),p)
 

@@ -18,6 +18,7 @@ import at.bwappsandmore.doitagain.databinding.DisplayDataFragmentBinding
 import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import at.bwappsandmore.doitagain.util.SwipeController
+import at.bwappsandmore.doitagain.util.SwipeControllerActions
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
 import kotlinx.android.synthetic.main.display_data_fragment.*
 
