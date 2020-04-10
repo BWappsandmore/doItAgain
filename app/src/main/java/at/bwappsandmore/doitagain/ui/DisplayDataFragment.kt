@@ -114,6 +114,16 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
             adapter = activitiesAdapter
         }
 
+ /*       val swipeController = SwipeController(context!!, object: SwipeController.SwipeControllerActions{
+            override fun onRightClicked(position: Int){
+                Log.d(null, "TestRight")
+            }
+
+            override fun onLeftClicked(position: Int){
+                Log.d(null, "TestLeft")
+            }
+        })
+*/
         val swipeController = SwipeController(context!!)
         val itemTouchHelper = ItemTouchHelper(swipeController)
         itemTouchHelper.attachToRecyclerView(recyclerview)

@@ -28,6 +28,8 @@ class SwipeController(_context: Context) : Callback() {
 
     private val context = _context
 
+    constructor(_context: Context, buttonsAction : SwipeControllerActions) : this(_context)
+
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         return makeMovementFlags(0, RIGHT)
     }
