@@ -1,6 +1,6 @@
 package at.bwappsandmore.doitagain.util
 
-interface SwipeControllerActions{
-    fun onLeftClicked(position: Int) {}
-    fun onRightClicked(position: Int) {}
+abstract class SwipeControllerActions{
+    open fun onLeftClicked(position: Int) {}
+    open fun onRightClicked(position: Int) {}
 }

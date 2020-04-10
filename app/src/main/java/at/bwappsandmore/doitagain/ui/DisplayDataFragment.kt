@@ -2,6 +2,7 @@ package at.bwappsandmore.doitagain.ui
 
 import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -114,7 +115,7 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
             adapter = activitiesAdapter
         }
 
- /*       val swipeController = SwipeController(context!!, object: SwipeController.SwipeControllerActions{
+        val swipeController = SwipeController(context!!, object: SwipeControllerActions() {
             override fun onRightClicked(position: Int){
                 Log.d(null, "TestRight")
             }
@@ -123,8 +124,8 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
                 Log.d(null, "TestLeft")
             }
         })
-*/
-        val swipeController = SwipeController(context!!)
+
+        //val swipeController = SwipeController(context!!)
         val itemTouchHelper = ItemTouchHelper(swipeController)
         itemTouchHelper.attachToRecyclerView(recyclerview)
 

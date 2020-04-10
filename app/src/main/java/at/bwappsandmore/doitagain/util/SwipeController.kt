@@ -28,7 +28,9 @@ class SwipeController(_context: Context) : Callback() {
 
     private val context = _context
 
-    constructor(_context: Context, buttonsAction : SwipeControllerActions) : this(_context)
+    constructor(_context: Context, _buttonsAction : SwipeControllerActions) : this(_context){
+        this.buttonsActions = _buttonsAction
+    }
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         return makeMovementFlags(0, RIGHT)
@@ -51,7 +53,7 @@ class SwipeController(_context: Context) : Callback() {
     override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
         var mdX = dX
         if (actionState == ACTION_STATE_SWIPE) {
-            if (buttonShowedState != ButtonState.GONE) {
+           if (buttonShowedState != ButtonState.GONE) {
                 if (buttonShowedState == ButtonState.LEFT_VISIBLE)
                     mdX = Math.max(dX, buttonWidth)
                 if (buttonShowedState == ButtonState.RIGHT_VISIBLE)
@@ -80,7 +82,7 @@ class SwipeController(_context: Context) : Callback() {
                 else if (dX > buttonWidth)
                     buttonShowedState = ButtonState.LEFT_VISIBLE
 
-                if (buttonShowedState !== ButtonState.GONE) {
+                if (buttonShowedState != ButtonState.GONE) {
                     setTouchDownListener(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     setItemsClickable(recyclerView, false)
                 }
@@ -102,7 +104,6 @@ class SwipeController(_context: Context) : Callback() {
     private fun setTouchUpListener(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
         recyclerView.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
-                //super@SwipeController.onChildDraw(c, recyclerView, viewHolder, 0F, dY, actionState, isCurrentlyActive)
                 super@SwipeController.onChildDraw(c, recyclerView, viewHolder, 0F, dY, actionState, false)
                 recyclerView.setOnTouchListener { _, _ ->
                     false
@@ -112,8 +113,8 @@ class SwipeController(_context: Context) : Callback() {
                 swipeBack = false
 
                 if (buttonsActions != null && buttonInstance != null && buttonInstance!!.contains(event.x, event.y)) {
-                    if (buttonShowedState == ButtonState.LEFT_VISIBLE)
-                        buttonsActions!!.onLeftClicked(viewHolder.adapterPosition)
+                    if (buttonShowedState == ButtonState.LEFT_VISIBLE){
+                        buttonsActions!!.onLeftClicked(viewHolder.adapterPosition)}
                     else if (buttonShowedState == ButtonState.RIGHT_VISIBLE)
                         buttonsActions!!.onRightClicked(viewHolder.adapterPosition)
 
@@ -162,8 +163,6 @@ class SwipeController(_context: Context) : Callback() {
             buttonInstance = rightButton
         }
     }
-
-
 
     fun onDraw(c: Canvas) {
         currentItemViewHolder?.let { drawButtons(c, it) }
