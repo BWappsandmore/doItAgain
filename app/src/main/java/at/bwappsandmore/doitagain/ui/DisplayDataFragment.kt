@@ -125,7 +125,6 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
             }
         })
 
-        //val swipeController = SwipeController(context!!)
         val itemTouchHelper = ItemTouchHelper(swipeController)
         itemTouchHelper.attachToRecyclerView(recyclerview)
 
