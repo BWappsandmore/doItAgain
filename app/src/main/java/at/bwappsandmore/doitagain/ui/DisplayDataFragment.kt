@@ -2,7 +2,6 @@ package at.bwappsandmore.doitagain.ui
 
 import android.graphics.Canvas
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,38 +60,13 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
 
     private var activitiesAdapter = ActivitiesAdapter({ doItAgainEntity, actionId ->
         when (actionId) {
-            ActionType.RESET_COUNTER -> viewModel.resetCounter(doItAgainEntity)
-            ActionType.EDIT -> (activity as MainActivity).replaceFragment(
-                R.id.container,
-                getInstanceEditFragment(doItAgainEntity),
-                true
-            )
-            ActionType.REMIND -> {
-                doItAgainEntity.hasReminderSet = !doItAgainEntity.hasReminderSet
-                viewModel.setReminder(doItAgainEntity.hasReminderSet, doItAgainEntity.id)
-                if (doItAgainEntity.hasReminderSet)
-                    (activity as MainActivity).addFragment(
-                        R.id.container,
-                        getInstanceSetReminderFragment(doItAgainEntity),
-                        true
-                    )
-                else {
-                    workManager = WorkManager.getInstance(context!!)
-                    workManager.cancelAllWorkByTag(doItAgainEntity.name)
-                }
-            }
-            else -> {
-            }
+            ActionType.EDIT -> (activity as MainActivity).replaceFragment(R.id.container, getInstanceEditFragment(doItAgainEntity), true)
+            else -> {}
         }
     }, { doItAgainEntity, actionId ->
         when (actionId) {
-            ActionType.DELETE -> (activity as MainActivity).addFragment(
-                R.id.container,
-                getInstanceDelFragment(doItAgainEntity),
-                true
-            )
-            else -> {
-            }
+            ActionType.DELETE -> (activity as MainActivity).addFragment(R.id.container, getInstanceDelFragment(doItAgainEntity), true)
+            else -> {}
         }
     })
 
@@ -117,11 +91,22 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
 
         val swipeController = SwipeController(context!!, object: SwipeControllerActions() {
             override fun onRightClicked(position: Int){
-                Log.d(null, "TestRight")
+                (activitiesAdapter.activities[position]).hasReminderSet = !(activitiesAdapter.activities[position]).hasReminderSet
+                viewModel.setReminder((activitiesAdapter.activities[position]).hasReminderSet, (activitiesAdapter.activities[position]).id)
+                if ((activitiesAdapter.activities[position]).hasReminderSet)
+                    (activity as MainActivity).addFragment(
+                        R.id.container,
+                        getInstanceSetReminderFragment(activitiesAdapter.activities[position]),
+                        true
+                    )
+                else {
+                    workManager = WorkManager.getInstance(context!!)
+                    workManager.cancelAllWorkByTag((activitiesAdapter.activities[position]).name)
+                }
             }
 
             override fun onLeftClicked(position: Int){
-                Log.d(null, "TestLeft")
+                viewModel.resetCounter(activitiesAdapter.activities[position])
             }
         })
 

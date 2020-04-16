@@ -1,18 +1,12 @@
 package at.bwappsandmore.doitagain.adapter
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.enums.ActionType
-import at.bwappsandmore.doitagain.enums.ButtonState
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
@@ -24,7 +18,7 @@ class ActivitiesAdapter(
     val onItemLongClicked: (DoItAgainEntity, ActionType) -> Unit
 ) : RecyclerView.Adapter<ActivitiesAdapter.ActivitiesViewHolder>() {
 
-    private var activities = emptyList<DoItAgainEntity>()
+    var activities = emptyList<DoItAgainEntity>()
 
     internal fun setActivities(activities: List<DoItAgainEntity>) {
         this.activities = activities
@@ -50,15 +44,7 @@ class ActivitiesAdapter(
         override val containerView: View
     ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        // you can set an integer for each action
         init {
- /*           itemView.resetIB.setOnClickListener {
-                onActionClicked(activities[adapterPosition], ActionType.RESET_COUNTER)
-            }
-            itemView.add_alertIB.setOnClickListener {
-                onActionClicked(activities[adapterPosition], ActionType.REMIND)
-                toggleIcon(it)
-            }*/
             containerView.apply {
 
                 setOnClickListener {
@@ -79,8 +65,6 @@ class ActivitiesAdapter(
                 vo.dateActivity.toLocalDate(),
                 DateTime.now().toLocalDate()
             ).days.toString()
- /*           if (vo.hasReminderSet) itemView.add_alertIB.setImageResource(R.drawable.add_alert_red_24px)
-            else itemView.add_alertIB.setImageResource(R.drawable.add_alert_24px)*/
         }
 
         private fun select(v: View) {
@@ -90,17 +74,7 @@ class ActivitiesAdapter(
                 sinceTV.setTextColor(Color.WHITE)
                 sinceDaysTV.setTextColor(Color.WHITE)
                 daysTV.setTextColor(Color.WHITE)
-/*                resetIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
-                resetIB.setImageResource(R.drawable.reset_white_24px)
-                add_alertIB.setBackgroundColor(Color.parseColor("#ff0099cc"))
-                add_alertIB.setImageResource(R.drawable.add_alert_white_24px)*/
             }
-        }
-
-        private fun toggleIcon(v: View) {
- /*           if (v.add_alertIB.id == R.drawable.add_alert_24px)
-                v.add_alertIB.setImageResource(R.drawable.add_alert_red_24px)
-            else v.add_alertIB.setImageResource(R.drawable.add_alert_24px)*/
         }
     }
 }
