@@ -9,7 +9,7 @@ BUT, do you know how many days has passed, since the last time you went out with
 Or, when was the last time you did breakfast for your wife? 
 
 I really don't like to start searching for these events in my calendar to find out when they happened, somethimes we just don't even
-write everything down, we notice such things in our mind.
+write everything down, we notice such things in our mind instead.
 
 This is what this app is for. To keep track on small but very important details that you care of. 
 
