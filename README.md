@@ -19,10 +19,12 @@ HOW THIS APP WORKS:
 
 Add/Insert an activitiy that you did to your list and provide the date when you did it for the very last time. The counter will automatically determine how many days has passed till today.
 
-Swipe right on the item to see the reset icon if you want to the counter on 0 when you do the same activity again.
-Swipe left on the item to see the reminder icon, by clicking it you'll choose the day when you would like to get reminded to do this activity again. 
+Swipe right on an item to see the reset icon if you want to restart the counter when you do the same activity again.
+
+Swipe left on an item to see the reminder icon, by clicking it you'll choose the number of days when you would like to get reminded to do this activity again. 
+
 Deleting or sharing an activity with your friends is also possible by performing a long click on an activity item.
 
-You can use this app either in light or dark mode too. 
+You can use this app either in light or dark mode. 
 
 Enjoy!
