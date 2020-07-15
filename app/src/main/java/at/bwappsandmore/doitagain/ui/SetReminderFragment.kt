@@ -33,6 +33,8 @@ class SetReminderFragment : BaseSharedFragment<SetReminderFragmentBinding, Share
     private lateinit var doItAgainEntity: DoItAgainEntity
     private lateinit var workManager: WorkManager
 
+    private var calcDays = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -53,15 +55,13 @@ class SetReminderFragment : BaseSharedFragment<SetReminderFragmentBinding, Share
     }
 
     fun onAcceptAction() {
+        calcDays = if (daysET.text.toString().isNotEmpty()){
+            Days.daysBetween(doItAgainEntity.dateActivity.toLocalDate(), DateTime.now().toLocalDate()).days + parseInt(daysET.text.toString())
+        } else Days.daysBetween(doItAgainEntity.dateActivity.toLocalDate(), DateTime.now().toLocalDate()).days
+
         val data = Data.Builder()
             .putString(TransferNotifications.TITLE.type, doItAgainEntity.name)
-            .putString(
-                TransferNotifications.DAYS.type,
-                Days.daysBetween(
-                    doItAgainEntity.dateActivity.toLocalDate(),
-                    DateTime.now().toLocalDate()
-                ).days.toString()
-            )
+            .putString(TransferNotifications.DAYS.type, calcDays.toString())
             .putInt("EntityID", doItAgainEntity.id)
             .build()
         workManager = WorkManager.getInstance(context!!)

@@ -1,7 +1,6 @@
 package at.bwappsandmore.doitagain.dl
 
 import android.app.Application
-import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import at.bwappsandmore.doitagain.repository.AppRepository
