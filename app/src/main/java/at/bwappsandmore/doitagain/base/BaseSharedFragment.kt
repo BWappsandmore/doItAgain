@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.ui.DisplayDataFragment
@@ -47,5 +50,14 @@ abstract class BaseSharedFragment<E : ViewDataBinding, T : BaseViewModel> : Frag
             .remove(this)
             .commit()
         (activity as MainActivity).replaceFragment(R.id.container, DisplayDataFragment())
+    }
+
+    fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+        observe(lifecycleOwner, object : Observer<T> {
+            override fun onChanged(t: T?) {
+                observer.onChanged(t)
+                removeObserver(this)
+            }
+        })
     }
 }

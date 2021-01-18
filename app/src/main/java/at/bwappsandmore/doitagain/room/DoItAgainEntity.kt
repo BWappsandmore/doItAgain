@@ -23,6 +23,8 @@ data class DoItAgainEntity(
     @NonNull
     var dateActivity: DateTime,
 
-    var hasReminderSet: Boolean = false
+    var hasReminderSet: Boolean = false,
+
+    var maxValue: Int = 0
 
 ) : Parcelable

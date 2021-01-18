@@ -8,9 +8,12 @@
     <string name="goBack">Go back</string>
     <string name="ok">OK</string>
     <string name="days">days</string>
+    <string name="day">days</string>
     <string name="days_ago">days ago</string>
     <string name="remindMe">remind me in</string>
     <string name="since">since</string>
     <string name="toast_notify">I will notify you in</string>
     <string name="dark_theme">dark mode</string>
+    <string name="longest_idle">longest idle period was</string>
+    <string name="full_idle_msg" translatable="false">%1$s, %2$s, %3$s</string>
 </resources>

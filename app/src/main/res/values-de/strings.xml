@@ -10,8 +10,10 @@
     <string name="ok">OK</string>
     <string name="days">Tagen</string>
     <string name="days_ago">Tagen</string>
+    <string name="day">Tage</string>
     <string name="remindMe">Erinnere mich in</string>
     <string name="since">seit</string>
     <string name="toast_notify">Ich erinnere dich in</string>
     <string name="dark_theme">Nachtmodus</string>
+    <string name="longest_idle">längste Leerlaufzeit war</string>
 </resources>
