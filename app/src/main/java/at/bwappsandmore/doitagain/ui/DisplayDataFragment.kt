@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -60,13 +61,23 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
 
     private var activitiesAdapter = ActivitiesAdapter({ doItAgainEntity, actionId ->
         when (actionId) {
-            ActionType.EDIT -> (activity as MainActivity).replaceFragment(R.id.container, getInstanceEditFragment(doItAgainEntity), true)
-            else -> {}
+            ActionType.EDIT -> (activity as MainActivity).replaceFragment(
+                R.id.container,
+                getInstanceEditFragment(doItAgainEntity),
+                true
+            )
+            else -> {
+            }
         }
     }, { doItAgainEntity, actionId ->
         when (actionId) {
-            ActionType.DELETE -> (activity as MainActivity).addFragment(R.id.container, getInstanceDelFragment(doItAgainEntity), true)
-            else -> {}
+            ActionType.DELETE -> (activity as MainActivity).addFragment(
+                R.id.container,
+                getInstanceDelFragment(doItAgainEntity),
+                true
+            )
+            else -> {
+            }
         }
     })
 
@@ -84,15 +95,20 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         recyclerview.apply {
-            addItemDecoration(DividerItemDecoration(context!!, LinearLayoutManager.VERTICAL))
-            layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = activitiesAdapter
         }
 
-        val swipeController = SwipeController(context!!, object: SwipeControllerActions() {
-            override fun onRightClicked(position: Int){
-                (activitiesAdapter.activities[position]).hasReminderSet = !(activitiesAdapter.activities[position]).hasReminderSet
-                viewModel.setReminder((activitiesAdapter.activities[position]).hasReminderSet, (activitiesAdapter.activities[position]).id)
+        val swipeController = SwipeController(requireContext(), object : SwipeControllerActions() {
+            override fun onRightClicked(position: Int) {
+                (activitiesAdapter.activities[position]).hasReminderSet =
+                    !(activitiesAdapter.activities[position]).hasReminderSet
+                viewModel.setReminder(
+                    (activitiesAdapter.activities[position]).hasReminderSet,
+                    (activitiesAdapter.activities[position]).id
+                )
                 if ((activitiesAdapter.activities[position]).hasReminderSet)
                     (activity as MainActivity).addFragment(
                         R.id.container,
@@ -105,15 +121,20 @@ class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, Share
                 }
             }
 
-            override fun onLeftClicked(position: Int){
-                viewModel.resetCounter(activitiesAdapter.activities[position])
+            override fun onLeftClicked(position: Int) {
+                viewModel.getMaxValue(activitiesAdapter.activities[position].id)
+                    .observeOnce(viewLifecycleOwner, {
+                        viewModel.setMaxValue( it, viewModel.calculateDays(activitiesAdapter.activities[position].dateActivity), activitiesAdapter.activities[position].id )
+                        viewModel.resetCounter(activitiesAdapter.activities[position])
+                        Toast.makeText(context, context?.getString(R.string.longest_idle)+" $it "+context?.getString(R.string.day),Toast.LENGTH_SHORT).show()
+                    })
             }
         })
 
         val itemTouchHelper = ItemTouchHelper(swipeController)
         itemTouchHelper.attachToRecyclerView(recyclerview)
 
-        recyclerview.addItemDecoration(object : RecyclerView.ItemDecoration(){
+        recyclerview.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
                 swipeController.onDraw(c)
             }
