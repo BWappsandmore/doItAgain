@@ -19,8 +19,6 @@ class NotifyWorker(context: Context, params: WorkerParameters) : Worker(context,
         const val CHANNEL_NAME = "Notification"
     }
 
-    private val mContext = context
-
     override fun doWork(): Result {
         triggerNotification()
         return Result.success()
@@ -28,7 +26,7 @@ class NotifyWorker(context: Context, params: WorkerParameters) : Worker(context,
 
     private fun triggerNotification() {
         val notificationManager =
-            mContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
@@ -38,22 +36,18 @@ class NotifyWorker(context: Context, params: WorkerParameters) : Worker(context,
             notificationManager.createNotificationChannel(channel)
         }
 
-        val notification = NotificationCompat.Builder(mContext, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setContentTitle(inputData.getString(TransferNotifications.TITLE.type))
-            .setContentText(
-                mContext.resources.getString(R.string.since) + " " + inputData.getString(
-                    TransferNotifications.DAYS.type
-                ) + " " + mContext.resources.getString(R.string.days_ago)
-            )
+            .setContentText(applicationContext.resources.getString(R.string.since) + " " + inputData.getString(TransferNotifications.DAYS.type) + " " + applicationContext.resources.getString(R.string.days_ago))
             .setSmallIcon(R.drawable.ic_settings_backup_restore_48dp)
             .setAutoCancel(true)
 
-        val notificationIntent = Intent(mContext, MainActivity::class.java).apply {
+        val notificationIntent = Intent(applicationContext, MainActivity::class.java).apply {
             putExtra("EntityID", inputData.getInt("EntityID", 0))
         }
 
         val pendingIntent = PendingIntent.getActivity(
-            mContext,
+            applicationContext,
             1,
             notificationIntent,
             PendingIntent.FLAG_UPDATE_CURRENT

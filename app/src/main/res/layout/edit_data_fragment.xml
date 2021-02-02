@@ -3,21 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="doItAgainEntity"
-            type="at.bwappsandmore.doitagain.room.DoItAgainEntity" />
-
-        <variable
-            name="viewModel"
-            type="at.bwappsandmore.doitagain.viewModel.SharedViewModel" />
-
-        <variable
-            name="fragment"
-            type="at.bwappsandmore.doitagain.ui.EditEntryFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/edit_entity_CL"
         android:layout_width="match_parent"
@@ -60,7 +45,6 @@
             android:hint="@string/ExampleEngagement"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:text="@{doItAgainEntity.name}"
             android:textSize="32sp"
             app:layout_constraintBottom_toTopOf="@+id/lastTimeDoneTv"
             app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +86,6 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/done_24px"
             android:contentDescription="@string/ok"
-            android:onClick="@{() -> fragment.onClickAction()}"
             app:layout_constraintBottom_toBottomOf="@+id/promptActivitytV"
             app:layout_constraintEnd_toEndOf="@+id/calendarView"
             app:srcCompat="@drawable/done_24px" />

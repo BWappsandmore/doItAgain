@@ -3,16 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="fragment"
-            type="at.bwappsandmore.doitagain.ui.InsertNewDataFragment" />
-
-        <variable
-            name="viewModel"
-            type="at.bwappsandmore.doitagain.viewModel.SharedViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/edit_entity_CL"
         android:layout_width="match_parent"
@@ -81,7 +71,6 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/done_24px"
             android:contentDescription="@string/ok"
-            android:onClick="@{() -> fragment.onClickAction()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/done_24px" />

@@ -10,22 +10,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.base.BaseActivity
-import at.bwappsandmore.doitagain.databinding.ActivityMainBinding
-import at.bwappsandmore.doitagain.dl.AppModule
 import at.bwappsandmore.doitagain.repository.AppRepository
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
 import at.bwappsandmore.doitagain.viewModel.SharedViewModelImpl
-import at.bwappsandmore.doitagain.dl.DaggerAppComponent
+
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
+class MainActivity : BaseActivity<SharedViewModel>() {
 
     @Inject
     lateinit var repository: AppRepository
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+
 
     private var isChecked = false
 
@@ -96,17 +95,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, SharedViewModel>() {
                             isChecked
                         )
                     }
-
                 }
                 true
             }
             else -> false
         }
     }
-
-    override fun inject() {
-        DaggerAppComponent.builder().appModule(AppModule(application)).build().inject(this)
-    }
-
-
 }

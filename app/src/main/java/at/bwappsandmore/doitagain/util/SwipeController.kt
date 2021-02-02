@@ -8,7 +8,7 @@ import android.view.MotionEvent
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.RecyclerView
-import at.bwappsandmore.doitagain.R.drawable
+import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.enums.ButtonState
 
 class SwipeController(_context: Context) : Callback() {
@@ -184,7 +184,7 @@ class SwipeController(_context: Context) : Callback() {
             )
             p.color = Color.parseColor("#ff0099cc")
             c.drawRoundRect(leftButton, corners, corners, p)
-            val leftIcon: Drawable? = ContextCompat.getDrawable(context, drawable.reset_white_24px)
+            val leftIcon: Drawable? = ContextCompat.getDrawable(context, R.drawable.reset_white_24px)
             val leftIconBitmap = drawableToBitmap(leftIcon!!)
             c.drawBitmap(
                 leftIconBitmap,
@@ -205,7 +205,7 @@ class SwipeController(_context: Context) : Callback() {
             p.color = Color.parseColor("#ff0099cc")
             c.drawRoundRect(rightButton, corners, corners, p)
             val rightIcon: Drawable? =
-                ContextCompat.getDrawable(context, drawable.add_alert_white_24px)
+                ContextCompat.getDrawable(context, R.drawable.add_alert_white_24px)
             val rightIconBitmap = drawableToBitmap(rightIcon!!)
             c.drawBitmap(
                 rightIconBitmap,

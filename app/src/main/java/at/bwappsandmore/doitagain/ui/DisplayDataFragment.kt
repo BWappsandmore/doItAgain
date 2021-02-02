@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkManager
 import at.bwappsandmore.doitagain.R
 import at.bwappsandmore.doitagain.adapter.ActivitiesAdapter
-import at.bwappsandmore.doitagain.base.BaseSharedFragment
-import at.bwappsandmore.doitagain.databinding.DisplayDataFragmentBinding
+import at.bwappsandmore.doitagain.base.BaseFragment
 import at.bwappsandmore.doitagain.enums.ActionType
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import at.bwappsandmore.doitagain.util.SwipeController
@@ -23,7 +22,8 @@ import at.bwappsandmore.doitagain.util.SwipeControllerActions
 import at.bwappsandmore.doitagain.viewModel.SharedViewModel
 import kotlinx.android.synthetic.main.display_data_fragment.*
 
-class DisplayDataFragment : BaseSharedFragment<DisplayDataFragmentBinding, SharedViewModel>() {
+class DisplayDataFragment : BaseFragment<SharedViewModel>() {
+
 
     override fun getLayoutResource(): Int = R.layout.display_data_fragment
     override fun getViewModelClass(): Class<SharedViewModel> = SharedViewModel::class.java

@@ -40,7 +40,6 @@ abstract class SharedViewModel : BaseViewModel() {
 
 class SharedViewModelImpl(private val repository: AppRepository) : SharedViewModel() {
 
-
     private val activityId = MutableLiveData<Int>()
 
     private val activityName = MutableLiveData<String>()
@@ -48,11 +47,14 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
     private val getAllActivities: LiveData<List<DoItAgainEntity>> = repository.findAll()
 
     override fun displayStoredActivities() = getAllActivities
+
+
     override fun getActivity(): LiveData<DoItAgainEntity> = Transformations.switchMap(activityId) {
         repository.findByActivityId(it)
     }
 
     override fun getMaxValue(id: Int) = repository.getMaxValue(id)
+
 
     override fun getActivities(): LiveData<List<DoItAgainEntity>> =
         Transformations.switchMap(activityName) {
@@ -72,19 +74,23 @@ class SharedViewModelImpl(private val repository: AppRepository) : SharedViewMod
     }
 
     override fun setReminder(hasReminderSet: Boolean, id: Int) {
+
         repository.setReminder(hasReminderSet, id)
     }
 
     override fun deleteDoItAgainActivity(entity: DoItAgainEntity) {
+
         repository.removeDoItAgainEntity(entity)
     }
 
     override fun calculateDays(dateActivity: DateTime): Int {
+
         return if (dateActivity >= DateTime.now()) 0
         else daysBetween(dateActivity.toLocalDate(), DateTime.now().toLocalDate()).days
     }
 
     override fun setMaxValue(maxValueFromDB: Int, valueCalculated: Int, id: Int) {
+
         if (valueCalculated > maxValueFromDB) {
             repository.apply {
                 setMaxValue(valueCalculated, id)

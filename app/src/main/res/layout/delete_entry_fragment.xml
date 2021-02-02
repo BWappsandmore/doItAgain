@@ -3,20 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="doItAgainEntity"
-            type="at.bwappsandmore.doitagain.room.DoItAgainEntity" />
-
-        <variable
-            name="viewModel"
-            type="at.bwappsandmore.doitagain.viewModel.SharedViewModel" />
-
-        <variable
-            name="fragment"
-            type="at.bwappsandmore.doitagain.ui.DeleteEntryFragment" />
-    </data>
-
 <LinearLayout
 
     android:id="@+id/fragment_header"
@@ -38,7 +24,6 @@
         android:layout_gravity="center"
         android:background="@android:color/holo_blue_dark"
         app:srcCompat="@drawable/ic_delete_forever_white_24dp"
-        android:onClick="@{() -> fragment.onClickActionDelete()}"
         tools:ignore="ContentDescription" />
 
     <ImageButton
@@ -52,7 +37,6 @@
         android:layout_gravity="center"
         android:background="@android:color/holo_blue_dark"
         app:srcCompat="@drawable/ic_share_white_24dp"
-        android:onClick="@{() -> fragment.onClickActionShare()}"
         tools:ignore="ContentDescription"/>
 
 </LinearLayout>

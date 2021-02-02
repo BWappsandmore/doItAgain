@@ -3,6 +3,7 @@ package at.bwappsandmore.doitagain.repository
 import androidx.lifecycle.LiveData
 
 import androidx.lifecycle.map
+import at.bwappsandmore.doitagain.di.DaggerAppComponent
 import at.bwappsandmore.doitagain.room.DoItAgainDao
 import at.bwappsandmore.doitagain.room.DoItAgainEntity
 import kotlinx.coroutines.GlobalScope

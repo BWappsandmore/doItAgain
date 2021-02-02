@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/setReminderCL"
+        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:background="?android:attr/windowBackground"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/remindMeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/remindMe"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/daysET"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:textSize="24sp"
+            android:importantForAutofill="no"
+            android:autofillHints="username"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/remindMeTV"
+            app:layout_constraintStart_toStartOf="@+id/remindMeTV"
+            app:layout_constraintTop_toBottomOf="@+id/remindMeTV" />
+
+        <TextView
+            android:id="@+id/daysTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/days"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="@+id/daysET"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/daysET"
+            app:layout_constraintTop_toTopOf="@+id/daysET" />
+
+        <ImageButton
+            android:id="@+id/backIb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/back_24px"
+            android:contentDescription="@string/goBack"
+            app:srcCompat="@drawable/back_24px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/okIb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/done_24px"
+            android:contentDescription="@string/ok"
+            app:srcCompat="@drawable/done_24px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/remindMeIb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_notifications_active_black_48dp"
+            app:srcCompat="@drawable/ic_notifications_active_black_48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/daysET"
+            app:layout_constraintEnd_toStartOf="@+id/daysET"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/daysET"
+            android:contentDescription="@string/remindMe" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
